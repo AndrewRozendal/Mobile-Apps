@@ -14,11 +14,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     //MARK: Properties
     // TODO: What is this? The main image?????
     @IBOutlet weak var photoImageView: UIImageView!
+    // Date Picker for selecting expiry date
+    @IBOutlet weak var expiryDate: UIDatePicker!
     
     //MARK: Delegate Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        // Intercept date picker events
+        self.expiryDate.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,6 +56,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePickerController.sourceType = .photoLibrary
         imagePickerController.delegate = self
         self.present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    // Handle date changed on expiryDate date picker
+    @objc func dateChanged(_ sender: UIDatePicker){
+        debugPrint(sender.date)
     }
     
 }
