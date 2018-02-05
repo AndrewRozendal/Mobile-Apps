@@ -14,6 +14,7 @@
 		FACB68C42028E516008C8C4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FACB68C22028E516008C8C4A /* LaunchScreen.storyboard */; };
 		FACB68CF2028E516008C8C4A /* FoodTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACB68CE2028E516008C8C4A /* FoodTrackerTests.swift */; };
 		FACB68DA2028E516008C8C4A /* FoodTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACB68D92028E516008C8C4A /* FoodTrackerUITests.swift */; };
+		FACB68E82028F4EC008C8C4A /* ExpiryIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACB68E72028F4EC008C8C4A /* ExpiryIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		FACB68D52028E516008C8C4A /* FoodTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB68D92028E516008C8C4A /* FoodTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTrackerUITests.swift; sourceTree = "<group>"; };
 		FACB68DB2028E516008C8C4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FACB68E72028F4EC008C8C4A /* ExpiryIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpiryIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				FACB68B92028E516008C8C4A /* AppDelegate.swift */,
 				FACB68BB2028E516008C8C4A /* ViewController.swift */,
 				FACB68BD2028E516008C8C4A /* Main.storyboard */,
+				FACB68E72028F4EC008C8C4A /* ExpiryIndicator.swift */,
 				FACB68C02028E516008C8C4A /* Assets.xcassets */,
 				FACB68C22028E516008C8C4A /* LaunchScreen.storyboard */,
 				FACB68C52028E516008C8C4A /* Info.plist */,
@@ -261,6 +264,7 @@
 			files = (
 				FACB68BC2028E516008C8C4A /* ViewController.swift in Sources */,
 				FACB68BA2028E516008C8C4A /* AppDelegate.swift in Sources */,
+				FACB68E82028F4EC008C8C4A /* ExpiryIndicator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

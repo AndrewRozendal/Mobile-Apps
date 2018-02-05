@@ -16,6 +16,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var photoImageView: UIImageView!
     // Date Picker for selecting expiry date
     @IBOutlet weak var expiryDate: UIDatePicker!
+    // TODO: Better description.  Expiry Indicator that displays percentage status
+    @IBOutlet weak var expiryIndicator: ExpiryIndicator!
     
     //MARK: Delegate Methods
     override func viewDidLoad() {
@@ -58,9 +60,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.present(imagePickerController, animated: true, completion: nil)
     }
     
-    // Handle date changed on expiryDate date picker
+    // Handle date changed on expiryDate date picker and update percentage on expiryIndicator
     @objc func dateChanged(_ sender: UIDatePicker){
-        debugPrint(sender.date)
+        let numberOfSecondsInDay: Double = 86400.0
+        let diff = Double(sender.date.timeIntervalSince(Date()) / numberOfSecondsInDay)
+        let percentage = Int(diff / 30.0 * 100.0)
+        //debugPrint(sender.date)
+        //debugPrint(diff)
+        //debugPrint(percentage)
+        self.expiryIndicator.indicatorPercentage = percentage
     }
     
 }

@@ -40,12 +40,17 @@
                                     <!--2018-02-05 20:16:51 +0000-->
                                 </date>
                             </datePicker>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="MSj-Sb-Rf7" customClass="ExpiryIndicator" customModule="FoodTracker" customModuleProvider="target">
+                                <rect key="frame" x="87" y="537" width="200" height="110"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="expiryDate" destination="XoM-Wf-9ks" id="XXZ-UG-2Oz"/>
+                        <outlet property="expiryIndicator" destination="MSj-Sb-Rf7" id="1Pr-C9-G6I"/>
                         <outlet property="photoImageView" destination="CD7-MQ-N3t" id="Z5h-F3-c7d"/>
                     </connections>
                 </viewController>
