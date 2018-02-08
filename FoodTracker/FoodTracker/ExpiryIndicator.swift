@@ -30,6 +30,11 @@ class ExpiryIndicator: UIStackView {
         }
     }
     
-    
+    // Sets the indicator percentage by comparing the passed date to the current date
+    func setIndicatorPercentage(expDate: Date){
+        let numberOfSecondsInDay: Double = 86400.0
+        let diff = Double(expDate.timeIntervalSince(Date()) / numberOfSecondsInDay)
+        self.indicatorPercentage = Int(diff / 30.0 * 100.0)
+    }
 
 }

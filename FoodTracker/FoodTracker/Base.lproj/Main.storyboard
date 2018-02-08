@@ -39,6 +39,7 @@
                                 <connections>
                                     <outlet property="expiryIndicator" destination="r9Y-Ij-IjM" id="nnW-Zw-X33"/>
                                     <outlet property="photoImage" destination="Ojv-HB-ucr" id="EIK-jd-7bN"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="ShowItem" id="ild-Vs-lOX"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -167,4 +168,7 @@
     <resources>
         <image name="defaultImage" width="106" height="119"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="ild-Vs-lOX"/>
+    </inferredMetricsTieBreakers>
 </document>

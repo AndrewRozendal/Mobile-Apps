@@ -46,23 +46,41 @@ class FoodItemTableViewController: UITableViewController {
         
         let item = items[indexPath.row]
         cell.photoImage.image = item.image
-        
-        // Possible solutions: add method to ExpiryIndicator class called setIndicatorPercentage() and move logic in
-        // ViewController there.  Then call this method from ViewController as well?
-        // Josh says later pages will say something...
-        //cell.expiryIndicator.setIndicatorPercentage(date: item.expiryDate)
-        
-        //TODO: REMOVE TEMP SOLUTION
-        cell.expiryIndicator.indicatorPercentage = 50
-        
+        cell.expiryIndicator.setIndicatorPercentage(expDate: item.expiryDate)
         return cell
     }
     
+    // Handles whether we are editing an existing item or adding a new item to the table view
     @IBAction func unwindToFoodItemList(sender: UIStoryboardSegue){
         if let sourceViewController = sender.source as? ViewController, let item = sourceViewController.item {
-            let newIndexPath = IndexPath(row: items.count, section: 0)
-            items.append(item)
-            tableView.insertRows(at: [newIndexPath], with: .automatic) //IOS picks animation
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                // Edit
+                items[selectedIndexPath.row] = item
+                tableView.reloadRows(at: [selectedIndexPath], with: .none)
+            }
+            else {
+                // Add
+                let newIndexPath = IndexPath(row: items.count, section: 0)
+                items.append(item)
+                tableView.insertRows(at: [newIndexPath], with: .automatic) //IOS picks animation
+            }
+        }
+    }
+    
+    //Populate detail view properly if edit is chosen
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if segue.identifier == "ShowItem" {
+            guard let detailViewController = segue.destination as? ViewController else {
+                fatalError("Unexpected destination \(segue.destination)")
+            }
+            guard let selectedTableViewCell = sender as? FoodItemTableViewCell else {
+                fatalError("Unexpected destination \(String(describing: sender))")
+            }
+            guard let indexPath = tableView.indexPath(for: selectedTableViewCell) else {
+                fatalError("Unexpected index path for \(selectedTableViewCell)")
+            }
+            detailViewController.item = items[indexPath.row]
         }
     }
 

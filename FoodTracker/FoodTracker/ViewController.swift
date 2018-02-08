@@ -28,10 +28,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     //MARK: Delegate Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         // Intercept date picker events
         self.expiryDate.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+        
+        if let item = item {
+            // Only entered if item was set by the table view controller on edit
+            photoImageView.image = item.image
+            expiryDate.date = item.expiryDate
+            expiryIndicator.setIndicatorPercentage(expDate: item.expiryDate)
+        } else {
+            expiryIndicator.indicatorPercentage = 0
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -78,18 +86,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // Handle date changed on expiryDate date picker and update percentage on expiryIndicator
     @objc func dateChanged(_ sender: UIDatePicker){
-        let numberOfSecondsInDay: Double = 86400.0
-        let diff = Double(sender.date.timeIntervalSince(Date()) / numberOfSecondsInDay)
-        let percentage = Int(diff / 30.0 * 100.0)
-        //debugPrint(sender.date)
-        //debugPrint(diff)
-        //debugPrint(percentage)
-        self.expiryIndicator.indicatorPercentage = percentage
+        self.expiryIndicator.setIndicatorPercentage(expDate: sender.date)
     }
     
     // Cancel Button
-    @IBAction func cancel(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+    @IBAction func cancel(_ sender: Any) {
+        if presentingViewController is UINavigationController{
+            // Add
+            dismiss(animated: true, completion: nil)
+        } else if let owningNavigationController = navigationController {
+            // Edit
+            owningNavigationController.popViewController(animated: true)
+        }
     }
     
     
