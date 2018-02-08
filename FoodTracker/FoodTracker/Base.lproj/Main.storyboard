@@ -26,12 +26,12 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r9Y-Ij-IjM" customClass="ExpiryIndicator" customModule="FoodTracker" customModuleProvider="target">
-                                            <rect key="frame" x="87" y="-11" width="375" height="50"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="r9Y-Ij-IjM" customClass="ExpiryIndicator" customModule="FoodTracker" customModuleProvider="target">
+                                            <rect key="frame" x="16" y="0.0" width="157" height="79"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </stackView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ojv-HB-ucr">
-                                            <rect key="frame" x="0.0" y="19" width="375" height="50"/>
+                                            <rect key="frame" x="181" y="0.0" width="178" height="79"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                     </subviews>
@@ -57,7 +57,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XTs-NT-sYP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="47.200000000000003" y="898.2008995502249"/>
+            <point key="canvasLocation" x="47.200000000000003" y="897.30134932533736"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
