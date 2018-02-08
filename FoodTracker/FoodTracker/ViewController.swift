@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  FoodTracker
 //
-//  Created by MacBook on 2018-02-05.
+//  Created by Andrew Rozendal on 2018-02-05.
 //  Copyright © 2018 Camosun. All rights reserved.
 //
 
