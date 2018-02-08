@@ -18,6 +18,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var expiryDate: UIDatePicker!
     // TODO: Better description.  Expiry Indicator that displays percentage status
     @IBOutlet weak var expiryIndicator: ExpiryIndicator!
+    // Food item ? WHY IS THIS HERE?
+    var item: FoodItem?
+    
+    //Buttons
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     
     //MARK: Delegate Methods
     override func viewDidLoad() {
@@ -50,6 +56,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         dismiss(animated: true, completion: nil)
     }
     
+    // Preparation for saving an item
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        guard let button = sender as? UIBarButtonItem, button === saveButton else {
+            return
+        }
+        
+        item = FoodItem(image: photoImageView.image ?? #imageLiteral(resourceName: "defaultImage"), expiryDate: expiryDate.date)
+    }
+    
     //MARK: Actions
     
     // Present an image picker to allow user to select image from their photo library
@@ -70,6 +86,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         //debugPrint(percentage)
         self.expiryIndicator.indicatorPercentage = percentage
     }
+    
+    // Cancel Button
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     
 }
 
