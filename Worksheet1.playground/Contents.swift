@@ -68,12 +68,60 @@ func convertFtoC(val: Double) -> Double {
     return (val - 32.0) * 5.0 / 9.0
 }
 
-let myFormulas = [convertCtoF, convertFtoC]
+func convertHectarestoAcres(val: Double) -> Double {
+    return val * 2.471
+}
 
-let myCValue = 20.0
-let myFValue = 0.0
+func convertAcrestoHectares(val: Double) -> Double {
+    return val * 0.405
+}
+
+func convertFeettoMetres(val: Double) -> Double {
+    return val * 0.305
+}
+
+func convertMetrestoFeet(val: Double) -> Double {
+    return val * 3.281
+}
+
+func convertPoundstoKilos(val: Double) -> Double {
+    return val * 0.454
+}
+
+func convertKilostoPounds(val: Double) -> Double {
+    return val * 2.205
+}
+
+enum Formulas: Int {
+    case convertCtoF = 0
+    case convertFtoC
+    case convertHectarestoAcres
+    case convertAcrestoHectares
+    case convertFeettoMetres
+    case convertMetrestoFeet
+    case convertPoundstoKilos
+    case convertKilostoPounds
+}
+
+let myFormulas = [convertCtoF, convertFtoC, convertHectarestoAcres, convertAcrestoHectares, convertFeettoMetres, convertMetrestoFeet, convertPoundstoKilos, convertKilostoPounds]
+
+let myCValue: Double = 20
+let myFValue: Double = 0
+let myHectareValue: Double = 0.405
+let myAcreValue: Double = 1
+let myFeetValue: Double = 3
+let myMetreValue: Double = 1
+let myPoundValue: Double = 1
+let myKiloValue: Double = 1
+
 
 // Test the conversions
-print(chooseConversion(option: 0, formulas: myFormulas)(myCValue))
-print(chooseConversion(option: 1, formulas: myFormulas)(myFValue))
+print(chooseConversion(option: Formulas.convertCtoF.rawValue, formulas: myFormulas)(myCValue))
+print(chooseConversion(option: Formulas.convertFtoC.rawValue, formulas: myFormulas)(myFValue))
+print(chooseConversion(option: Formulas.convertHectarestoAcres.rawValue, formulas: myFormulas)(myHectareValue))
+print(chooseConversion(option: Formulas.convertAcrestoHectares.rawValue, formulas: myFormulas)(myAcreValue))
+print(chooseConversion(option: Formulas.convertFeettoMetres.rawValue, formulas: myFormulas)(myFeetValue))
+print(chooseConversion(option: Formulas.convertMetrestoFeet.rawValue, formulas: myFormulas)(myMetreValue))
+print(chooseConversion(option: Formulas.convertPoundstoKilos.rawValue, formulas: myFormulas)(myPoundValue))
+print(chooseConversion(option: Formulas.convertKilostoPounds.rawValue, formulas: myFormulas)(myKiloValue))
 
