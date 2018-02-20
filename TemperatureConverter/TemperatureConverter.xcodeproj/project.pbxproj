@@ -14,6 +14,8 @@
 		FAD8CADB203760230061C69E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAD8CAD9203760230061C69E /* LaunchScreen.storyboard */; };
 		FAD8CAE6203760230061C69E /* TemperatureConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD8CAE5203760230061C69E /* TemperatureConverterTests.swift */; };
 		FAD8CAF1203760230061C69E /* TemperatureConverterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD8CAF0203760230061C69E /* TemperatureConverterUITests.swift */; };
+		FAFA9840203B921D00CAB3B4 /* UnitConversionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA983F203B921D00CAB3B4 /* UnitConversionViewCell.swift */; };
+		FAFA9842203B92B200CAB3B4 /* UnitConversionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA9841203B92B200CAB3B4 /* UnitConversionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		FAD8CAEC203760230061C69E /* TemperatureConverterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TemperatureConverterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAD8CAF0203760230061C69E /* TemperatureConverterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureConverterUITests.swift; sourceTree = "<group>"; };
 		FAD8CAF2203760230061C69E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAFA983F203B921D00CAB3B4 /* UnitConversionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitConversionViewCell.swift; sourceTree = "<group>"; };
+		FAFA9841203B92B200CAB3B4 /* UnitConversionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitConversionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,8 @@
 				FAD8CAD0203760230061C69E /* AppDelegate.swift */,
 				FAD8CAD2203760230061C69E /* ViewController.swift */,
 				FAD8CAD4203760230061C69E /* Main.storyboard */,
+				FAFA9841203B92B200CAB3B4 /* UnitConversionViewController.swift */,
+				FAFA983F203B921D00CAB3B4 /* UnitConversionViewCell.swift */,
 				FAD8CAD7203760230061C69E /* Assets.xcassets */,
 				FAD8CAD9203760230061C69E /* LaunchScreen.storyboard */,
 				FAD8CADC203760230061C69E /* Info.plist */,
@@ -261,6 +267,8 @@
 			files = (
 				FAD8CAD3203760230061C69E /* ViewController.swift in Sources */,
 				FAD8CAD1203760230061C69E /* AppDelegate.swift in Sources */,
+				FAFA9842203B92B200CAB3B4 /* UnitConversionViewController.swift in Sources */,
+				FAFA9840203B921D00CAB3B4 /* UnitConversionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
