@@ -49,7 +49,7 @@ class AreaConversion: Conversions {
     }
     
     init(){
-        super.init(title: "Area", leftButtonText: "Hectares to Acres", rightButtonText: "Acres to Hectares", leftButtonFunction: convertHectarestoAcres, rightButtonFunction: convertAcrestoHectares)
+        super.init(title: "Area", leftButtonText: "ha to ac", rightButtonText: "ac to ha", leftButtonFunction: convertHectarestoAcres, rightButtonFunction: convertAcrestoHectares)
     }
 }
 
@@ -64,7 +64,7 @@ class LengthConversion: Conversions {
     }
     
     init(){
-        super.init(title: "Length", leftButtonText: "Feet to Metres", rightButtonText: "Metres to Feet", leftButtonFunction: convertFeettoMetres, rightButtonFunction: convertMetrestoFeet)
+        super.init(title: "Length", leftButtonText: "ft to m", rightButtonText: "m to ft", leftButtonFunction: convertFeettoMetres, rightButtonFunction: convertMetrestoFeet)
     }
 }
 
@@ -79,7 +79,7 @@ class WeightConversion: Conversions {
     }
     
     init(){
-        super.init(title: "Weight", leftButtonText: "Kilograms to Pounds", rightButtonText: "Pounds to Kilograms", leftButtonFunction: convertPoundstoKilos, rightButtonFunction: convertKilostoPounds)
+        super.init(title: "Weight", leftButtonText: "kg to lbs", rightButtonText: "lbs to kg", leftButtonFunction: convertKilostoPounds, rightButtonFunction: convertPoundstoKilos)
     }
 }
 
