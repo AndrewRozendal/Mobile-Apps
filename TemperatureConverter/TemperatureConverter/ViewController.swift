@@ -25,6 +25,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.conversionTitle.text = currentConversion[0].title
+        self.desiredConversionChoice.setTitle(currentConversion[0].leftButtonText, forSegmentAt: 0)
+        self.desiredConversionChoice.setTitle(currentConversion[0].rightButtonText, forSegmentAt: 1)
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,10 +54,10 @@ class ViewController: UIViewController {
         
         if self.desiredConversionChoice.selectedSegmentIndex == 0 {
             // Conversion 1
-            self.resultField.text = "Conversion 1 with \(value)"
+            self.resultField.text = String((currentConversion[0].leftButtonFunction)(value))
         } else {
             // Conversion 2
-            self.resultField.text = "Conversion 2 with \(value)"
+            self.resultField.text = String((currentConversion[0].rightButtonFunction)(value))
         }
     }
     
