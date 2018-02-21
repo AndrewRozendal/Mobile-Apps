@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import os
 
 class ViewController: UIViewController {
     //MARK: Properties
     @IBOutlet weak var conversionTitle: UILabel!
-    var currentConversion = [Conversions]()
+    var currentConversion: Conversions? = nil
     
     // Identifies user conversion choice
     @IBOutlet weak var desiredConversionChoice: UISegmentedControl!
@@ -24,9 +25,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.conversionTitle.text = currentConversion[0].title
-        self.desiredConversionChoice.setTitle(currentConversion[0].leftButtonText, forSegmentAt: 0)
-        self.desiredConversionChoice.setTitle(currentConversion[0].rightButtonText, forSegmentAt: 1)
+        guard let c = currentConversion else {
+            os_log("Cannot grab attributes from a Conversions item that is nil", log: OSLog.default, type: .debug)
+            return
+        }
+        self.conversionTitle.text = c.title
+        self.desiredConversionChoice.setTitle(c.leftButtonText, forSegmentAt: 0)
+        self.desiredConversionChoice.setTitle(c.rightButtonText, forSegmentAt: 1)
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,12 +57,17 @@ class ViewController: UIViewController {
             return
         }
         
+        guard let c = currentConversion else {
+            os_log("Cannot grab attributes from a Conversions item that is nil", log: OSLog.default, type: .debug)
+            return
+        }
+        
         if self.desiredConversionChoice.selectedSegmentIndex == 0 {
             // Conversion 1
-            self.resultField.text = String((currentConversion[0].leftButtonFunction)(value))
+            self.resultField.text = String((c.leftButtonFunction)(value))
         } else {
             // Conversion 2
-            self.resultField.text = String((currentConversion[0].rightButtonFunction)(value))
+            self.resultField.text = String((c.rightButtonFunction)(value))
         }
     }
     
