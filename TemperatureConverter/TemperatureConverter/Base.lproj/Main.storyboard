@@ -74,6 +74,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="conversionTitle" destination="vdH-VR-hCl" id="yTF-4N-xH5"/>
                         <outlet property="desiredConversionChoice" destination="azu-dc-fdj" id="y5x-mH-Cdm"/>
                         <outlet property="resultField" destination="frx-Hm-Bc3" id="rbu-mL-Md6"/>
                         <outlet property="valueToConvertField" destination="gBf-8A-kGv" id="Y3e-mh-zt6"/>

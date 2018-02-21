@@ -10,7 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
     //MARK: Properties
-    var test = ""
+    @IBOutlet weak var conversionTitle: UILabel!
+    var currentConversion = [Conversions]()
+    
     // Identifies user conversion choice
     @IBOutlet weak var desiredConversionChoice: UISegmentedControl!
     // Field for user value to convert
@@ -22,7 +24,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.resultField.text = test
+        self.conversionTitle.text = currentConversion[0].title
     }
 
     override func didReceiveMemoryWarning() {

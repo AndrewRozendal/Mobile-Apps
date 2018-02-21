@@ -94,7 +94,7 @@ class UnitConversionViewController: UITableViewController {
         super.prepare(for: segue, sender: sender)
         
         let destination = segue.destination as? ViewController
-        destination?.test = "heloo"
+        destination?.currentConversion.append(conversions[0])
     }
     
 
