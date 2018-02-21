@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FAD75ED3203CFC0C00C5656D /* Conversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD75ED2203CFC0C00C5656D /* Conversions.swift */; };
 		FAD8CAD1203760230061C69E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD8CAD0203760230061C69E /* AppDelegate.swift */; };
 		FAD8CAD3203760230061C69E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD8CAD2203760230061C69E /* ViewController.swift */; };
 		FAD8CAD6203760230061C69E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAD8CAD4203760230061C69E /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FAD75ED2203CFC0C00C5656D /* Conversions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversions.swift; sourceTree = "<group>"; };
 		FAD8CACD203760230061C69E /* TemperatureConverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TemperatureConverter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAD8CAD0203760230061C69E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAD8CAD2203760230061C69E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				FAD8CAD2203760230061C69E /* ViewController.swift */,
 				FAD8CAD4203760230061C69E /* Main.storyboard */,
 				FAFA9841203B92B200CAB3B4 /* UnitConversionViewController.swift */,
+				FAD75ED2203CFC0C00C5656D /* Conversions.swift */,
 				FAFA983F203B921D00CAB3B4 /* UnitConversionViewCell.swift */,
 				FAD8CAD7203760230061C69E /* Assets.xcassets */,
 				FAD8CAD9203760230061C69E /* LaunchScreen.storyboard */,
@@ -267,6 +270,7 @@
 			files = (
 				FAD8CAD3203760230061C69E /* ViewController.swift in Sources */,
 				FAD8CAD1203760230061C69E /* AppDelegate.swift in Sources */,
+				FAD75ED3203CFC0C00C5656D /* Conversions.swift in Sources */,
 				FAFA9842203B92B200CAB3B4 /* UnitConversionViewController.swift in Sources */,
 				FAFA9840203B921D00CAB3B4 /* UnitConversionViewCell.swift in Sources */,
 			);

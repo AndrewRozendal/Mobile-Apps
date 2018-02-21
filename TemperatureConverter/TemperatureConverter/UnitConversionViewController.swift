@@ -10,7 +10,8 @@ import UIKit
 
 class UnitConversionViewController: UITableViewController {
     //MARK: Properties
-    let UnitConversions = ["Foo", "Bool", "Josh"]
+    // Initialize all
+    let conversions = [TemperatureConversion()]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +37,7 @@ class UnitConversionViewController: UITableViewController {
 */
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return UnitConversions.count
+        return conversions.count
     }
  
 
@@ -45,7 +46,7 @@ class UnitConversionViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "conversionType", for: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = UnitConversions[indexPath.item]
+        cell.textLabel?.text = conversions[indexPath.item].title
         return cell
     }
     
