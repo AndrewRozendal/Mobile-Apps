@@ -11,9 +11,11 @@ import os
 
 class ViewController: UIViewController {
     //MARK: Properties
-    @IBOutlet weak var conversionTitle: UILabel!
+
+    // The instance of Conversions to use for the current view
     var currentConversion: Conversions? = nil
-    
+    // The name of the current conversion
+    @IBOutlet weak var conversionTitle: UILabel!
     // Identifies user conversion choice
     @IBOutlet weak var desiredConversionChoice: UISegmentedControl!
     // Field for user value to convert

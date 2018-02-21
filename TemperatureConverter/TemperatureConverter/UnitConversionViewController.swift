@@ -12,6 +12,7 @@ import os
 class UnitConversionViewController: UITableViewController {
     //MARK: Properties
     // Initialize all
+    let cellIdentifier = "conversionType"
     let conversions = [TemperatureConversion(), AreaConversion(), LengthConversion(), WeightConversion()]
 
     override func viewDidLoad() {
@@ -44,11 +45,52 @@ class UnitConversionViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "conversionType", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? UnitConversionViewCell else {
+            fatalError("Selected cell is not of type \(cellIdentifier)")
+        }
+        
+        guard let label = cell.textLabel else {
+            fatalError("Selected cell does not have textLabel")
+        }
 
         // Configure the cell...
-        cell.textLabel?.text = conversions[indexPath.item].title
+        label.text = conversions[indexPath.item].title
         return cell
+    }
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        guard let selectedCell = sender as? UnitConversionViewCell else {
+            fatalError("Unexpected destination \(String(describing: sender))")
+        }
+        
+        guard let cellLabelText = selectedCell.textLabel?.text else {
+            fatalError("Selected cell has no label with text")
+        }
+        
+        var conversionIndex: Int?
+        
+        switch(cellLabelText){
+            
+        case "Temperature": conversionIndex = 0
+        case "Area": conversionIndex = 1
+        case "Length": conversionIndex = 2
+        case "Weight": conversionIndex = 3
+            
+        default: fatalError("Unexpected title \(String(describing: selectedCell.textLabel))")
+            
+        }
+        
+        guard let i = conversionIndex else {
+            os_log("Cannot grab attributes from a Conversions item that is nil", log: OSLog.default, type: .debug)
+            return
+        }
+        
+        let destination = segue.destination as? ViewController
+        destination?.currentConversion = conversions[i]
     }
     
 
@@ -88,35 +130,7 @@ class UnitConversionViewController: UITableViewController {
     */
 
     
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-        guard let selectedCell = sender as? UnitConversionViewCell else {
-            fatalError("Unexpected destination \(String(describing: sender))")
-        }
-        
-        var conversionIndex: Int?
-        
-        switch(selectedCell.textLabel?.text){
-            
-        case "Temperature"?: conversionIndex = 0
-        case "Area"?: conversionIndex = 1
-        case "Length"?: conversionIndex = 2
-        case "Weight"?: conversionIndex = 3
-        default: fatalError("Unexpected title \(String(describing: selectedCell.textLabel))")
-            
-        }
-        
-        guard let i = conversionIndex else {
-            os_log("Cannot grab attributes from a Conversions item that is nil", log: OSLog.default, type: .debug)
-            return
-        }
-        
-        let destination = segue.destination as? ViewController
-        destination?.currentConversion = conversions[i]
-    }
     
 
 }
