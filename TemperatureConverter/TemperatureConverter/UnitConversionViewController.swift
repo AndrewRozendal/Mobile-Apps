@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import os
 
 class UnitConversionViewController: UITableViewController {
     //MARK: Properties
     // Initialize all
-    let conversions = [TemperatureConversion()]
+    let conversions = [TemperatureConversion(), AreaConversion(), LengthConversion(), WeightConversion()]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,9 +93,29 @@ class UnitConversionViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
+        guard let selectedCell = sender as? UnitConversionViewCell else {
+            fatalError("Unexpected destination \(String(describing: sender))")
+        }
+        
+        var conversionIndex: Int?
+        
+        switch(selectedCell.textLabel?.text){
+            
+        case "Temperature"?: conversionIndex = 0
+        case "Area"?: conversionIndex = 1
+        case "Length"?: conversionIndex = 2
+        case "Weight"?: conversionIndex = 3
+        default: fatalError("Unexpected title \(String(describing: selectedCell.textLabel))")
+            
+        }
+        
+        guard let i = conversionIndex else {
+            os_log("Cannot grab attributes from a Conversions item that is nil", log: OSLog.default, type: .debug)
+            return
+        }
         
         let destination = segue.destination as? ViewController
-        destination?.currentConversion = conversions[0]
+        destination?.currentConversion = conversions[i]
     }
     
 
