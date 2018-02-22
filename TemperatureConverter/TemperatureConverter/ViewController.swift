@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  TemperatureConverter
 //
-//  Created by MacBook on 2018-02-16.
+//  Created by Andrew Rozendal on 2018-02-16.
 //  Copyright © 2018 Camosun. All rights reserved.
 //
 
@@ -26,11 +26,13 @@ class ViewController: UIViewController {
     //Mark: Delegate Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        // Set labels for the view based on the conversion instance
         guard let c = currentConversion else {
             os_log("Cannot grab attributes from a Conversions item that is nil", log: OSLog.default, type: .debug)
             return
         }
+
         self.conversionTitle.text = c.title
         self.desiredConversionChoice.setTitle(c.leftButtonText, forSegmentAt: 0)
         self.desiredConversionChoice.setTitle(c.rightButtonText, forSegmentAt: 1)
@@ -60,15 +62,17 @@ class ViewController: UIViewController {
         }
         
         guard let c = currentConversion else {
+            // Conversion object was nil
             os_log("Cannot grab attributes from a Conversions item that is nil", log: OSLog.default, type: .debug)
             return
         }
         
+        
         if self.desiredConversionChoice.selectedSegmentIndex == 0 {
-            // Conversion 1
+            // Left button conversion
             self.resultField.text = String((c.leftButtonFunction)(value))
         } else {
-            // Conversion 2
+            // Right button conversion
             self.resultField.text = String((c.rightButtonFunction)(value))
         }
     }
