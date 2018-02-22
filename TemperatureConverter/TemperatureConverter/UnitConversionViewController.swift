@@ -65,17 +65,17 @@ class UnitConversionViewController: UITableViewController {
         var conversionIndex: Int?
         
         switch(cellLabelText){
-            case "Temperature": conversionIndex = 0
-            case "Area": conversionIndex = 1
-            case "Length": conversionIndex = 2
-            case "Weight": conversionIndex = 3
+            case conversions[0].title: conversionIndex = 0
+            case conversions[1].title: conversionIndex = 1
+            case conversions[2].title: conversionIndex = 2
+            case conversions[3].title: conversionIndex = 3
             
             // Unexpected title for the selected cell
             default: fatalError("Unexpected title \(String(describing: selectedCell.textLabel))")
         }
         
         guard let i = conversionIndex else {
-            // conversion index was not set properly
+            // conversion index was never initialized
             os_log("Conversion Index was not set properly", log: OSLog.default, type: .debug)
             return
         }
