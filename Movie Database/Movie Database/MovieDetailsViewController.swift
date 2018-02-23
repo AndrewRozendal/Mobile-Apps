@@ -19,9 +19,16 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var movieImage: UIImageView!
     // Movie title
     @IBOutlet weak var movieTitle: UILabel!
-    // Movie details
-    @IBOutlet weak var movieDetails: UILabel!
+    // Genres label
+    @IBOutlet weak var movieGenres: UILabel!
+    // Actors label
+    @IBOutlet weak var movieActors: UILabel!
+    // Current Rating label
+    @IBOutlet weak var movieRating: UILabel!
+    // Comments Label
+    @IBOutlet weak var movieComments: UILabel!
     
+    // Current Movie instance
     var currentMovie: Movie? = nil
     
     // MARK: Delegate functions
@@ -37,8 +44,28 @@ class MovieDetailsViewController: UIViewController {
         
         self.movieTitle.text = m.title
         self.movieImage.image = m.image
-        // TODO: This will be multiple text items combined? Or multiple seperate UI items?
-        self.movieDetails.text = m.comments
+        self.movieRating.text = String(m.rating)
+        self.movieComments.text = m.comments
+        
+        var genres = ""
+        for i in 0 ..< m.genres.count {
+            genres.append(m.genres[i])
+            if(!(i < m.genres.count - 2)){
+                genres.append(", ")
+            }
+        }
+        self.movieGenres.text = genres
+        
+        var actors = ""
+        for i in 0 ..< m.actors.count {
+            actors.append(m.actors[i])
+            if(!(i < m.actors.count - 2)){
+                actors.append(", ")
+            }
+        }
+        self.movieActors.text = actors
+        
+        
         
         // Set favourite button text appropriately
         if(m.isFavourite){
