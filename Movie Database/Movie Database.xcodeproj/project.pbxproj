@@ -15,6 +15,7 @@
 		FAFB19C0203F8B9200C7F88E /* Movie_DatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB19BF203F8B9200C7F88E /* Movie_DatabaseTests.swift */; };
 		FAFB19CB203F8B9200C7F88E /* Movie_DatabaseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB19CA203F8B9200C7F88E /* Movie_DatabaseUITests.swift */; };
 		FAFB19D9203F8E7000C7F88E /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB19D8203F8E7000C7F88E /* MovieDetailsViewController.swift */; };
+		FAFB19DB203F909C00C7F88E /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB19DA203F909C00C7F88E /* Movie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		FAFB19CA203F8B9200C7F88E /* Movie_DatabaseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie_DatabaseUITests.swift; sourceTree = "<group>"; };
 		FAFB19CC203F8B9200C7F88E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAFB19D8203F8E7000C7F88E /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
+		FAFB19DA203F909C00C7F88E /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				FAFB19AA203F8B9200C7F88E /* AppDelegate.swift */,
 				FAFB19AC203F8B9200C7F88E /* HomeScreenViewController.swift */,
 				FAFB19AE203F8B9200C7F88E /* Main.storyboard */,
+				FAFB19DA203F909C00C7F88E /* Movie.swift */,
 				FAFB19D8203F8E7000C7F88E /* MovieDetailsViewController.swift */,
 				FAFB19B1203F8B9200C7F88E /* Assets.xcassets */,
 				FAFB19B3203F8B9200C7F88E /* LaunchScreen.storyboard */,
@@ -264,6 +267,7 @@
 			files = (
 				FAFB19AD203F8B9200C7F88E /* HomeScreenViewController.swift in Sources */,
 				FAFB19AB203F8B9200C7F88E /* AppDelegate.swift in Sources */,
+				FAFB19DB203F909C00C7F88E /* Movie.swift in Sources */,
 				FAFB19D9203F8E7000C7F88E /* MovieDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
