@@ -175,6 +175,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="OiK-cN-esm"/>
                     </view>
+                    <connections>
+                        <outlet property="favouriteActionButton" destination="lS9-OJ-eFQ" id="NLc-o8-Noh"/>
+                        <outlet property="movieDetails" destination="1lC-cO-wIZ" id="I6j-D8-sDg"/>
+                        <outlet property="movieImage" destination="RYG-CU-12Q" id="RrZ-pJ-SLE"/>
+                        <outlet property="movieTitle" destination="pcy-Nu-GWn" id="4n2-zg-1DB"/>
+                        <outlet property="rateButton" destination="yaq-Cm-BZW" id="Z9K-Sc-qI3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OG1-hO-5KZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
