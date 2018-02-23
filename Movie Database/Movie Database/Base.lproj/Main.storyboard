@@ -35,13 +35,16 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Browse"/>
                                 <connections>
-                                    <segue destination="Or3-zb-Jge" kind="show" id="gZn-NH-QGe"/>
+                                    <segue destination="Or3-zb-Jge" kind="show" identifier="browseSelected" id="gZn-NH-QGe"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VYO-1z-wWl">
                                 <rect key="frame" x="114" y="367" width="147" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Pick a Random Movie"/>
+                                <connections>
+                                    <segue destination="z15-O6-Rro" kind="show" identifier="randomSelected" id="yiQ-GU-c2L"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQG-tV-yqE">
                                 <rect key="frame" x="154" y="466" width="71" height="30"/>
@@ -70,7 +73,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1032.8" y="904.49775112443785"/>
+            <point key="canvasLocation" x="694" y="798"/>
         </scene>
         <!--Movie Item Table View Controller-->
         <scene sceneID="JT7-xb-I6d">
@@ -290,13 +293,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EjO-qT-uEq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="151" y="904"/>
+            <point key="canvasLocation" x="-106" y="799"/>
         </scene>
     </scenes>
     <resources>
         <image name="defaultImage" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="yiQ-GU-c2L"/>
         <segue reference="gZn-NH-QGe"/>
     </inferredMetricsTieBreakers>
 </document>
