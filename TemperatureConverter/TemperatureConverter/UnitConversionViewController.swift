@@ -26,7 +26,7 @@ class UnitConversionViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        // return the number of rows
         return conversions.count
     }
     
@@ -80,14 +80,12 @@ class UnitConversionViewController: UITableViewController {
             return
         }
         
-        let destination = segue.destination as? ViewController
-        
-        guard let d = destination else {
+        guard let destination = segue.destination as? ViewController else {
             // Destination was nil
             fatalError("Destination was nil")
         }
         
-        d.currentConversion = conversions[i]
+        destination.currentConversion = conversions[i]
     }
 
 }
