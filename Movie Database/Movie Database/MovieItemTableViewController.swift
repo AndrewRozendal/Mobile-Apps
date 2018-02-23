@@ -14,6 +14,7 @@ class MovieItemTableViewController: UITableViewController {
     var movies = [Movie()]
     let cellIdentifier = "MovieItemTableViewCell"
     
+    // MARK: Delegate functions
     override func viewDidLoad() {
         super.viewDidLoad()
 

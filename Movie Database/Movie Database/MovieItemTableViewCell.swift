@@ -9,12 +9,12 @@
 import UIKit
 
 class MovieItemTableViewCell: UITableViewCell {
-    //MARK: Properties
+    // MARK: Properties
     @IBOutlet weak var movieImage: UIImageView!
     @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var movieRating: UILabel!
     
-    
+    // MARK: Delegate functions
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

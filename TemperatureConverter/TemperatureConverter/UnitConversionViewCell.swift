@@ -9,7 +9,7 @@
 import UIKit
 
 class UnitConversionViewCell: UITableViewCell {
-
+    // MARK: Delegate functions
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
