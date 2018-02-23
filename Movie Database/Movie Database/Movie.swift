@@ -28,4 +28,8 @@ class Movie {
         self.comments = comments
         self.image = image;
     }
+    
+    convenience init(){
+        self.init(title: "testTitle", genres: ["Action, Comedy"], actors: ["Jenniffer", "Bob"], rating: 2, isFavourite: true, comments: "This is a great movie!!!")
+    }
 }
