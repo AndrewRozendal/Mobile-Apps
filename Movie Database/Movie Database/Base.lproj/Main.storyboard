@@ -120,7 +120,7 @@
                                     <outlet property="movieImage" destination="Lnh-zm-6yh" id="ghM-5O-vVa"/>
                                     <outlet property="movieRating" destination="b4N-fF-Dyy" id="qmr-Lv-M3U"/>
                                     <outlet property="movieTitle" destination="RNw-gb-kfC" id="VE9-Fx-5ib"/>
-                                    <segue destination="z15-O6-Rro" kind="show" identifier="showDetails" id="NmZ-D3-nqs"/>
+                                    <segue destination="z15-O6-Rro" kind="show" identifier="movieDetails" id="yG9-BO-fd6"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -135,10 +135,10 @@
             </objects>
             <point key="canvasLocation" x="1519.2" y="37.331334332833585"/>
         </scene>
-        <!--View Controller-->
+        <!--Movie Details View Controller-->
         <scene sceneID="fXR-bL-KVN">
             <objects>
-                <viewController id="z15-O6-Rro" sceneMemberID="viewController">
+                <viewController id="z15-O6-Rro" customClass="MovieDetailsViewController" customModule="Movie_Database" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="M1E-eL-43A">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

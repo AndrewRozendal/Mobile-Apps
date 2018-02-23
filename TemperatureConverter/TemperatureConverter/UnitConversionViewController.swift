@@ -81,8 +81,8 @@ class UnitConversionViewController: UITableViewController {
         }
         
         guard let destination = segue.destination as? ViewController else {
-            // Destination was nil
-            fatalError("Destination was nil")
+            // Destination was unable to be cast as ViewController
+            fatalError("Unexpected destination \(segue.destination)")
         }
         
         destination.currentConversion = conversions[i]

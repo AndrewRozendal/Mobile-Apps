@@ -81,8 +81,8 @@ class MovieItemTableViewController: UITableViewController {
         }
 
         guard let destination = segue.destination as? MovieDetailsViewController else {
-            // Destination was nil
-            fatalError("Destination was nil")
+            // Destination was unable to be cast as MovieDetailsViewController
+            fatalError("Unexpected destination \(segue.destination)")
         }
         
         destination.currentMovie = movies[i]
