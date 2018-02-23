@@ -16,6 +16,8 @@ class UnitConversionViewController: UITableViewController {
     let cellIdentifier = "conversionType"
     let conversions = [TemperatureConversion(), AreaConversion(), LengthConversion(), WeightConversion()]
 
+    
+    //MARK: Delegate functions
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -37,7 +39,7 @@ class UnitConversionViewController: UITableViewController {
         }
         
         guard let label = cell.textLabel else {
-            // text was nill on selected cell
+            // selected cell did not have a textLabel
             fatalError("Selected cell does not have textLabel")
         }
 
@@ -52,26 +54,25 @@ class UnitConversionViewController: UITableViewController {
     // object which contains the required logic
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
+        
         guard let selectedCell = sender as? UnitConversionViewCell else {
             // The destination is not a UnitConversionViewCell
             fatalError("Unexpected destination \(String(describing: sender))")
         }
         
         guard let cellLabelText = selectedCell.textLabel?.text else {
-            // The text on the label of the selected cell is nil
+            // The text on the textLabel of the selected cell is nil, or the selected cell has no textLabel
             fatalError("Selected cell has no label with text")
         }
         
         var conversionIndex: Int?
         
-        switch(cellLabelText){
-            case conversions[0].title: conversionIndex = 0
-            case conversions[1].title: conversionIndex = 1
-            case conversions[2].title: conversionIndex = 2
-            case conversions[3].title: conversionIndex = 3
-            
-            // Unexpected title for the selected cell
-            default: fatalError("Unexpected title \(String(describing: selectedCell.textLabel))")
+        // Find the matching Conversion instance in the Conversions list
+        for i in 0 ..< conversions.count {
+            if conversions[i].title == cellLabelText{
+                conversionIndex = i
+                break
+            }
         }
         
         guard let i = conversionIndex else {
