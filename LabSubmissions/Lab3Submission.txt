@@ -1,0 +1,63 @@
+//
+//  ViewController.swift
+//  TemperatureConverter
+//
+//  An app that allows the user to convert temperatures
+//  from Celcius to Farenheit or vise versa.
+//
+//  Created by  Andrew S Rozendal on 2018-01-26.
+//  Copyright © 2018  Andrew S Rozendal. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController, UITextFieldDelegate {
+    //MARK: Properties
+
+    // Holds user conversion choice
+    @IBOutlet weak var conversionType: UISegmentedControl!
+
+    // Field that holds the value the user wishes to convert from
+    @IBOutlet weak var tempField: UITextField!
+
+    // Displays the temperature conversion result
+    @IBOutlet weak var tempResultField: UILabel!
+
+    //MARK: Delegate Methods
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        self.tempField.delegate = self
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.tempField.resignFirstResponder()
+        return true
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    //MARK: Actions
+
+    // Called when Convert Button Pressed
+    // Converts value in input field to C or F depending on segment
+    // selection.  Outputs result to the result field.
+    @IBAction func conversionRequested(_ sender: Any) {
+        if let temp = Double(self.tempField.text!){
+            if(self.conversionType.selectedSegmentIndex == 0){
+                // Celcius to Farenheit
+                self.tempResultField.text = String(temp * 9.0 / 5.0 + 32.0)
+            } else {
+                // Farenheit to Celcius
+                self.tempResultField.text = String((temp - 32.0) * 5.0 / 9.0)
+            }
+        } else {
+            // Could not convert contents to Double
+            self.tempResultField.text = "N/A"
+        }
+    }
+}

@@ -1,0 +1,39 @@
+/*
+ * Lab 2: A program that queries a simple text-based web page and counts the number
+ * of unique words on that page
+ *
+ * Author: Andrew Rozendal
+ * Course: ICS 224
+ * Date: 25 Jan 2018
+ */
+
+import UIKit
+
+// Make an HTTP request to a URL to grab it's content
+if let urlString = URL(string: "http://deepblue.camosun.bc.ca/~horiem/4"){
+    do{
+        // Seperate html content into individual words and iterate over them to get
+	// a count of each word
+        let data = try String(contentsOf: urlString)
+        let wordArray = data.components(separatedBy: CharacterSet.letters.inverted)
+        var wordDictionary = [String: Int]()
+        for word in wordArray {
+            // Only add to dictionary if word is not a whitespace character
+            if !CharacterSet.init(charactersIn: word).isSubset(of: CharacterSet.whitespacesAndNewlines) {
+                // If word is not in dictionary add new entry, otherwise increment
+		// count for word
+                if let val = wordDictionary[word]{
+                    wordDictionary[word] = val + 1
+                } else {
+                    wordDictionary[word] = 1
+                }
+            }
+        }
+        // Output results to user
+        print(wordDictionary)
+    } catch {
+        print("Error: Unable to read content of webpage")
+    }
+} else {
+    print("Error: Invalid URL.  Check for illegal characters")
+}
