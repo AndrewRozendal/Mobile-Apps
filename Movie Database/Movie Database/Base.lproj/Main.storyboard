@@ -159,18 +159,15 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lnh-zm-6yh">
-                                            <rect key="frame" x="16" y="0.0" width="90" height="90"/>
+                                            <rect key="frame" x="0.0" y="-10" width="100" height="100"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNw-gb-kfC">
-                                            <rect key="frame" x="166" y="35" width="34" height="21"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gLB-ib-12f" customClass="RatingControl" customModule="Movie_Database" customModuleProvider="target">
+                                            <rect key="frame" x="108" y="46" width="251" height="33"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b4N-fF-Dyy">
-                                            <rect key="frame" x="274" y="35" width="69" height="21"/>
+                                        </stackView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNw-gb-kfC">
+                                            <rect key="frame" x="108" y="11" width="251" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -180,7 +177,6 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="movieImage" destination="Lnh-zm-6yh" id="ghM-5O-vVa"/>
-                                    <outlet property="movieRating" destination="b4N-fF-Dyy" id="qmr-Lv-M3U"/>
                                     <outlet property="movieTitle" destination="RNw-gb-kfC" id="VE9-Fx-5ib"/>
                                     <segue destination="z15-O6-Rro" kind="show" identifier="movieDetails" id="yG9-BO-fd6"/>
                                 </connections>

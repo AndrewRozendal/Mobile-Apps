@@ -11,6 +11,7 @@
 		FAD270B1204797FD0009AD0C /* States.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD270B0204797FD0009AD0C /* States.swift */; };
 		FAD270B32047A2B10009AD0C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD270B22047A2B10009AD0C /* SearchViewController.swift */; };
 		FAD270B520488A1F0009AD0C /* Genres.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD270B420488A1F0009AD0C /* Genres.swift */; };
+		FAD270B7204892F70009AD0C /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD270B6204892F70009AD0C /* RatingControl.swift */; };
 		FAFB19AB203F8B9200C7F88E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB19AA203F8B9200C7F88E /* AppDelegate.swift */; };
 		FAFB19AD203F8B9200C7F88E /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB19AC203F8B9200C7F88E /* HomeScreenViewController.swift */; };
 		FAFB19B0203F8B9200C7F88E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAFB19AE203F8B9200C7F88E /* Main.storyboard */; };
@@ -46,6 +47,7 @@
 		FAD270B0204797FD0009AD0C /* States.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = States.swift; sourceTree = "<group>"; };
 		FAD270B22047A2B10009AD0C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		FAD270B420488A1F0009AD0C /* Genres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genres.swift; sourceTree = "<group>"; };
+		FAD270B6204892F70009AD0C /* RatingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
 		FAFB19A7203F8B9200C7F88E /* Movie Database.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movie Database.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFB19AA203F8B9200C7F88E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAFB19AC203F8B9200C7F88E /* HomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				FAFB19AA203F8B9200C7F88E /* AppDelegate.swift */,
 				FAFB19AC203F8B9200C7F88E /* HomeScreenViewController.swift */,
 				FAD270B0204797FD0009AD0C /* States.swift */,
+				FAD270B6204892F70009AD0C /* RatingControl.swift */,
 				FAD270AA204785670009AD0C /* MovieCollection.swift */,
 				FAD270B420488A1F0009AD0C /* Genres.swift */,
 				FAFB19AE203F8B9200C7F88E /* Main.storyboard */,
@@ -284,6 +287,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAFB19AD203F8B9200C7F88E /* HomeScreenViewController.swift in Sources */,
+				FAD270B7204892F70009AD0C /* RatingControl.swift in Sources */,
 				FAD270B520488A1F0009AD0C /* Genres.swift in Sources */,
 				FAFB19AB203F8B9200C7F88E /* AppDelegate.swift in Sources */,
 				FAFB19DD203F933D00C7F88E /* MovieItemTableViewCell.swift in Sources */,

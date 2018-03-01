@@ -83,7 +83,7 @@ class MovieItemTableViewController: UITableViewController {
 
         cell.movieImage.image = movie.image
         cell.movieTitle.text = movie.title
-        cell.movieRating.text = String(movie.rating)
+        //cell.movieRating.text = String(movie.rating)
         return cell
     }
 
