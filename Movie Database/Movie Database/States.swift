@@ -11,4 +11,5 @@ import Foundation
 enum States {
     case EntireCollection
     case Favourites
-};
+    case Search
+}

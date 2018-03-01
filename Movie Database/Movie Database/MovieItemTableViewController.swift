@@ -146,5 +146,27 @@ class MovieItemTableViewController: UITableViewController {
         destination.movieCollection = movieCollection
         destination.currentState = currentState
     }
-
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        var text = ""
+        
+        guard let state = currentState else {
+            // CurrentState was not set properly
+            fatalError("State not set for table - no context of what to show")
+        }
+        
+        switch(state){
+            
+        case States.EntireCollection:
+            text = "All Movies"
+        case States.Favourites:
+            text = "Favourite Movies"
+        case States.Search:
+            text = "Search Results"
+        default: fatalError("currentState was not valid")
+            
+        }
+        
+        return text
+    }
 }
