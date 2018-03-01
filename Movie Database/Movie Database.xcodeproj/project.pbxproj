@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FAD270AB204785670009AD0C /* MovieCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD270AA204785670009AD0C /* MovieCollection.swift */; };
 		FAFB19AB203F8B9200C7F88E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB19AA203F8B9200C7F88E /* AppDelegate.swift */; };
 		FAFB19AD203F8B9200C7F88E /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB19AC203F8B9200C7F88E /* HomeScreenViewController.swift */; };
 		FAFB19B0203F8B9200C7F88E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAFB19AE203F8B9200C7F88E /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FAD270AA204785670009AD0C /* MovieCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollection.swift; sourceTree = "<group>"; };
 		FAFB19A7203F8B9200C7F88E /* Movie Database.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Movie Database.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFB19AA203F8B9200C7F88E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAFB19AC203F8B9200C7F88E /* HomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			children = (
 				FAFB19AA203F8B9200C7F88E /* AppDelegate.swift */,
 				FAFB19AC203F8B9200C7F88E /* HomeScreenViewController.swift */,
+				FAD270AA204785670009AD0C /* MovieCollection.swift */,
 				FAFB19AE203F8B9200C7F88E /* Main.storyboard */,
 				FAFB19DE203F95D700C7F88E /* MovieItemTableViewController.swift */,
 				FAFB19DA203F909C00C7F88E /* Movie.swift */,
@@ -277,6 +280,7 @@
 				FAFB19DF203F95D700C7F88E /* MovieItemTableViewController.swift in Sources */,
 				FAFB19DB203F909C00C7F88E /* Movie.swift in Sources */,
 				FAFB19D9203F8E7000C7F88E /* MovieDetailsViewController.swift in Sources */,
+				FAD270AB204785670009AD0C /* MovieCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

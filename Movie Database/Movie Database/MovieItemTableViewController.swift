@@ -11,7 +11,7 @@ import os
 
 class MovieItemTableViewController: UITableViewController {
     // MARK: Properties
-    var movies = [Movie()]
+    var movies = [Movie]()
     let cellIdentifier = "MovieItemTableViewCell"
     
     // MARK: Delegate functions
