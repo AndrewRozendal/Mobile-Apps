@@ -10,7 +10,9 @@ import UIKit
 import os
 
 class MovieItemTableViewController: UITableViewController {
+    
     // MARK: Properties
+    var currentState: States? = nil
     var movieCollection: MovieCollection? = nil
     let cellIdentifier = "MovieItemTableViewCell"
     
@@ -34,10 +36,25 @@ class MovieItemTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // return the number of rows
-        guard let collection = movieCollection?.entireCollection else {
+        guard let collection = movieCollection else {
             fatalError("Movie Collection is nil - should have been passed from previous page")
         }
-        return collection.count
+        
+        if currentState == nil {
+            // CurrentState was not set properly
+            fatalError("State not set for table - no context of what to show")
+        }
+        
+        var count: Int
+        if(currentState == States.EntireCollection){
+            count = collection.entireCollection.count
+        } else if (currentState == States.Favourites) {
+            count = collection.favourites.count
+        } else {
+            fatalError("CurrentState is an illegal state")
+        }
+        
+        return count
     }
     
     // Recycle table view cells for efficiency reasons
@@ -46,11 +63,24 @@ class MovieItemTableViewController: UITableViewController {
             fatalError("Selected cell in not of type \(cellIdentifier)")
         }
         
-        guard let collection = movieCollection?.entireCollection else {
+        guard let collection = movieCollection else {
             fatalError("Movie Collection is nil - should have been passed from previous page")
         }
         
-        let movie = collection[indexPath.row]
+        if currentState == nil {
+            // CurrentState was not set properly
+            fatalError("State not set for table - no context of what to show")
+        }
+        
+        var movie: Movie
+        if(currentState == States.EntireCollection){
+            movie = collection.entireCollection[indexPath.row]
+        } else if (currentState == States.Favourites) {
+            movie = collection.favourites[indexPath.row]
+        } else {
+            fatalError("CurrentState is an illegal state")
+        }
+
         cell.movieImage.image = movie.image
         cell.movieTitle.text = movie.title
         cell.movieRating.text = String(movie.rating)
@@ -73,14 +103,29 @@ class MovieItemTableViewController: UITableViewController {
             fatalError("Selected cell has no label with text")
         }
         
-        guard let collection = movieCollection?.entireCollection else {
+        guard let collection = movieCollection else {
             fatalError("Movie Collection is nil - should have been passed from previous page")
         }
         
+        if currentState == nil {
+            // CurrentState was not set properly
+            fatalError("State not set for table - no context of what to show")
+        }
+        
+        var movies: [Movie]
+        if(currentState == States.EntireCollection){
+            movies = collection.entireCollection
+        } else if (currentState == States.Favourites) {
+            movies = collection.favourites
+        } else {
+            fatalError("CurrentState is an illegal state")
+        }
+        
+        //Store found index
         var movieIndex: Int?
         
-        for i in 0 ..< collection.count {
-            if collection[i].title == cellLabelText{
+        for i in 0 ..< movies.count {
+            if movies[i].title == cellLabelText{
                 movieIndex = i
                 break
             }
@@ -99,6 +144,7 @@ class MovieItemTableViewController: UITableViewController {
         
         destination.currentMovieIndex = i
         destination.movieCollection = movieCollection
+        destination.currentState = currentState
     }
 
 }

@@ -50,6 +50,9 @@
                                 <rect key="frame" x="154" y="466" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Favourites"/>
+                                <connections>
+                                    <segue destination="Or3-zb-Jge" kind="show" identifier="favouritesSelected" id="Wyi-gp-c1L"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="v. 0.1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hI-1J-k70">
                                 <rect key="frame" x="163" y="588" width="50" height="21"/>
@@ -301,6 +304,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="yiQ-GU-c2L"/>
-        <segue reference="tad-xD-nJh"/>
+        <segue reference="Wyi-gp-c1L"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -31,6 +31,7 @@ class MovieDetailsViewController: UIViewController {
     // Current Movie instance
     var currentMovieIndex: Int? = nil
     var movieCollection: MovieCollection? = nil
+    var currentState: States? = nil
     
     // MARK: Delegate functions
     override func viewDidLoad() {
@@ -43,10 +44,25 @@ class MovieDetailsViewController: UIViewController {
             return
         }
         
-        guard let m = movieCollection?.entireCollection[i] else {
-            os_log("Could not grab attributes for movie from movie collection that was nil", log: OSLog.default, type: .debug)
-            return
+        guard let collection = movieCollection else {
+            fatalError("Movie Collection is nil - should have been passed from previous page")
         }
+        
+        if currentState == nil {
+            // CurrentState was not set properly
+            fatalError("State not set for table - no context of what to show")
+        }
+        
+        var movies: [Movie]
+        if(currentState == States.EntireCollection){
+            movies = collection.entireCollection
+        } else if (currentState == States.Favourites) {
+            movies = collection.favourites
+        } else {
+            fatalError("CurrentState is an illegal state")
+        }
+
+        let m = movies[i]
         
         self.movieTitle.text = m.title
         self.movieImage.image = m.image

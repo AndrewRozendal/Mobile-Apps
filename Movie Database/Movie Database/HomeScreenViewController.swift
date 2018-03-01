@@ -45,8 +45,10 @@ class HomeScreenViewController: UIViewController {
             // Pass data to new view
             destination.currentMovieIndex = rand
             destination.movieCollection = collection
+            destination.currentState = States.EntireCollection
             
         } else if segue.identifier == "browseSelected" {
+            
             guard let collection = movieCollection else {
                 fatalError("Movie collection was not initialized")
             }
@@ -58,6 +60,22 @@ class HomeScreenViewController: UIViewController {
             
             // Pass data to new view
             destination.movieCollection = collection
+            destination.currentState = States.EntireCollection
+            
+        } else if segue.identifier == "favouritesSelected" {
+            
+            guard let collection = movieCollection else {
+                fatalError("Movie collection was not initialized")
+            }
+            
+            guard let destination = segue.destination as? MovieItemTableViewController else {
+                // Destination was unable to be cast as MovieItemTableViewController
+                fatalError("Unexpected destination \(segue.destination)")
+            }
+            
+            // Pass data to new view
+            destination.movieCollection = collection
+            destination.currentState = States.Favourites
         }
     }
     
