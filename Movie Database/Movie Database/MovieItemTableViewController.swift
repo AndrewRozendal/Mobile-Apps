@@ -72,7 +72,7 @@ class MovieItemTableViewController: UITableViewController {
             fatalError("State not set for table - no context of what to show")
         }
         
-        var movie: Movie
+        var movie: Movie?
         if(currentState == States.EntireCollection){
             movie = collection.entireCollection[indexPath.row]
         } else if (currentState == States.Favourites) {
@@ -80,10 +80,14 @@ class MovieItemTableViewController: UITableViewController {
         } else {
             fatalError("CurrentState is an illegal state")
         }
-
-        cell.movieImage.image = movie.image
-        cell.movieTitle.text = movie.title
-        //cell.movieRating.text = String(movie.rating)
+        
+        guard let m = movie else {
+            fatalError("Movie key was not a valid key in the Movie Dictionary")
+        }
+        
+        cell.movieImage.image = m.image
+        cell.movieTitle.text = m.title
+        //cell.movieRating.text = String(m.rating)
         return cell
     }
 
@@ -117,16 +121,19 @@ class MovieItemTableViewController: UITableViewController {
         
         if(currentState == States.EntireCollection){
             // Search for matching Movie in the entireCollection and grab index
-            for i in 0 ..< collection.entireCollection.count {
-                if collection.entireCollection[i].title == cellLabelText{
-                    movieIndex = i
+            for (id, movie) in collection.entireCollection {
+                if movie.title == cellLabelText{
+                    movieIndex = id
                     break
                 }
             }
         } else if (currentState == States.Favourites) {
             // Search for matching Movie in favourites and grab the index of the movie in the entireCollection
             for i in 0 ..< collection.favourites.count{
-                if collection.entireCollection[collection.favourites[i]].title == cellLabelText{
+                guard let m = collection.entireCollection[collection.favourites[i]] else {
+                    fatalError("Favourites had an id that was not a key in the entireCollection")
+                }
+                if m.title == cellLabelText{
                     movieIndex = collection.favourites[i]
                 }
             }

@@ -10,6 +10,7 @@ import UIKit
 
 class Movie {
     // Properties
+    let id: Int
     let title: String
     let genres: [Genres]
     let actors: [String]
@@ -19,7 +20,8 @@ class Movie {
     let image: UIImage
     
     // Initializes a movie object
-    init(title: String, genres: [Genres], actors: [String], rating: uint, isFavourite: Bool, comments: String, image: UIImage = #imageLiteral(resourceName: "defaultImage")){
+    init(id: Int, title: String, genres: [Genres], actors: [String], rating: uint, isFavourite: Bool, comments: String, image: UIImage = #imageLiteral(resourceName: "defaultImage")){
+        self.id = id
         self.title = title
         self.genres = genres
         self.actors = actors

@@ -46,23 +46,18 @@ class MovieDetailsViewController: UIViewController {
             return
         }
         
-        guard let collection = movieCollection else {
+        guard let collection = movieCollection?.entireCollection else {
             fatalError("Movie Collection is nil - should have been passed from previous page")
         }
-        
+        /*
         if currentState == nil {
             // CurrentState was not set properly
             fatalError("State not set for table - no context of what to show")
         }
-        
-        var movies: [Movie]
-        if(currentState == States.EntireCollection || currentState == States.Favourites){
-            movies = collection.entireCollection
-        } else {
-            fatalError("CurrentState is an illegal state")
+        */
+        guard let m = collection[i] else {
+            fatalError("Movie index was not a valid key in movieCollection")
         }
-
-        let m = movies[i]
         
         self.movieTitle.text = m.title
         self.movieImage.image = m.image
