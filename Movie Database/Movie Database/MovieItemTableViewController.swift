@@ -11,7 +11,7 @@ import os
 
 class MovieItemTableViewController: UITableViewController {
     // MARK: Properties
-    var movies = [Movie]()
+    var movieCollection: MovieCollection? = nil
     let cellIdentifier = "MovieItemTableViewCell"
     
     // MARK: Delegate functions
@@ -34,7 +34,10 @@ class MovieItemTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // return the number of rows
-        return movies.count
+        guard let collection = movieCollection?.entireCollection else {
+            fatalError("Movie Collection is nil - should have been passed from previous page")
+        }
+        return collection.count
     }
     
     // Recycle table view cells for efficiency reasons
@@ -43,7 +46,11 @@ class MovieItemTableViewController: UITableViewController {
             fatalError("Selected cell in not of type \(cellIdentifier)")
         }
         
-        let movie = movies[indexPath.row]
+        guard let collection = movieCollection?.entireCollection else {
+            fatalError("Movie Collection is nil - should have been passed from previous page")
+        }
+        
+        let movie = collection[indexPath.row]
         cell.movieImage.image = movie.image
         cell.movieTitle.text = movie.title
         cell.movieRating.text = String(movie.rating)
@@ -66,10 +73,14 @@ class MovieItemTableViewController: UITableViewController {
             fatalError("Selected cell has no label with text")
         }
         
+        guard let collection = movieCollection?.entireCollection else {
+            fatalError("Movie Collection is nil - should have been passed from previous page")
+        }
+        
         var movieIndex: Int?
         
-        for i in 0 ..< movies.count {
-            if movies[i].title == cellLabelText{
+        for i in 0 ..< collection.count {
+            if collection[i].title == cellLabelText{
                 movieIndex = i
                 break
             }
@@ -86,7 +97,8 @@ class MovieItemTableViewController: UITableViewController {
             fatalError("Unexpected destination \(segue.destination)")
         }
         
-        destination.currentMovie = movies[i]
+        destination.currentMovieIndex = i
+        destination.movieCollection = movieCollection
     }
 
 }

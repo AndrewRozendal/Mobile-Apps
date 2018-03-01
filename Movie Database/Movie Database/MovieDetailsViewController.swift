@@ -29,7 +29,8 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var movieComments: UILabel!
     
     // Current Movie instance
-    var currentMovie: Movie? = nil
+    var currentMovieIndex: Int? = nil
+    var movieCollection: MovieCollection? = nil
     
     // MARK: Delegate functions
     override func viewDidLoad() {
@@ -37,8 +38,13 @@ class MovieDetailsViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         // Set labels for the view based on the movie instance
-        guard let m = currentMovie else {
-            os_log("Cannot grab attributes from a Movie object that is nil", log: OSLog.default, type: .debug)
+        guard let i = currentMovieIndex else {
+            os_log("Could not grab attributes for movie from movieIndex that was nil", log: OSLog.default, type: .debug)
+            return
+        }
+        
+        guard let m = movieCollection?.entireCollection[i] else {
+            os_log("Could not grab attributes for movie from movie collection that was nil", log: OSLog.default, type: .debug)
             return
         }
         

@@ -9,16 +9,19 @@
 import Foundation
 
 class MovieCollection {
+    // Properties
     let userName: String
     let entireCollection: [Movie]  // select * from movies where userId = x
     let favourites: [Movie]  //select * from favourites where userID = x
     
+    // Initialize a MovieCollection with the owner name, entireCollection and favourites
     init(userName: String, entireCollection: [Movie], favourites: [Movie]){
         self.userName = userName
         self.entireCollection = entireCollection
         self.favourites = favourites
     }
     
+    // For testing
     convenience init?(testing: Bool){
         if testing {
             let userName = "testing"

@@ -43,7 +43,8 @@ class HomeScreenViewController: UIViewController {
             }
             
             // Pass data to new view
-            destination.currentMovie = collection.entireCollection[rand]
+            destination.currentMovieIndex = rand
+            destination.movieCollection = collection
             
         } else if segue.identifier == "browseSelected" {
             guard let collection = movieCollection else {
@@ -56,7 +57,7 @@ class HomeScreenViewController: UIViewController {
             }
             
             // Pass data to new view
-            destination.movies = collection.entireCollection
+            destination.movieCollection = collection
         }
     }
     
