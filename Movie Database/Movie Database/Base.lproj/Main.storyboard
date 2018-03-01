@@ -145,11 +145,18 @@
                                 <rect key="frame" x="35" y="583" width="309" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Add / Remove Favourite"/>
+                                <connections>
+                                    <action selector="rateMovie:" destination="z15-O6-Rro" eventType="touchUpInside" id="U82-r9-4TB"/>
+                                    <action selector="updateFavourites:" destination="z15-O6-Rro" eventType="touchUpInside" id="9VC-UJ-KAH"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yaq-Cm-BZW">
                                 <rect key="frame" x="99" y="522" width="176" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Rate"/>
+                                <connections>
+                                    <action selector="rateMovie:" destination="z15-O6-Rro" eventType="touchUpInside" id="3Oq-fW-F2q"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="RYG-CU-12Q">
                                 <rect key="frame" x="67" y="125" width="240" height="128"/>
@@ -243,6 +250,13 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="UpdateNotification" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnD-70-mA4">
+                                <rect key="frame" x="110" y="475" width="165" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="OiK-cN-esm"/>
@@ -256,6 +270,7 @@
                         <outlet property="movieRating" destination="NBp-H2-ISn" id="ocs-Hg-yOE"/>
                         <outlet property="movieTitle" destination="pcy-Nu-GWn" id="4n2-zg-1DB"/>
                         <outlet property="rateButton" destination="yaq-Cm-BZW" id="Z9K-Sc-qI3"/>
+                        <outlet property="updateNotification" destination="cnD-70-mA4" id="i8c-YS-WCB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OG1-hO-5KZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -27,6 +27,8 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var movieRating: UILabel!
     // Comments Label
     @IBOutlet weak var movieComments: UILabel!
+    // Provides feedback to user on updates ie Rate clicked
+    @IBOutlet weak var updateNotification: UILabel!
     
     // Current Movie instance
     var currentMovieIndex: Int? = nil
@@ -95,11 +97,26 @@ class MovieDetailsViewController: UIViewController {
         } else {
             self.favouriteActionButton.setTitle("Add to Favourites", for: UIControlState.normal)
         }
+        
+        self.updateNotification.text = ""
  
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    //MARK: Actions
+    @IBAction func updateFavourites(_ sender: Any) {
+        self.updateNotification.text = "Not yet implemented"
+        
+        //TODO: This should add / remove the current movie from favourites
+    }
+    
+    @IBAction func rateMovie(_ sender: Any) {
+        self.updateNotification.text = "Not yet implemented"
+        
+        //TODO: This should update the rating in the movieCollection object.  This should be both in the favourites and the entire collection.  It should also update the rating label on the current page
     }
 }
