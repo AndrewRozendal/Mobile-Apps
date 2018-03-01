@@ -163,6 +163,7 @@ class MovieItemTableViewController: UITableViewController {
             text = "Favourite Movies"
         case States.Search:
             text = "Search Results"
+        // This should never be executed - here in case we add a State to States and forget to handle.
         default: fatalError("currentState was not valid")
             
         }
