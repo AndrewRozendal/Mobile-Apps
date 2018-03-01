@@ -173,4 +173,10 @@ class MovieItemTableViewController: UITableViewController {
         
         return text
     }
+    
+    
+    // Refresh the table when returning from another page - items may have changed if viewing favourites
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
 }
