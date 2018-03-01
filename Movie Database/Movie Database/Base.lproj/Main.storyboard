@@ -210,14 +210,6 @@
                                     <action selector="updateFavourites:" destination="z15-O6-Rro" eventType="touchUpInside" id="9VC-UJ-KAH"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yaq-Cm-BZW">
-                                <rect key="frame" x="99" y="522" width="176" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Rate"/>
-                                <connections>
-                                    <action selector="rateMovie:" destination="z15-O6-Rro" eventType="touchUpInside" id="3Oq-fW-F2q"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="RYG-CU-12Q">
                                 <rect key="frame" x="67" y="125" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -237,7 +229,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nF1-Gj-sCJ">
-                                <rect key="frame" x="120" y="316" width="135.5" height="112"/>
+                                <rect key="frame" x="120" y="316" width="135.5" height="81.5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="l8f-Zz-Daf">
@@ -274,25 +266,8 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HhF-Wr-ERO">
-                                        <rect key="frame" x="17.5" y="61" width="101" height="20.5"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhS-v6-YZ2">
-                                                <rect key="frame" x="0.0" y="0.0" width="49" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NBp-H2-ISn">
-                                                <rect key="frame" x="59" y="0.0" width="42" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                    </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gUN-Wm-1Qc">
-                                        <rect key="frame" x="0.0" y="91.5" width="135.5" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="61" width="135.5" height="20.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yrm-en-zNx">
                                                 <rect key="frame" x="0.0" y="0.0" width="83.5" height="20.5"/>
@@ -317,6 +292,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vym-zB-6v9" customClass="RatingControl" customModule="Movie_Database" customModuleProvider="target">
+                                <rect key="frame" x="77" y="515" width="220.5" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="OiK-cN-esm"/>
@@ -327,9 +306,8 @@
                         <outlet property="movieComments" destination="o08-YK-ZkU" id="04V-A9-qxS"/>
                         <outlet property="movieGenres" destination="YHR-8S-Rlg" id="p3E-xd-a9b"/>
                         <outlet property="movieImage" destination="RYG-CU-12Q" id="RrZ-pJ-SLE"/>
-                        <outlet property="movieRating" destination="NBp-H2-ISn" id="ocs-Hg-yOE"/>
+                        <outlet property="movieRating" destination="vym-zB-6v9" id="M3R-6K-7gU"/>
                         <outlet property="movieTitle" destination="pcy-Nu-GWn" id="4n2-zg-1DB"/>
-                        <outlet property="rateButton" destination="yaq-Cm-BZW" id="Z9K-Sc-qI3"/>
                         <outlet property="updateNotification" destination="cnD-70-mA4" id="i8c-YS-WCB"/>
                     </connections>
                 </viewController>

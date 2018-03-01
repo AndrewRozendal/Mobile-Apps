@@ -11,8 +11,6 @@ import os
 
 class MovieDetailsViewController: UIViewController {
     // MARK: Properties
-    // Context sensitive button to allow user to see previous rating and or send new rating
-    @IBOutlet weak var rateButton: UIButton!
     // Context sensitive button to interact with user favourites
     @IBOutlet weak var favouriteActionButton: UIButton!
     // Movie image
@@ -23,12 +21,12 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var movieGenres: UILabel!
     // Actors label
     @IBOutlet weak var movieActors: UILabel!
-    // Current Rating label
-    @IBOutlet weak var movieRating: UILabel!
     // Comments Label
     @IBOutlet weak var movieComments: UILabel!
     // Provides feedback to user on updates ie Rate clicked
     @IBOutlet weak var updateNotification: UILabel!
+    // Provides the rating of the current movie.  Also provides buttons to update it
+    @IBOutlet weak var movieRating: RatingControl!
     
     // Current Movie instance
     var currentMovieIndex: Int? = nil
@@ -61,8 +59,11 @@ class MovieDetailsViewController: UIViewController {
         
         self.movieTitle.text = m.title
         self.movieImage.image = m.image
-        self.movieRating.text = String(m.rating)
         self.movieComments.text = m.comments
+        
+        // Let RatingControl know about the current instance
+        self.movieRating.rating = m.rating
+        self.movieRating.currentMovie = m
         
         var genres = ""
         for i in 0 ..< m.genres.count {
@@ -136,13 +137,5 @@ class MovieDetailsViewController: UIViewController {
             movieCollection?.favourites.append(index)
             self.updateNotification.text = "Added to Favourites!"
         }
-        
-        //TODO: This should add / remove the current movie from favourites
-    }
-    
-    @IBAction func rateMovie(_ sender: Any) {
-        self.updateNotification.text = "Not yet implemented"
-        
-        //TODO: This should update the rating in the movieCollection object.  This should be both in the favourites and the entire collection.  It should also update the rating label on the current page
     }
 }

@@ -14,6 +14,8 @@ import UIKit
     //MARK: Properties
     private var ratingButtons = [UIButton]()
     
+    var currentMovie: Movie? = nil
+    
     var rating = 0 {
         didSet {
             updateButtonSelectionStates()
@@ -96,9 +98,11 @@ import UIKit
         if selectedRating == rating {
             // If the selected star represents the current rating, reset the rating to 0.
             rating = 0
+            updateDataModel()
         } else {
             // Otherwise set the rating to the selected star
             rating = selectedRating
+            updateDataModel()
         }
     }
     
@@ -107,5 +111,12 @@ import UIKit
             // If the index of a button is less than the rating, that button should be selected.
             button.isSelected = index < rating
         }
+    }
+    
+    private func updateDataModel(){
+        guard let m = currentMovie else {
+            fatalError("Tried to update a Movie without an instance")
+        }
+        m.rating = rating
     }
 }
