@@ -12,7 +12,7 @@ class MovieCollection {
     // Properties
     let userName: String
     let entireCollection: [Movie]  // select * from movies where userId = x
-    let favourites: [Int]  // the index locations of favourite Movies contained in entireCollection
+    var favourites: [Int]  // the index locations of favourite Movies contained in entireCollection
     
     // Initialize a MovieCollection with the owner name, entireCollection and favourites
     init(userName: String, entireCollection: [Movie], favourites: [Int]){

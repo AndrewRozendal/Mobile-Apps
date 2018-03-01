@@ -13,9 +13,9 @@ class Movie {
     let title: String
     let genres: [String]
     let actors: [String]
-    let rating: uint
-    let isFavourite: Bool
-    let comments: String
+    var rating: uint
+    var isFavourite: Bool
+    var comments: String
     let image: UIImage
     
     // Initializes a movie object

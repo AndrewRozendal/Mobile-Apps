@@ -107,7 +107,40 @@ class MovieDetailsViewController: UIViewController {
     
     //MARK: Actions
     @IBAction func updateFavourites(_ sender: Any) {
-        self.updateNotification.text = "Not yet implemented"
+        guard let index = currentMovieIndex else {
+            fatalError("No current Movie index set")
+        }
+        
+        guard let m = movieCollection?.entireCollection[index] else {
+            fatalError("Unable to access current movie from collection")
+        }
+        
+        if m.isFavourite {
+            m.isFavourite = false
+            self.favouriteActionButton.setTitle("Add to Favourites", for: UIControlState.normal)
+            
+            // Find favourite where value is this index and remove
+            var favIndex: Int? = nil;
+            for i in 0 ..< movieCollection!.favourites.count{
+                if movieCollection!.favourites[i] == index{
+                    favIndex = i
+                }
+            }
+            
+            if favIndex != nil{
+                movieCollection?.favourites.remove(at: favIndex!)
+                self.updateNotification.text = "Removed from Favourites!"
+            } else {
+                fatalError("Could not find favourite movie index to remove")
+            }
+        } else {
+            m.isFavourite = true
+            self.favouriteActionButton.setTitle("Remove from Favourites", for: UIControlState.normal)
+
+            // Append to favourites
+            movieCollection?.favourites.append(index)
+            self.updateNotification.text = "Added to Favourites!"
+        }
         
         //TODO: This should add / remove the current movie from favourites
     }
