@@ -76,6 +76,19 @@ class HomeScreenViewController: UIViewController {
             // Pass data to new view
             destination.movieCollection = collection
             destination.currentState = States.Favourites
+        } else if segue.identifier == "searchSelected" {
+            
+            guard let collection = movieCollection else {
+                fatalError("Movie collection was not initialized")
+            }
+            
+            guard let destination = segue.destination as? SearchViewController else {
+                // Destination was unable to be cast as SearchViewController
+                fatalError("Unexpected destination \(segue.destination)")
+            }
+            
+            // Pass data to new view
+            destination.movieCollection = collection
         }
     }
     
