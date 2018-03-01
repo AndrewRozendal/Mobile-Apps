@@ -76,7 +76,7 @@ class MovieItemTableViewController: UITableViewController {
         if(currentState == States.EntireCollection){
             movie = collection.entireCollection[indexPath.row]
         } else if (currentState == States.Favourites) {
-            movie = collection.favourites[indexPath.row]
+            movie = collection.entireCollection[collection.favourites[indexPath.row]]
         } else {
             fatalError("CurrentState is an illegal state")
         }
@@ -112,23 +112,26 @@ class MovieItemTableViewController: UITableViewController {
             fatalError("State not set for table - no context of what to show")
         }
         
-        var movies: [Movie]
-        if(currentState == States.EntireCollection){
-            movies = collection.entireCollection
-        } else if (currentState == States.Favourites) {
-            movies = collection.favourites
-        } else {
-            fatalError("CurrentState is an illegal state")
-        }
-        
         //Store found index
         var movieIndex: Int?
         
-        for i in 0 ..< movies.count {
-            if movies[i].title == cellLabelText{
-                movieIndex = i
-                break
+        if(currentState == States.EntireCollection){
+            // Search for matching Movie in the entireCollection and grab index
+            for i in 0 ..< collection.entireCollection.count {
+                if collection.entireCollection[i].title == cellLabelText{
+                    movieIndex = i
+                    break
+                }
             }
+        } else if (currentState == States.Favourites) {
+            // Search for matching Movie in favourites and grab the index of the movie in the entireCollection
+            for i in 0 ..< collection.favourites.count{
+                if collection.entireCollection[collection.favourites[i]].title == cellLabelText{
+                    movieIndex = collection.favourites[i]
+                }
+            }
+        } else {
+            fatalError("CurrentState is an illegal state")
         }
         
         guard let i = movieIndex else {

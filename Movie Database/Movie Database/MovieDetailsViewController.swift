@@ -56,10 +56,8 @@ class MovieDetailsViewController: UIViewController {
         }
         
         var movies: [Movie]
-        if(currentState == States.EntireCollection){
+        if(currentState == States.EntireCollection || currentState == States.Favourites){
             movies = collection.entireCollection
-        } else if (currentState == States.Favourites) {
-            movies = collection.favourites
         } else {
             fatalError("CurrentState is an illegal state")
         }

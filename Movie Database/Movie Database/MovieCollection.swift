@@ -12,10 +12,10 @@ class MovieCollection {
     // Properties
     let userName: String
     let entireCollection: [Movie]  // select * from movies where userId = x
-    let favourites: [Movie]  //select * from favourites where userID = x
+    let favourites: [Int]  // the index locations of favourite Movies contained in entireCollection
     
     // Initialize a MovieCollection with the owner name, entireCollection and favourites
-    init(userName: String, entireCollection: [Movie], favourites: [Movie]){
+    init(userName: String, entireCollection: [Movie], favourites: [Int]){
         self.userName = userName
         self.entireCollection = entireCollection
         self.favourites = favourites
@@ -43,10 +43,8 @@ class MovieCollection {
     }
     
     // For testing
-    static func generateFavourites() -> [Movie]{
-        let favourites: [Movie] = [
-            Movie(title: "testTitle", genres: ["Action, Comedy"], actors: ["Jenniffer", "Bob"], rating: 5, isFavourite: true, comments: "This is a great movie!!!")
-        ]
+    static func generateFavourites() -> [Int]{
+        let favourites: [Int] = [0]
         return favourites
     }
 }
