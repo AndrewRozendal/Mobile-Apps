@@ -36,8 +36,9 @@ class MovieCollection {
     // For testing
     static func generateCollection() -> [Movie]{
         let collection: [Movie] = [
-            Movie(title: "testTitle", genres: ["Action, Comedy"], actors: ["Jenniffer", "Bob"], rating: 5, isFavourite: true, comments: "This is a great movie!!!"),
-            Movie(title: "test2", genres: ["Comedy"], actors: ["Bob"], rating: 0, isFavourite: false, comments: "I didn't like this movie")
+            Movie(title: "testTitle", genres: [Genres.Action, Genres.Comedy], actors: ["Jenniffer", "Bob"], rating: 5, isFavourite: true, comments: "This is a great movie!!!"),
+            Movie(title: "test2", genres: [Genres.Documentary], actors: ["Bob"], rating: 0, isFavourite: false, comments: "I didn't like this movie"),
+            Movie(title: "Titanic", genres: [Genres.Romance], actors: ["Leo"], rating: 3, isFavourite: false, comments: "Very sad :(", image: #imageLiteral(resourceName: "defaultImage"))
         ]
         return collection
     }

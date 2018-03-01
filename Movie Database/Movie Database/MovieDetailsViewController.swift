@@ -71,7 +71,7 @@ class MovieDetailsViewController: UIViewController {
         
         var genres = ""
         for i in 0 ..< m.genres.count {
-            genres.append(m.genres[i])
+            genres.append(m.genres[i].rawValue)
             if(!(i < m.genres.count - 2)){
                 genres.append(", ")
             }

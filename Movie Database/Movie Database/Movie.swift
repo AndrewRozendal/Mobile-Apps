@@ -11,7 +11,7 @@ import UIKit
 class Movie {
     // Properties
     let title: String
-    let genres: [String]
+    let genres: [Genres]
     let actors: [String]
     var rating: uint
     var isFavourite: Bool
@@ -19,7 +19,7 @@ class Movie {
     let image: UIImage
     
     // Initializes a movie object
-    init(title: String, genres: [String], actors: [String], rating: uint, isFavourite: Bool, comments: String, image: UIImage = #imageLiteral(resourceName: "defaultImage")){
+    init(title: String, genres: [Genres], actors: [String], rating: uint, isFavourite: Bool, comments: String, image: UIImage = #imageLiteral(resourceName: "defaultImage")){
         self.title = title
         self.genres = genres
         self.actors = actors
