@@ -64,6 +64,7 @@ class MovieDetailsViewController: UIViewController {
         // Let RatingControl know about the current instance
         self.movieRating.rating = m.rating
         self.movieRating.currentMovie = m
+        self.movieRating.desiredFunctionality = Functionality.Clickable
         
         var genres = ""
         for i in 0 ..< m.genres.count {
