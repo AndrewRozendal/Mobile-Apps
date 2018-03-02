@@ -16,6 +16,49 @@ class SearchViewController: UIViewController {
     // Reference to the movie db object
     var movieCollection: MovieCollection? = nil
     
+    @IBOutlet weak var searchArea: UISegmentedControl!
+    
+    @IBOutlet weak var allGenres: UISwitch!
+/*
+     {
+        didSet{
+            if allGenres.isOn {
+                // Searching all genres
+                // Disable all genre options and set off
+                actionGenre.setOn(false, animated: true)
+                actionGenre.isEnabled = false
+                
+                comedyGenre.setOn(false, animated: true)
+                comedyGenre.isEnabled = false
+                
+                romanceGenre.setOn(false, animated: true)
+                romanceGenre.isEnabled = false
+                
+                scifiGenre.setOn(false, animated: true)
+                scifiGenre.isEnabled = false
+            } else {
+                // Re-enable all other genre options
+                actionGenre.isEnabled = true
+                comedyGenre.isEnabled = true
+                romanceGenre.isEnabled = true
+                scifiGenre.isEnabled = true
+            }
+        }
+     }
+ */
+
+    
+    @IBOutlet weak var actionGenre: UISwitch!
+    
+    @IBOutlet weak var comedyGenre: UISwitch!
+    
+    @IBOutlet weak var romanceGenre: UISwitch!
+    
+    @IBOutlet weak var scifiGenre: UISwitch!
+    
+    @IBOutlet weak var documentaryGenre: UISwitch!
+    
+    
     //MARK: Delegate functions
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,17 +97,64 @@ class SearchViewController: UIViewController {
             // clear all old results
             movieCollection!.searchResults = [Int]()
             for (key, movie) in collection {
-                // TODO: Detect user choice
                 // TODO: Make sure that not adding duplicate keys - if we find with one search, dont look again?
-                let isTitleSearch = true
-                let isActorSearch = true
-                if isTitleSearch {
+
+                // Whitelist genres we are allowed to search
+                var validGenres = [Genres]()
+                
+                // Check if allGenre switch is set
+                if allGenres.isOn {
+                    validGenres.append(Genres.Action)
+                    validGenres.append(Genres.Comedy)
+                    validGenres.append(Genres.Documentary)
+                    validGenres.append(Genres.Romance)
+                    validGenres.append(Genres.SciFi)
+                } else {
+                    // Check switches
+                    if actionGenre.isOn && actionGenre.isEnabled {
+                        validGenres.append(Genres.Action)
+                    }
+                    
+                    if comedyGenre.isOn && actionGenre.isEnabled {
+                        validGenres.append(Genres.Comedy)
+                    }
+                    
+                    if documentaryGenre.isOn && documentaryGenre.isEnabled {
+                        validGenres.append(Genres.Documentary)
+                    }
+
+                    if romanceGenre.isOn && romanceGenre.isEnabled {
+                        validGenres.append(Genres.Romance)
+                    }
+                    
+                    if scifiGenre.isOn && scifiGenre.isEnabled {
+                        validGenres.append(Genres.SciFi)
+                    }
+                }
+                
+                // Check current movie to see if valid genre
+                var isValid = false
+                for genre in validGenres {
+                    if movie.genres.contains(genre){
+                        isValid = true
+                        break
+                    }
+                }
+                
+                if !isValid {
+                    // Not a valid genre so skip rest of checks
+                    continue
+                }
+                
+                // title or both areas selected
+                if searchArea.selectedSegmentIndex == 0 || searchArea.selectedSegmentIndex == 2 {
                     if movie.title.uppercased().contains(searchVal!){
                         movieCollection!.searchResults!.append(key)
                     }
                 }
                 
-                if isActorSearch {
+                // actor or both areas selected
+                if searchArea.selectedSegmentIndex == 1 || searchArea.selectedSegmentIndex == 2 {
                     for actor in movie.actors {
                         if actor.uppercased().contains(searchVal!){
                             movieCollection!.searchResults!.append(key)
