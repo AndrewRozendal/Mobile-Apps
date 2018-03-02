@@ -19,34 +19,6 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchArea: UISegmentedControl!
     
     @IBOutlet weak var allGenres: UISwitch!
-/*
-     {
-        didSet{
-            if allGenres.isOn {
-                // Searching all genres
-                // Disable all genre options and set off
-                actionGenre.setOn(false, animated: true)
-                actionGenre.isEnabled = false
-                
-                comedyGenre.setOn(false, animated: true)
-                comedyGenre.isEnabled = false
-                
-                romanceGenre.setOn(false, animated: true)
-                romanceGenre.isEnabled = false
-                
-                scifiGenre.setOn(false, animated: true)
-                scifiGenre.isEnabled = false
-            } else {
-                // Re-enable all other genre options
-                actionGenre.isEnabled = true
-                comedyGenre.isEnabled = true
-                romanceGenre.isEnabled = true
-                scifiGenre.isEnabled = true
-            }
-        }
-     }
- */
-
     
     @IBOutlet weak var actionGenre: UISwitch!
     
@@ -72,6 +44,41 @@ class SearchViewController: UIViewController {
     }
     
     //MARK: Actions
+    
+    @IBAction func allGenresToggled(_ sender: Any) {
+         if allGenres.isOn {
+             // Searching all genres
+             // Disable all genre options and set off
+             actionGenre.setOn(false, animated: true)
+             //actionGenre.isEnabled = false
+            
+             comedyGenre.setOn(false, animated: true)
+             //comedyGenre.isEnabled = false
+            
+            documentaryGenre.setOn(false, animated: true)
+            //documentaryGenre.isEnabled = false
+            
+             romanceGenre.setOn(false, animated: true)
+             //romanceGenre.isEnabled = false
+            
+             scifiGenre.setOn(false, animated: true)
+             //scifiGenre.isEnabled = false
+         }
+    }
+    
+    // All Genre specific Switches call this (except the allGenres switch does not, it has its own fn()  If the sending switch is on, turn all genres off
+    @IBAction func genreToggled(_ sender: Any) {
+        guard  let selectedSwitch = sender as? UISwitch else {
+            os_log("Sender was not a UISwitch", log: OSLog.default, type: .debug)
+            return
+        }
+        
+        if selectedSwitch.isOn {
+            allGenres.setOn(false, animated: true)
+        }
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         super.prepare(for: segue, sender: sender)
         if segue.identifier == "searchSelected" {
