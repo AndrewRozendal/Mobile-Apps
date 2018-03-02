@@ -293,7 +293,7 @@
                     <navigationItem key="navigationItem" id="PqB-6g-Oqp">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="JJd-Bk-GQ2">
                             <connections>
-                                <segue destination="hgi-VV-I2y" kind="show" id="ypc-Rt-gyr"/>
+                                <segue destination="hgi-VV-I2y" kind="show" identifier="homeScreen" id="ypc-Rt-gyr"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

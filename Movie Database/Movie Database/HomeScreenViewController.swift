@@ -10,12 +10,18 @@ import UIKit
 import os
 
 class HomeScreenViewController: UIViewController {
-    var movieCollection = MovieCollection(testing: true)
+    var movieCollection: MovieCollection? = nil
     
     // MARK: Delegate functions
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        if movieCollection == nil {
+            print("reloading")
+            movieCollection = MovieCollection(testing: true)
+        } else {
+            print("not reloading")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -90,6 +96,18 @@ class HomeScreenViewController: UIViewController {
             // Pass data to new view
             destination.movieCollection = collection
         }
+    }
+        
+    // Enable saving
+    func saveItems(){
+        if !NSKeyedArchiver.archiveRootObject(movieCollection, toFile: MovieCollection.archiveURL.path){
+            os_log("Cannot save in %@", log: OSLog.default, type: .debug, MovieCollection.archiveURL.path)
+        }
+    }
+    
+    // Enable loading
+    func loadItems() -> MovieCollection? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: MovieCollection.archiveURL.path) as? MovieCollection
     }
     
 }

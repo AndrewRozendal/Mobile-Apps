@@ -7,8 +7,16 @@
 //
 
 import Foundation
+import os
 
 class MovieCollection {
+    // For saving
+    class PropertyKey{
+        static let userName = "userName"
+        static let entireCollection = "entireCollection"
+        static let favourites = "favourites"
+    }
+    
     // Properties
     let userName: String  // the user's name
     let entireCollection: [Int: Movie]  // a dictionary of all Movie objects.  Key is the Movie ID, value is the Movie
@@ -54,5 +62,34 @@ class MovieCollection {
     static func generateFavourites() -> [Int]{
         let favourites: [Int] = [0]
         return favourites
+    }
+    
+    // Enable data persistency
+    static let documentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let archiveURL = documentsDirectory.appendingPathComponent("movieCollection")
+    
+    required convenience init?(coder aDecoder: NSCoder){
+        guard let name = aDecoder.decodeObject(forKey: PropertyKey.userName) as? String else {
+            os_log("Missing userName", log: OSLog.default, type: .debug)
+            return nil
+        }
+        
+        guard let collection = aDecoder.decodeObject(forKey: PropertyKey.entireCollection) as? [Int: Movie] else {
+            os_log("Missing movie collection", log: OSLog.default, type: .debug)
+            return nil
+        }
+        
+        guard let favourites = aDecoder.decodeObject(forKey: PropertyKey.favourites) as? [Int] else {
+            os_log("Missing favourites list", log: OSLog.default, type: .debug)
+            return nil
+        }
+        
+        self.init(userName: name, entireCollection: collection, favourites: favourites)
+    }
+    
+    func encode(with aCoder: NSCoder){
+        aCoder.encode(userName, forKey: PropertyKey.userName)
+        aCoder.encode(entireCollection, forKey: PropertyKey.entireCollection)
+        aCoder.encode(favourites, forKey: PropertyKey.favourites)
     }
 }
