@@ -100,7 +100,10 @@ class HomeScreenViewController: UIViewController {
         
     // Enable saving
     func saveItems(){
-        if !NSKeyedArchiver.archiveRootObject(movieCollection, toFile: MovieCollection.archiveURL.path){
+        guard let collection = movieCollection else {
+            fatalError("Tried to save a movieCollection that didnt exist")
+        }
+        if !NSKeyedArchiver.archiveRootObject(collection, toFile: MovieCollection.archiveURL.path){
             os_log("Cannot save in %@", log: OSLog.default, type: .debug, MovieCollection.archiveURL.path)
         }
     }
