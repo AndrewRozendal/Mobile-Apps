@@ -177,6 +177,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="movieImage" destination="Lnh-zm-6yh" id="ghM-5O-vVa"/>
+                                    <outlet property="movieRating" destination="gLB-ib-12f" id="G6p-XC-AV0"/>
                                     <outlet property="movieTitle" destination="RNw-gb-kfC" id="VE9-Fx-5ib"/>
                                     <segue destination="z15-O6-Rro" kind="show" identifier="movieDetails" id="yG9-BO-fd6"/>
                                 </connections>
@@ -206,7 +207,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Add / Remove Favourite"/>
                                 <connections>
-                                    <action selector="rateMovie:" destination="z15-O6-Rro" eventType="touchUpInside" id="U82-r9-4TB"/>
                                     <action selector="updateFavourites:" destination="z15-O6-Rro" eventType="touchUpInside" id="9VC-UJ-KAH"/>
                                 </connections>
                             </button>

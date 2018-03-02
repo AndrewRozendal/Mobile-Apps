@@ -12,6 +12,7 @@ class MovieItemTableViewCell: UITableViewCell {
     // MARK: Properties
     @IBOutlet weak var movieImage: UIImageView!
     @IBOutlet weak var movieTitle: UILabel!
+    @IBOutlet weak var movieRating: RatingControl!
     
     // MARK: Delegate functions
     override func awakeFromNib() {
