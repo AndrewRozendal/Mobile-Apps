@@ -106,16 +106,14 @@ class SearchViewController: UIViewController {
                 // Destination was unable to be cast as MovieItemTableViewController
                 fatalError("Unexpected destination \(segue.destination)")
             }
-            var searchVal = searchField.text
-            if searchVal == nil {
-                //TODO: Handle no user value in text, they want all items in the selected genres
-                // Perhaps a boolean returnAllGenreResults.  If true, check each movie for valid genre, if so add it to result, skipping other logic checks
-                return
-            }
             
-            //TODO: Do not allow user to search with no genre switch selected.
-            // Perhaps check on toggle of a switch to ensure that at least one genre is selected, otherwise enable
-            // all genres switch
+            var searchVal = searchField.text
+            var isGenreOnlySearch = false
+            
+            // No user value was set, user is searching solely by genre
+            if searchVal == "" {
+                isGenreOnlySearch = true
+            }
             
             // Searches are not case sensitive
             searchVal = searchVal!.uppercased()
@@ -171,23 +169,31 @@ class SearchViewController: UIViewController {
                     }
                 }
                 
+                // If movie is in valid category, check search params
                 if isValid{
-                    var currentMovieAdded = false
-                    // title or both areas selected
-                    if searchArea.selectedSegmentIndex == 0 || searchArea.selectedSegmentIndex == 2 {
-                        if movie.title.uppercased().contains(searchVal!){
-                            movieCollection!.searchResults!.append(key)
-                            currentMovieAdded = true
-                        }
-                    }
-                    
-                    // Dont need to check if we added movie from title search
-                    // actor or both areas selected
-                    if !currentMovieAdded && (searchArea.selectedSegmentIndex == 1 || searchArea.selectedSegmentIndex == 2) {
-                        for actor in movie.actors {
-                            if actor.uppercased().contains(searchVal!){
+                    // Check if searching solely by genre - no search val
+                    // Append item, skipping search by value
+                    if isGenreOnlySearch {
+                        movieCollection!.searchResults!.append(key)
+                    } else {
+                        // Search with passed text value
+                        var currentMovieAdded = false
+                        // title or both areas selected
+                        if searchArea.selectedSegmentIndex == 0 || searchArea.selectedSegmentIndex == 2 {
+                            if movie.title.uppercased().contains(searchVal!){
                                 movieCollection!.searchResults!.append(key)
-                                //currentMovieAdded = true  //not necessary right now, but might be in future if another search area is added
+                                currentMovieAdded = true
+                            }
+                        }
+                        
+                        // Dont need to check if we added movie from title search
+                        // actor or both areas selected
+                        if !currentMovieAdded && (searchArea.selectedSegmentIndex == 1 || searchArea.selectedSegmentIndex == 2) {
+                            for actor in movie.actors {
+                                if actor.uppercased().contains(searchVal!){
+                                    movieCollection!.searchResults!.append(key)
+                                    //currentMovieAdded = true  //not necessary right now, but might be in future if another search area is added
+                                }
                             }
                         }
                     }
