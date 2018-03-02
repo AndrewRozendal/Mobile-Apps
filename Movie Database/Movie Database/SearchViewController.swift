@@ -64,6 +64,7 @@ class SearchViewController: UIViewController {
             documentaryGenre.setOn(false, animated: true)
             romanceGenre.setOn(false, animated: true)
             scifiGenre.setOn(false, animated: true)
+            allGenres.isEnabled = false
          }
     }
     
@@ -77,6 +78,7 @@ class SearchViewController: UIViewController {
         if selectedSwitch.isOn {
             // We are doing a genre specific search, toggle all genres off
             allGenres.setOn(false, animated: true)
+            allGenres.isEnabled = true
         } else {
             // Make sure we are not the last switch that was on.  If so, turn on all genres - a switch must be on at all times
             var aSwitchIsSet = false
@@ -90,6 +92,7 @@ class SearchViewController: UIViewController {
             //turn on all genres if nothing else is set
             if !aSwitchIsSet{
                 allGenres.setOn(true, animated: true)
+                allGenres.isEnabled = false
             }
         }
     }
