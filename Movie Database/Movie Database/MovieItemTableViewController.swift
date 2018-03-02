@@ -50,6 +50,11 @@ class MovieItemTableViewController: UITableViewController {
             count = collection.entireCollection.count
         } else if (currentState == States.Favourites) {
             count = collection.favourites.count
+        } else if (currentState == States.Search){
+            guard let searchResults = collection.searchResults else {
+                fatalError("In search state but searchResults not set")
+            }
+            count = searchResults.count
         } else {
             fatalError("CurrentState is an illegal state")
         }
@@ -77,6 +82,11 @@ class MovieItemTableViewController: UITableViewController {
             movie = collection.entireCollection[indexPath.row]
         } else if (currentState == States.Favourites) {
             movie = collection.entireCollection[collection.favourites[indexPath.row]]
+        } else if (currentState == States.Search) {
+            guard let searchResults = collection.searchResults else {
+                fatalError("State is search but searchResults was not set")
+            }
+            movie = collection.entireCollection[searchResults[indexPath.row]]
         } else {
             fatalError("CurrentState is an illegal state")
         }
@@ -137,6 +147,20 @@ class MovieItemTableViewController: UITableViewController {
                 }
                 if m.title == cellLabelText{
                     movieIndex = collection.favourites[i]
+                }
+            }
+        } else if (currentState == States.Search) {
+            // Search for matching Movie in searchResults and grab the index of the movie in the entireCollection
+            guard let searchResults = collection.searchResults else {
+                fatalError("State is search but searchResults was not set")
+            }
+            
+            for i in 0 ..< searchResults.count{
+                guard let m = collection.entireCollection[searchResults[i]] else {
+                    fatalError("Search Results had an id that was not a key in the entireCollection")
+                }
+                if m.title == cellLabelText{
+                    movieIndex = searchResults[i]
                 }
             }
         } else {

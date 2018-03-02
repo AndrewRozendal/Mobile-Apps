@@ -10,6 +10,10 @@ import UIKit
 import os
 
 class SearchViewController: UIViewController {
+    // MARK: Attributes
+    // The user input search field
+    @IBOutlet weak var searchField: UITextField!
+    // Reference to the movie db object
     var movieCollection: MovieCollection? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +30,7 @@ class SearchViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         super.prepare(for: segue, sender: sender)
         if segue.identifier == "searchSelected" {
-            
-            guard let collection = movieCollection else {
+            guard let collection = movieCollection?.entireCollection else {
                 fatalError("Movie collection was not initialized")
             }
             
@@ -35,15 +38,43 @@ class SearchViewController: UIViewController {
                 // Destination was unable to be cast as MovieItemTableViewController
                 fatalError("Unexpected destination \(segue.destination)")
             }
+            var searchVal = searchField.text
+            if searchVal == nil {
+                //TODO: Tell the user that you have to search for something
+                // OR: Do we let people refine by category here?
+                return
+            }
             
-            //TODO: Grab all movies that conform to search params and store in an array
-            //TODO: Update movieCollection.searchResults with the search results
+            // Searches are not case sensitive
+            searchVal = searchVal!.uppercased()
             
+            // Grab all movies that conform to search params and store in searchResult attribute of movieCollection
+            // clear all old results
+            movieCollection!.searchResults = [Int]()
+            for (key, movie) in collection {
+                // TODO: Detect user choice
+                let isTitleSearch = true
+                let isActorSearch = true
+                if isTitleSearch {
+                    if movie.title.uppercased().contains(searchVal!){
+                        movieCollection!.searchResults!.append(key)
+                    }
+                }
+                
+                if isActorSearch {
+                    for actor in movie.actors {
+                        if actor.uppercased().contains(searchVal!){
+                            movieCollection!.searchResults!.append(key)
+                        }
+                    }
+                }
+            }
+            
+            print(movieCollection!.searchResults!.count)
+
             // Pass data to new view
-            destination.movieCollection = collection
-            
-            //TODO: Update this to reflect Search State
-            destination.currentState = States.EntireCollection
+            destination.movieCollection = movieCollection
+            destination.currentState = States.Search
         }
     }
 

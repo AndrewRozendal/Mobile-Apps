@@ -13,12 +13,14 @@ class MovieCollection {
     let userName: String  // the user's name
     let entireCollection: [Int: Movie]  // a dictionary of all Movie objects.  Key is the Movie ID, value is the Movie
     var favourites: [Int]  // the index locations of favourite Movies contained in entireCollection
+    var searchResults: [Int]?  // the index locations of Movies that met a search criterea
     
     // Initialize a MovieCollection with the owner name, entireCollection and favourites
     init(userName: String, entireCollection: [Int: Movie], favourites: [Int]){
         self.userName = userName
         self.entireCollection = entireCollection
         self.favourites = favourites
+        self.searchResults = nil
     }
     
     // For testing
