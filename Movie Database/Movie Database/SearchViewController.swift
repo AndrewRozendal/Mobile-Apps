@@ -45,24 +45,16 @@ class SearchViewController: UIViewController {
     
     //MARK: Actions
     
+    // Called when all genre switch is toggled.  Turns all other switches to deselected if all genre switch is selected
     @IBAction func allGenresToggled(_ sender: Any) {
          if allGenres.isOn {
-             // Searching all genres
-             // Disable all genre options and set off
-             actionGenre.setOn(false, animated: true)
-             //actionGenre.isEnabled = false
-            
-             comedyGenre.setOn(false, animated: true)
-             //comedyGenre.isEnabled = false
-            
+            // Searching all genres
+            // Set all other genre options to deselected
+            actionGenre.setOn(false, animated: true)
+            comedyGenre.setOn(false, animated: true)
             documentaryGenre.setOn(false, animated: true)
-            //documentaryGenre.isEnabled = false
-            
-             romanceGenre.setOn(false, animated: true)
-             //romanceGenre.isEnabled = false
-            
-             scifiGenre.setOn(false, animated: true)
-             //scifiGenre.isEnabled = false
+            romanceGenre.setOn(false, animated: true)
+            scifiGenre.setOn(false, animated: true)
          }
     }
     
@@ -74,6 +66,7 @@ class SearchViewController: UIViewController {
         }
         
         if selectedSwitch.isOn {
+            // We are doing a genre specific search, toggle all genres off
             allGenres.setOn(false, animated: true)
         }
     }
@@ -100,45 +93,43 @@ class SearchViewController: UIViewController {
             // Searches are not case sensitive
             searchVal = searchVal!.uppercased()
             
+            // Whitelist genres we are allowed to search
+            var validGenres = [Genres]()
+            
+            // Check if allGenre switch is set
+            if allGenres.isOn {
+                validGenres.append(Genres.Action)
+                validGenres.append(Genres.Comedy)
+                validGenres.append(Genres.Documentary)
+                validGenres.append(Genres.Romance)
+                validGenres.append(Genres.SciFi)
+            } else {
+                // Check switches
+                if actionGenre.isOn && actionGenre.isEnabled {
+                    validGenres.append(Genres.Action)
+                }
+                
+                if comedyGenre.isOn && actionGenre.isEnabled {
+                    validGenres.append(Genres.Comedy)
+                }
+                
+                if documentaryGenre.isOn && documentaryGenre.isEnabled {
+                    validGenres.append(Genres.Documentary)
+                }
+                
+                if romanceGenre.isOn && romanceGenre.isEnabled {
+                    validGenres.append(Genres.Romance)
+                }
+                
+                if scifiGenre.isOn && scifiGenre.isEnabled {
+                    validGenres.append(Genres.SciFi)
+                }
+            }
+            
             // Grab all movies that conform to search params and store in searchResult attribute of movieCollection
             // clear all old results
             movieCollection!.searchResults = [Int]()
             for (key, movie) in collection {
-                // TODO: Make sure that not adding duplicate keys - if we find with one search, dont look again?
-
-                // Whitelist genres we are allowed to search
-                var validGenres = [Genres]()
-                
-                // Check if allGenre switch is set
-                if allGenres.isOn {
-                    validGenres.append(Genres.Action)
-                    validGenres.append(Genres.Comedy)
-                    validGenres.append(Genres.Documentary)
-                    validGenres.append(Genres.Romance)
-                    validGenres.append(Genres.SciFi)
-                } else {
-                    // Check switches
-                    if actionGenre.isOn && actionGenre.isEnabled {
-                        validGenres.append(Genres.Action)
-                    }
-                    
-                    if comedyGenre.isOn && actionGenre.isEnabled {
-                        validGenres.append(Genres.Comedy)
-                    }
-                    
-                    if documentaryGenre.isOn && documentaryGenre.isEnabled {
-                        validGenres.append(Genres.Documentary)
-                    }
-
-                    if romanceGenre.isOn && romanceGenre.isEnabled {
-                        validGenres.append(Genres.Romance)
-                    }
-                    
-                    if scifiGenre.isOn && scifiGenre.isEnabled {
-                        validGenres.append(Genres.SciFi)
-                    }
-                }
-                
                 // Check current movie to see if valid genre
                 var isValid = false
                 for genre in validGenres {
@@ -148,23 +139,26 @@ class SearchViewController: UIViewController {
                     }
                 }
                 
-                if !isValid {
-                    // Not a valid genre so skip rest of checks
-                    continue
-                }
-                
-                // title or both areas selected
-                if searchArea.selectedSegmentIndex == 0 || searchArea.selectedSegmentIndex == 2 {
-                    if movie.title.uppercased().contains(searchVal!){
-                        movieCollection!.searchResults!.append(key)
-                    }
-                }
-                
-                // actor or both areas selected
-                if searchArea.selectedSegmentIndex == 1 || searchArea.selectedSegmentIndex == 2 {
-                    for actor in movie.actors {
-                        if actor.uppercased().contains(searchVal!){
+                if isValid{
+                    var currentMovieAdded = false
+                    // title or both areas selected
+                    if searchArea.selectedSegmentIndex == 0 || searchArea.selectedSegmentIndex == 2 {
+                        if movie.title.uppercased().contains(searchVal!){
                             movieCollection!.searchResults!.append(key)
+                            currentMovieAdded = true
+                        }
+                    }
+                    
+                    
+                    
+                    // Dont need to check if we added movie from title search
+                    // actor or both areas selected
+                    if !currentMovieAdded && (searchArea.selectedSegmentIndex == 1 || searchArea.selectedSegmentIndex == 2) {
+                        for actor in movie.actors {
+                            if actor.uppercased().contains(searchVal!){
+                                movieCollection!.searchResults!.append(key)
+                                //currentMovieAdded = true  //not necessary right now, but might be in future if another search area is added
+                            }
                         }
                     }
                 }
