@@ -30,12 +30,22 @@ class SearchViewController: UIViewController {
     
     @IBOutlet weak var documentaryGenre: UISwitch!
     
+    // Stores all switches so we can iterate over them
+    var switches = [UISwitch]()
     
     //MARK: Delegate functions
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        // Add all switches so we can iterate over them later
+        switches.append(allGenres)
+        switches.append(actionGenre)
+        switches.append(comedyGenre)
+        switches.append(romanceGenre)
+        switches.append(scifiGenre)
+        switches.append(documentaryGenre)
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,6 +78,20 @@ class SearchViewController: UIViewController {
         if selectedSwitch.isOn {
             // We are doing a genre specific search, toggle all genres off
             allGenres.setOn(false, animated: true)
+        } else {
+            // Make sure we are not the last switch that was on.  If so, turn on all genres - a switch must be on at all times
+            var aSwitchIsSet = false
+            for s in switches {
+                if s.isOn {
+                    aSwitchIsSet = true
+                    break
+                }
+            }
+            
+            //turn on all genres if nothing else is set
+            if !aSwitchIsSet{
+                allGenres.setOn(true, animated: true)
+            }
         }
     }
     
@@ -128,6 +152,11 @@ class SearchViewController: UIViewController {
                 if scifiGenre.isOn && scifiGenre.isEnabled {
                     validGenres.append(Genres.SciFi)
                 }
+            }
+            
+            if validGenres.isEmpty {
+                // TODO: Tell the user this is not allowed?
+                // OR: All genre search?
             }
             
             // Grab all movies that conform to search params and store in searchResult attribute of movieCollection
