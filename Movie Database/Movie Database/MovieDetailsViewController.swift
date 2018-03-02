@@ -59,7 +59,10 @@ class MovieDetailsViewController: UIViewController {
         
         self.movieTitle.text = m.title
         self.movieImage.image = m.image
+        
+        // Handle that comments can be long - ie multiline - by resizing label after adding text
         self.movieComments.text = m.comments
+        self.movieComments.sizeToFit()
         
         // Let RatingControl know about the current instance
         self.movieRating.rating = m.rating
