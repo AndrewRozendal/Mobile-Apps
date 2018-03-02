@@ -85,10 +85,14 @@ class SearchViewController: UIViewController {
             }
             var searchVal = searchField.text
             if searchVal == nil {
-                //TODO: Tell the user that you have to search for something
-                // OR: Do we let people refine by category here?
+                //TODO: Handle no user value in text, they want all items in the selected genres
+                // Perhaps a boolean returnAllGenreResults.  If true, check each movie for valid genre, if so add it to result, skipping other logic checks
                 return
             }
+            
+            //TODO: Do not allow user to search with no genre switch selected.
+            // Perhaps check on toggle of a switch to ensure that at least one genre is selected, otherwise enable
+            // all genres switch
             
             // Searches are not case sensitive
             searchVal = searchVal!.uppercased()
