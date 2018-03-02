@@ -11,26 +11,25 @@ import os
 
 class SearchViewController: UIViewController {
     // MARK: Attributes
+    
     // The user input search field
     @IBOutlet weak var searchField: UITextField!
+    
     // Reference to the movie db object
     var movieCollection: MovieCollection? = nil
     
+    // Segments for user to select search areas
     @IBOutlet weak var searchArea: UISegmentedControl!
     
+    // Switches for genre searchs
     @IBOutlet weak var allGenres: UISwitch!
-    
     @IBOutlet weak var actionGenre: UISwitch!
-    
     @IBOutlet weak var comedyGenre: UISwitch!
-    
     @IBOutlet weak var romanceGenre: UISwitch!
-    
     @IBOutlet weak var scifiGenre: UISwitch!
-    
     @IBOutlet weak var documentaryGenre: UISwitch!
     
-    // Stores all switches so we can iterate over them
+    // Stores a reference to all switches so we can iterate over them
     var switches = [UISwitch]()
     
     //MARK: Delegate functions
@@ -181,8 +180,6 @@ class SearchViewController: UIViewController {
                             currentMovieAdded = true
                         }
                     }
-                    
-                    
                     
                     // Dont need to check if we added movie from title search
                     // actor or both areas selected
