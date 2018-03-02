@@ -42,7 +42,8 @@ class MovieCollection {
             1: Movie(id: 1, title: "Titanic", genres: [Genres.Romance], actors: ["Leo"], rating: 3, isFavourite: false, comments: "Very sad :(", image: #imageLiteral(resourceName: "titanic")),
             2: Movie(id: 2, title: "Saving Private Ryan", genres: [Genres.Action], actors: ["Tom Hanks"], rating: 5, isFavourite: true, comments: "A classic", image: #imageLiteral(resourceName: "savingPrivateRyan")),
             3: Movie(id: 3, title: "Star Wars Episode I", genres: [Genres.SciFi], actors: ["Mark"], rating: 4, isFavourite: false, comments: "First prequel movie", image: #imageLiteral(resourceName: "starwarsI")),
-            4: Movie(id: 4, title: "Star Wars Episode II", genres: [Genres.SciFi], actors: ["Mark"], rating: 4, isFavourite: false, comments: "Second prequel movie", image: #imageLiteral(resourceName: "starwarsII"))
+            4: Movie(id: 4, title: "Star Wars Episode II", genres: [Genres.SciFi], actors: ["Mark"], rating: 4, isFavourite: false, comments: "Second prequel movie", image: #imageLiteral(resourceName: "starwarsII")),
+            5: Movie(id: 5, title: "Avatar", genres: [Genres.Action, Genres.SciFi], actors: ["Jane", "Jon", "Mary"], rating: 3, isFavourite: false, comments: "This is a really long test comment.  This is to test that multi-line comments work.", image: #imageLiteral(resourceName: "avatar"))
         ]
         return collection
     }
