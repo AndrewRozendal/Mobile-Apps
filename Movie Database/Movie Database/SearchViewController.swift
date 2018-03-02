@@ -15,6 +15,8 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchField: UITextField!
     // Reference to the movie db object
     var movieCollection: MovieCollection? = nil
+    
+    //MARK: Delegate functions
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,7 +28,7 @@ class SearchViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    //MARK: Actions
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         super.prepare(for: segue, sender: sender)
         if segue.identifier == "searchSelected" {
@@ -53,6 +55,7 @@ class SearchViewController: UIViewController {
             movieCollection!.searchResults = [Int]()
             for (key, movie) in collection {
                 // TODO: Detect user choice
+                // TODO: Make sure that not adding duplicate keys - if we find with one search, dont look again?
                 let isTitleSearch = true
                 let isActorSearch = true
                 if isTitleSearch {
@@ -70,8 +73,6 @@ class SearchViewController: UIViewController {
                 }
             }
             
-            print(movieCollection!.searchResults!.count)
-
             // Pass data to new view
             destination.movieCollection = movieCollection
             destination.currentState = States.Search
