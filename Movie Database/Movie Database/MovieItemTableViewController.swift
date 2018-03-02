@@ -109,78 +109,86 @@ class MovieItemTableViewController: UITableViewController {
     // object which contains the required logic
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        guard let selectedCell = sender as? MovieItemTableViewCell else {
-            // The sender is not a MovieItemTableViewCell
-            fatalError("Unexpected sender \(String(describing: sender))")
-        }
-        
-        guard let cellLabelText = selectedCell.movieTitle.text else {
-            // The text on the label of the selected cell is nil
-            fatalError("Selected cell has no label with text")
-        }
-        
-        guard let collection = movieCollection else {
-            fatalError("Movie Collection is nil - should have been passed from previous page")
-        }
-        
-        if currentState == nil {
-            // CurrentState was not set properly
-            fatalError("State not set for table - no context of what to show")
-        }
-        
-        //Store found index
-        var movieIndex: Int?
-        
-        if(currentState == States.EntireCollection){
-            // Search for matching Movie in the entireCollection and grab index
-            for (id, movie) in collection.entireCollection {
-                if movie.title == cellLabelText{
-                    movieIndex = id
-                    break
-                }
+        if segue.identifier == "homeScreen"{
+            guard let destination = segue.destination.childViewControllers[0] as? HomeScreenViewController else {
+                // Destination was unable to be cast as HomeScreenViewController
+                fatalError("Unexpected destination \(segue.destination)")
             }
-        } else if (currentState == States.Favourites) {
-            // Search for matching Movie in favourites and grab the index of the movie in the entireCollection
-            for i in 0 ..< collection.favourites.count{
-                guard let m = collection.entireCollection[collection.favourites[i]] else {
-                    fatalError("Favourites had an id that was not a key in the entireCollection")
-                }
-                if m.title == cellLabelText{
-                    movieIndex = collection.favourites[i]
-                }
+            destination.movieCollection = movieCollection
+        } else if segue.identifier == "movieDetails" {
+            guard let selectedCell = sender as? MovieItemTableViewCell else {
+                // The sender is not a MovieItemTableViewCell
+                fatalError("Unexpected sender \(String(describing: sender))")
             }
-        } else if (currentState == States.Search) {
-            // Search for matching Movie in searchResults and grab the index of the movie in the entireCollection
-            guard let searchResults = collection.searchResults else {
-                fatalError("State is search but searchResults was not set")
-            }
-            
-            for i in 0 ..< searchResults.count{
-                guard let m = collection.entireCollection[searchResults[i]] else {
-                    fatalError("Search Results had an id that was not a key in the entireCollection")
-                }
-                if m.title == cellLabelText{
-                    movieIndex = searchResults[i]
-                }
-            }
-        } else {
-            fatalError("CurrentState is an illegal state")
-        }
         
-        guard let i = movieIndex else {
-            // movie index was never initialized
-            os_log("Movie Index was not set properly", log: OSLog.default, type: .debug)
-            return
-        }
+            guard let cellLabelText = selectedCell.movieTitle.text else {
+                // The text on the label of the selected cell is nil
+                fatalError("Selected cell has no label with text")
+            }
+        
+            guard let collection = movieCollection else {
+                fatalError("Movie Collection is nil - should have been passed from previous page")
+            }
+        
+            if currentState == nil {
+                // CurrentState was not set properly
+                fatalError("State not set for table - no context of what to show")
+            }
+        
+            //Store found index
+            var movieIndex: Int?
+        
+            if(currentState == States.EntireCollection){
+                // Search for matching Movie in the entireCollection and grab index
+                for (id, movie) in collection.entireCollection {
+                    if movie.title == cellLabelText{
+                        movieIndex = id
+                        break
+                    }
+                }
+            } else if (currentState == States.Favourites) {
+                // Search for matching Movie in favourites and grab the index of the movie in the entireCollection
+                for i in 0 ..< collection.favourites.count{
+                    guard let m = collection.entireCollection[collection.favourites[i]] else {
+                        fatalError("Favourites had an id that was not a key in the entireCollection")
+                    }
+                    if m.title == cellLabelText{
+                        movieIndex = collection.favourites[i]
+                    }
+                }
+            } else if (currentState == States.Search) {
+                // Search for matching Movie in searchResults and grab the index of the movie in the entireCollection
+                guard let searchResults = collection.searchResults else {
+                    fatalError("State is search but searchResults was not set")
+                }
+                
+                for i in 0 ..< searchResults.count{
+                    guard let m = collection.entireCollection[searchResults[i]] else {
+                        fatalError("Search Results had an id that was not a key in the entireCollection")
+                    }
+                    if m.title == cellLabelText{
+                        movieIndex = searchResults[i]
+                    }
+                }
+            } else {
+                fatalError("CurrentState is an illegal state")
+            }
+        
+            guard let i = movieIndex else {
+                // movie index was never initialized
+                os_log("Movie Index was not set properly", log: OSLog.default, type: .debug)
+                return
+            }
 
-        guard let destination = segue.destination as? MovieDetailsViewController else {
-            // Destination was unable to be cast as MovieDetailsViewController
-            fatalError("Unexpected destination \(segue.destination)")
-        }
+            guard let destination = segue.destination as? MovieDetailsViewController else {
+                // Destination was unable to be cast as MovieDetailsViewController
+                fatalError("Unexpected destination \(segue.destination)")
+            }
         
-        destination.currentMovieIndex = i
-        destination.movieCollection = movieCollection
-        destination.currentState = currentState
+            destination.currentMovieIndex = i
+            destination.movieCollection = movieCollection
+            destination.currentState = currentState
+        }
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -200,6 +208,7 @@ class MovieItemTableViewController: UITableViewController {
         case States.Search:
             text = "Search Results"
         // This should never be executed - here in case we add a State to States and forget to handle.
+        //#pragma
         default: fatalError("currentState was not valid")
             
         }

@@ -53,7 +53,7 @@ class HomeScreenViewController: UIViewController {
                 fatalError("Movie collection was not initialized")
             }
             
-            guard let destination = segue.destination as? MovieItemTableViewController else {
+            guard let destination = segue.destination.childViewControllers[0] as? MovieItemTableViewController else {
                 // Destination was unable to be cast as MovieItemTableViewController
                 fatalError("Unexpected destination \(segue.destination)")
             }
@@ -68,7 +68,7 @@ class HomeScreenViewController: UIViewController {
                 fatalError("Movie collection was not initialized")
             }
             
-            guard let destination = segue.destination as? MovieItemTableViewController else {
+            guard let destination = segue.destination.childViewControllers[0] as? MovieItemTableViewController else {
                 // Destination was unable to be cast as MovieItemTableViewController
                 fatalError("Unexpected destination \(segue.destination)")
             }
