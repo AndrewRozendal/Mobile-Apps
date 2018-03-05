@@ -141,5 +141,18 @@ class MovieDetailsViewController: UIViewController {
             movieCollection?.favourites.append(index)
             self.updateNotification.text = "Added to Favourites!"
         }
+        
+        // Regardless of action, save to make changes persistant!
+        save()
+    }
+    
+    private func save(){
+        // Enable saving
+        guard let collection = movieCollection else {
+            fatalError("Tried to save a movieCollection that didnt exist")
+        }
+        if !NSKeyedArchiver.archiveRootObject(collection, toFile: MovieCollection.archiveURL.path){
+            os_log("Cannot save in %@", log: OSLog.default, type: .debug, MovieCollection.archiveURL.path)
+        }
     }
 }

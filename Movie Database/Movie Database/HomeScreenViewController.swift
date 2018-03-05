@@ -17,8 +17,16 @@ class HomeScreenViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         if movieCollection == nil {
-            print("reloading")
-            movieCollection = MovieCollection(testing: true)
+            print("loading")
+            if let restored = loadItems(){
+                print("loaded saved collection")
+                // Succesfully loaded saved collection
+                movieCollection = restored
+            } else {
+                print("first time user, generating collection with static methods")
+                // First time user, generate with static methods
+                movieCollection = MovieCollection(userName: "newUser", entireCollection: MovieCollection.generateCollection(), favourites: MovieCollection.generateFavourites())
+            }
         } else {
             print("not reloading")
         }
@@ -95,16 +103,6 @@ class HomeScreenViewController: UIViewController {
             
             // Pass data to new view
             destination.movieCollection = collection
-        }
-    }
-        
-    // Enable saving
-    func saveItems(){
-        guard let collection = movieCollection else {
-            fatalError("Tried to save a movieCollection that didnt exist")
-        }
-        if !NSKeyedArchiver.archiveRootObject(collection, toFile: MovieCollection.archiveURL.path){
-            os_log("Cannot save in %@", log: OSLog.default, type: .debug, MovieCollection.archiveURL.path)
         }
     }
     

@@ -9,7 +9,7 @@
 import Foundation
 import os
 
-class MovieCollection {
+class MovieCollection: NSObject, NSCoding{
     // For saving
     class PropertyKey{
         static let userName = "userName"
@@ -31,19 +31,7 @@ class MovieCollection {
         self.searchResults = nil
     }
     
-    // For testing
-    convenience init?(testing: Bool){
-        if testing {
-            let userName = "testing"
-            let entireCollection = MovieCollection.generateCollection()
-            let favourites = MovieCollection.generateFavourites()
-            self.init(userName: userName, entireCollection: entireCollection, favourites: favourites)
-        } else {
-            fatalError("This method must not be called if not testing")
-        }
-    }
-    
-    // For testing
+    // Static method that populates a Dictionary with pre-defined Movies.  This should be used in conjunction with the static generateFavourites() method since it generates Movies that are favourites that need to be added to the favourites array.
     static func generateCollection() -> [Int: Movie]{
         let collection: [Int: Movie] = [
             0: Movie(id: 0, title: "testTitle", genres: [Genres.Action, Genres.Comedy], actors: ["Jenniffer", "Bob"], rating: 5, isFavourite: true, comments: "This is a great movie!!!"),
@@ -58,9 +46,9 @@ class MovieCollection {
         return collection
     }
     
-    // For testing
+    // Static method that populates an array with the ids of Favourites.  This should be used in conjunction with the static generateCollection() method since it generates Favourites that match that collection.
     static func generateFavourites() -> [Int]{
-        let favourites: [Int] = [0]
+        let favourites: [Int] = [0, 2, 6, 7]
         return favourites
     }
     
