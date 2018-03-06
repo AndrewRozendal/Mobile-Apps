@@ -73,8 +73,13 @@ class Movie: NSObject, NSCoding{
             return nil
         }
         
-        guard let genres = aDecoder.decodeObject(forKey: PropertyKey.genres) as? [Genres] else {
-            os_log("Missing genres", log: OSLog.default, type: .debug)
+        guard let genresString = aDecoder.decodeObject(forKey: PropertyKey.genres) as? [String] else {
+            os_log("Missing genres - unable to convert to [String]", log: OSLog.default, type: .debug)
+            return nil
+        }
+        
+        guard let genres = genresString.map({Genres(rawValue: $0)}) as? [Genres] else {
+            os_log("Missing genres - unable to convert from [String] to [Genres]", log: OSLog.default, type: .debug)
             return nil
         }
         
