@@ -52,7 +52,8 @@ class Movie: NSObject, NSCoding{
     func encode(with aCoder: NSCoder) {
         aCoder.encode(id, forKey: PropertyKey.id)
         aCoder.encode(title, forKey: PropertyKey.title)
-        aCoder.encode(genres, forKey: PropertyKey.genres)
+        let genreStrings = genres.map({$0.rawValue})
+        aCoder.encode(genreStrings, forKey: PropertyKey.genres)
         aCoder.encode(actors, forKey: PropertyKey.actors)
         aCoder.encode(rating, forKey: PropertyKey.rating)
         aCoder.encode(isFavourite, forKey: PropertyKey.isFavourite)
@@ -62,7 +63,7 @@ class Movie: NSObject, NSCoding{
     
     // For loading
     required convenience init?(coder aDecoder: NSCoder) {
-        guard let id = aDecoder.decodeObject(forKey: PropertyKey.id) as? Int else {
+        guard let id = aDecoder.decodeInteger(forKey: PropertyKey.id) as? Int else {
             os_log("Missing id", log: OSLog.default, type: .debug)
             return nil
         }
@@ -82,12 +83,12 @@ class Movie: NSObject, NSCoding{
             return nil
         }
         
-        guard let rating = aDecoder.decodeObject(forKey: PropertyKey.rating) as? Int else {
+        guard let rating = aDecoder.decodeInteger(forKey: PropertyKey.rating) as? Int else {
             os_log("Missing rating", log: OSLog.default, type: .debug)
             return nil
         }
         
-        guard let isFavourite = aDecoder.decodeObject(forKey: PropertyKey.isFavourite) as? Bool else {
+        guard let isFavourite = aDecoder.decodeBool(forKey: PropertyKey.isFavourite) as? Bool else {
             os_log("Missing isFavourite", log: OSLog.default, type: .debug)
             return nil
         }

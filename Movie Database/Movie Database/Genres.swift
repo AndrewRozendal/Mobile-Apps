@@ -9,7 +9,7 @@
 import Foundation
 
 // All genre types
-enum Genres: String, Codable {
+enum Genres: String {
     case Action
     case Comedy
     case Romance
