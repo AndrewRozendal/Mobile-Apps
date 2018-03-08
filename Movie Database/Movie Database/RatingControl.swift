@@ -10,32 +10,45 @@
 
 import UIKit
 
+// UIStackView that enables user to view the current rating of a movie and update it
 @IBDesignable class RatingControl: UIStackView {
     //MARK: Properties
+    
+    // Holds all rating buttons in the Rating Control
     private var ratingButtons = [UIButton]()
+    // Holds all rating images in the Rating Control
     private var ratingImages = [UIImageView]()
+    // Used to enable saving in parent
+    var parentViewController: MovieDetailsViewController?
     
     // Holds whether the RatingControl is interactive or just informative
     // Defaults to informative
+    // When changed, rebuild the rating icons
     var desiredFunctionality = Functionality.Info{
         didSet{
             setupIcons()
         }
     }
+    // The current movie
     var currentMovie: Movie? = nil
     
+    // The rating for the current movie.
+    // Rebuild the rating icons whenever this is changed
     var rating = 0 {
         didSet {
             updateIconStates()
         }
     }
     
+    //Support editing in XCode with IBInspectable
+    // Set starSize and whenever changed rebuild the icons
     @IBInspectable var starSize: CGSize = CGSize(width: 44.0, height: 44.0) {
         didSet {
             setupIcons()
         }
     }
     
+    // Set number of stars and rebuild the icons
     @IBInspectable var starCount: Int = 5 {
         didSet {
             setupIcons()
@@ -44,16 +57,19 @@ import UIKit
     
     
     // MARK: Initializers
+    // For initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupIcons()
     }
     
+    // For loading
     required init(coder: NSCoder) {
         super.init(coder: coder)
         setupIcons()
     }
     
+    //Rebuilds all icons/buttons in the rating control
     private func setupIcons() {
         // clear any existing buttons
         for button in ratingButtons {
@@ -80,7 +96,8 @@ import UIKit
             for _ in 0..<starCount {
                 // Create the button
                 let button = UIButton()
-                // Set the button images
+                
+                // Set the button images for each context
                 button.setImage(emptyStar, for: .normal)
                 button.setImage(filledStar, for: .selected)
                 button.setImage(highlightedStar, for: .highlighted)
@@ -126,8 +143,11 @@ import UIKit
         }
     }
     
+    // When a rating button is tapped, this function updates the rating control to reflect the change
+    // and asks its parent to save the change.
     @objc func ratingButtonTapped(button: UIButton) {
         guard let index = ratingButtons.index(of: button) else {
+            // Could not find the button in our rating buttons
             fatalError("The button, \(button), is not in the ratingButtons array: \(ratingButtons)")
         }
         
@@ -145,6 +165,7 @@ import UIKit
         }
     }
     
+    // Sets the state of each button to reflect the current rating
     private func updateIconStates() {
         if desiredFunctionality == Functionality.Clickable{
             for (index, button) in ratingButtons.enumerated() {
@@ -157,10 +178,19 @@ import UIKit
         }
     }
     
+    // Update the rating in the Movie object stored in the movieCollection and then ask
+    // parent view to save the collection
     private func updateDataModel(){
         guard let m = currentMovie else {
+            // we dont have a movie object
             fatalError("Tried to update a Movie without an instance")
         }
         m.rating = rating
+        guard let parent = self.parentViewController else {
+            // Parent property was not set properly by parent
+            // This likely means we have a parent that is not a DetailViewController
+            fatalError("Rating control tried to save with a parent controller that did not support it")
+        }
+        parent.save()
     }
 }

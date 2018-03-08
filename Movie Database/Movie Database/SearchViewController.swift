@@ -71,6 +71,7 @@ class SearchViewController: UIViewController {
     // All Genre specific Switches call this (except the allGenres switch does not, it has its own fn()  If the sending switch is on, turn all genres off
     @IBAction func genreToggled(_ sender: Any) {
         guard  let selectedSwitch = sender as? UISwitch else {
+            // sender was not an expected UISwitch
             os_log("Sender was not a UISwitch", log: OSLog.default, type: .debug)
             return
         }
@@ -97,11 +98,12 @@ class SearchViewController: UIViewController {
         }
     }
     
-    
+    // Before we navigate, search the movieCollection and store the results in the movieCollection object
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         super.prepare(for: segue, sender: sender)
         if segue.identifier == "searchSelected" {
             guard let collection = movieCollection?.entireCollection else {
+                // collection is not there
                 fatalError("Movie collection was not initialized")
             }
             
@@ -155,8 +157,8 @@ class SearchViewController: UIViewController {
             }
             
             if validGenres.isEmpty {
-                // TODO: Tell the user this is not allowed?
-                // OR: All genre search?
+                // Default to all genre search
+                isGenreOnlySearch = true
             }
             
             // Grab all movies that conform to search params and store in searchResult attribute of movieCollection

@@ -8,8 +8,9 @@
 
 import Foundation
 
+// Used to track the current state of the Movie Database App
 enum States {
-    case EntireCollection
-    case Favourites
-    case Search
+    case EntireCollection // We are browsing
+    case Favourites // We are looking at Favourites
+    case Search // We are looking at search results
 }

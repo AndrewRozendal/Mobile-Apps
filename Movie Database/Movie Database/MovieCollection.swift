@@ -9,23 +9,27 @@
 import Foundation
 import os
 
+// Represents the entire MovieCollection and associated data.  This includes a dictionary with the entire movie collection,
+// an array that holds the ids of all favourites, and search results when required.
 class MovieCollection: NSObject, NSCoding{
     // For saving
     class PropertyKey{
-        static let userName = "userName"
         static let entireCollection = "entireCollection"
         static let favourites = "favourites"
     }
     
     // Properties
-    let userName: String  // the user's name
     let entireCollection: [Int: Movie]  // a dictionary of all Movie objects.  Key is the Movie ID, value is the Movie
     var favourites: [Int]  // the index locations of favourite Movies contained in entireCollection
     var searchResults: [Int]?  // the index locations of Movies that met a search criterea
     
-    // Initialize a MovieCollection with the owner name, entireCollection and favourites
-    init(userName: String, entireCollection: [Int: Movie], favourites: [Int]){
-        self.userName = userName
+    // Initialize a MovieCollection the entireCollection and favourites
+    // The entire collection should be a Dictionary of Int:Movie where the Int is the id of the movie.
+    // The favourites should be an array of Int where the Int is the id of the favourite movie.
+    // Both of these must be consistent with one another or the app will crash!
+    // You can use the static helper methods to generate each of these - note: these static methods should only be used
+    // in combination with the other since they must be consistent with one another!
+    init(entireCollection: [Int: Movie], favourites: [Int]){
         self.entireCollection = entireCollection
         self.favourites = favourites
         self.searchResults = nil
@@ -56,27 +60,25 @@ class MovieCollection: NSObject, NSCoding{
     static let documentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     static let archiveURL = documentsDirectory.appendingPathComponent("movieCollection")
     
+    // Enable loading
     required convenience init?(coder aDecoder: NSCoder){
-        guard let name = aDecoder.decodeObject(forKey: PropertyKey.userName) as? String else {
-            os_log("Missing userName", log: OSLog.default, type: .debug)
-            return nil
-        }
-        
         guard let collection = aDecoder.decodeObject(forKey: PropertyKey.entireCollection) as? [Int: Movie] else {
+            // collection could not be loaded
             os_log("Missing movie collection", log: OSLog.default, type: .debug)
             return nil
         }
         
         guard let favourites = aDecoder.decodeObject(forKey: PropertyKey.favourites) as? [Int] else {
+            // favourites could not be loaded
             os_log("Missing favourites list", log: OSLog.default, type: .debug)
             return nil
         }
         
-        self.init(userName: name, entireCollection: collection, favourites: favourites)
+        self.init(entireCollection: collection, favourites: favourites)
     }
     
+    // Enable saving
     func encode(with aCoder: NSCoder){
-        aCoder.encode(userName, forKey: PropertyKey.userName)
         aCoder.encode(entireCollection, forKey: PropertyKey.entireCollection)
         aCoder.encode(favourites, forKey: PropertyKey.favourites)
     }

@@ -8,8 +8,8 @@
 
 import Foundation
 
-// Used to determine if Interactive or not
+// Used to determine the current functionality of an object.
 enum Functionality {
-    case Info
-    case Clickable
+    case Info // static display, no interaction
+    case Clickable  // should allow user interaction
 }

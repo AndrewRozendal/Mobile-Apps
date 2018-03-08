@@ -9,6 +9,8 @@
 import UIKit
 import os
 
+// UITableViewController used to view the current relevant movies.  This can be all the movies in the collection,
+// all the user's favourite movies or the movies that make up the search result of a user.
 class MovieItemTableViewController: UITableViewController {
     
     // MARK: Properties
@@ -32,8 +34,7 @@ class MovieItemTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
-
+    // Get the current count of Movie objects in the table
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // return the number of rows
         guard let collection = movieCollection else {
@@ -65,10 +66,12 @@ class MovieItemTableViewController: UITableViewController {
     // Recycle table view cells for efficiency reasons
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MovieItemTableViewCell else {
+            // cell is wrong type
             fatalError("Selected cell in not of type \(cellIdentifier)")
         }
         
         guard let collection = movieCollection else {
+            // MovieCollection was not set properly
             fatalError("Movie Collection is nil - should have been passed from previous page")
         }
         
@@ -77,6 +80,7 @@ class MovieItemTableViewController: UITableViewController {
             fatalError("State not set for table - no context of what to show")
         }
         
+        // Grab the current movie instance
         var movie: Movie?
         if(currentState == States.EntireCollection){
             movie = collection.entireCollection[indexPath.row]
@@ -84,14 +88,17 @@ class MovieItemTableViewController: UITableViewController {
             movie = collection.entireCollection[collection.favourites[indexPath.row]]
         } else if (currentState == States.Search) {
             guard let searchResults = collection.searchResults else {
+                // No search results
                 fatalError("State is search but searchResults was not set")
             }
             movie = collection.entireCollection[searchResults[indexPath.row]]
         } else {
+            // unexpected state
             fatalError("CurrentState is an illegal state")
         }
         
         guard let m = movie else {
+            // we dont have a movie instance
             fatalError("Movie key was not a valid key in the Movie Dictionary")
         }
         
@@ -127,6 +134,7 @@ class MovieItemTableViewController: UITableViewController {
             }
         
             guard let collection = movieCollection else {
+                // MovieCollection was not set properly
                 fatalError("Movie Collection is nil - should have been passed from previous page")
             }
         
@@ -142,6 +150,7 @@ class MovieItemTableViewController: UITableViewController {
                 // Search for matching Movie in the entireCollection and grab index
                 for (id, movie) in collection.entireCollection {
                     if movie.title == cellLabelText{
+                        // this is our matching movie, get the index
                         movieIndex = id
                         break
                     }
@@ -150,20 +159,24 @@ class MovieItemTableViewController: UITableViewController {
                 // Search for matching Movie in favourites and grab the index of the movie in the entireCollection
                 for i in 0 ..< collection.favourites.count{
                     guard let m = collection.entireCollection[collection.favourites[i]] else {
+                        // favourite id does not match any movie id in the collection
                         fatalError("Favourites had an id that was not a key in the entireCollection")
                     }
                     if m.title == cellLabelText{
+                        // this is our matching movie, get the index
                         movieIndex = collection.favourites[i]
                     }
                 }
             } else if (currentState == States.Search) {
                 // Search for matching Movie in searchResults and grab the index of the movie in the entireCollection
                 guard let searchResults = collection.searchResults else {
+                    // collection has no serachResults
                     fatalError("State is search but searchResults was not set")
                 }
                 
                 for i in 0 ..< searchResults.count{
                     guard let m = collection.entireCollection[searchResults[i]] else {
+                        // id doesnt match any collection id
                         fatalError("Search Results had an id that was not a key in the entireCollection")
                     }
                     if m.title == cellLabelText{
@@ -171,6 +184,7 @@ class MovieItemTableViewController: UITableViewController {
                     }
                 }
             } else {
+                // unexpected state
                 fatalError("CurrentState is an illegal state")
             }
         

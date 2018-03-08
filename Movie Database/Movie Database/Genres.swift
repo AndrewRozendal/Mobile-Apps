@@ -8,7 +8,7 @@
 
 import Foundation
 
-// All genre types
+// Used to identify the Genre for a Movie
 enum Genres: String {
     case Action
     case Comedy
