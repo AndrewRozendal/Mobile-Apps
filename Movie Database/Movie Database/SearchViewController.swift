@@ -2,7 +2,7 @@
 //  SearchViewController.swift
 //  Movie Database
 //
-//  Created by MacBook on 2018-02-28.
+//  Created by Andrew Rozendal 08 March 2018
 //  Copyright © 2018 Camosun. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import UIKit
 import os
 
 class SearchViewController: UIViewController {
-    // MARK: Attributes
+    // MARK: Properties
     
     // The user input search field
     @IBOutlet weak var searchField: UITextField!

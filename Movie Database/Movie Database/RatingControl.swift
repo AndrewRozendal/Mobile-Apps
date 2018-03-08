@@ -2,7 +2,7 @@
 //  RatingControl.swift
 //  Movie Database
 //
-//  Created by MacBook on 2018-03-01.
+//  Created by Andrew Rozendal 08 March 2018
 //  Copyright © 2018 Camosun. All rights reserved.
 //
 //  See https://developer.apple.com/library/content/referencelibrary/GettingStarted/DevelopiOSAppsSwift/ImplementingACustomControl.html#//apple_ref/doc/uid/TP40015214-CH19-SW1 for implementation details

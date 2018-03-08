@@ -2,7 +2,7 @@
 //  Movie.swift
 //  Movie Database
 //
-//  Created by MacBook on 2018-02-22.
+//  Created by Andrew Rozendal 08 March 2018
 //  Copyright © 2018 Camosun. All rights reserved.
 //
 
@@ -69,12 +69,6 @@ class Movie: NSObject, NSCoding{
     // For loading
     required convenience init?(coder aDecoder: NSCoder) {
         let id = aDecoder.decodeInteger(forKey: PropertyKey.id)
-        /*
-        guard let id = aDecoder.decodeInteger(forKey: PropertyKey.id) as? Int else {
-            os_log("Missing id", log: OSLog.default, type: .debug)
-            return nil
-        }
-         */
         
         guard let title = aDecoder.decodeObject(forKey: PropertyKey.title) as? String else {
             // title was missing
@@ -104,22 +98,8 @@ class Movie: NSObject, NSCoding{
         }
         
         let rating = aDecoder.decodeInteger(forKey: PropertyKey.rating)
-        /*
-        guard let rating = aDecoder.decodeInteger(forKey: PropertyKey.rating) as? Int else {
-            // rating was missing
-            os_log("Missing rating", log: OSLog.default, type: .debug)
-            return nil
-        }
-        */
         
         let isFavourite = aDecoder.decodeBool(forKey: PropertyKey.isFavourite)
-        /*
-        guard let isFavourite = aDecoder.decodeBool(forKey: PropertyKey.isFavourite) as? Bool else {
-            // favourite was missing
-            os_log("Missing isFavourite", log: OSLog.default, type: .debug)
-            return nil
-        }
-        */
         
         guard let comments = aDecoder.decodeObject(forKey: PropertyKey.comments) as? String else {
             // comments was missing

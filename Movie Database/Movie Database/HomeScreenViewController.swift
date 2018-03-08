@@ -2,7 +2,7 @@
 //  HomeScreenViewController.swift
 //  Movie Database
 //
-//  Created by Andrew Rozendal on 2018-02-22.
+//  Created by Andrew Rozendal 08 March 2018
 //  Copyright © 2018 Camosun. All rights reserved.
 //
 
@@ -10,6 +10,7 @@ import UIKit
 import os
 
 class HomeScreenViewController: UIViewController {
+    //MARK: Properties
     var movieCollection: MovieCollection? = nil
     
     // MARK: Delegate functions

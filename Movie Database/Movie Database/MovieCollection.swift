@@ -2,7 +2,7 @@
 //  MovieCollection.swift
 //  Movie Database
 //
-//  Created by MacBook on 2018-02-28.
+//  Created by Andrew Rozendal 08 March 2018
 //  Copyright © 2018 Camosun. All rights reserved.
 //
 
@@ -18,7 +18,7 @@ class MovieCollection: NSObject, NSCoding{
         static let favourites = "favourites"
     }
     
-    // Properties
+    // MARK: Properties
     let entireCollection: [Int: Movie]  // a dictionary of all Movie objects.  Key is the Movie ID, value is the Movie
     var favourites: [Int]  // the index locations of favourite Movies contained in entireCollection
     var searchResults: [Int]?  // the index locations of Movies that met a search criterea
