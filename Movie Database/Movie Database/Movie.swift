@@ -9,6 +9,7 @@
 import UIKit
 import os
 
+// Stores all the details of a Movie
 class Movie: NSObject, NSCoding{
     // For saving
     class PropertyKey{
@@ -23,6 +24,7 @@ class Movie: NSObject, NSCoding{
     }
     
     // Properties
+    // the unique id of the movie
     let id: Int
     let title: String
     let genres: [Genres]
@@ -52,8 +54,11 @@ class Movie: NSObject, NSCoding{
     func encode(with aCoder: NSCoder) {
         aCoder.encode(id, forKey: PropertyKey.id)
         aCoder.encode(title, forKey: PropertyKey.title)
+        
+        // Enum cannot be save, map to rawValue of string and save
         let genreStrings = genres.map({$0.rawValue})
         aCoder.encode(genreStrings, forKey: PropertyKey.genres)
+        
         aCoder.encode(actors, forKey: PropertyKey.actors)
         aCoder.encode(rating, forKey: PropertyKey.rating)
         aCoder.encode(isFavourite, forKey: PropertyKey.isFavourite)
@@ -63,47 +68,67 @@ class Movie: NSObject, NSCoding{
     
     // For loading
     required convenience init?(coder aDecoder: NSCoder) {
+        let id = aDecoder.decodeInteger(forKey: PropertyKey.id)
+        /*
         guard let id = aDecoder.decodeInteger(forKey: PropertyKey.id) as? Int else {
             os_log("Missing id", log: OSLog.default, type: .debug)
             return nil
         }
+         */
         
         guard let title = aDecoder.decodeObject(forKey: PropertyKey.title) as? String else {
+            // title was missing
             os_log("Missing title", log: OSLog.default, type: .debug)
             return nil
         }
         
+        // Genres could not be save as an enum, so map back to enum Genres
+        // First load the string, then convert to Genres
         guard let genresString = aDecoder.decodeObject(forKey: PropertyKey.genres) as? [String] else {
-            os_log("Missing genres - unable to convert to [String]", log: OSLog.default, type: .debug)
+            // genres string was missing
+            os_log("Missing genres string", log: OSLog.default, type: .debug)
             return nil
         }
         
+        // Genres could not be save as an enum, so map back to enum Genres
         guard let genres = genresString.map({Genres(rawValue: $0)}) as? [Genres] else {
-            os_log("Missing genres - unable to convert from [String] to [Genres]", log: OSLog.default, type: .debug)
+            // Failed to convert map of strings to Genres
+            os_log("Genres - Unable to convert from [String] to [Genres]", log: OSLog.default, type: .debug)
             return nil
         }
         
         guard let actors = aDecoder.decodeObject(forKey: PropertyKey.actors) as? [String] else {
+            // actors was missing
             os_log("Missing actors", log: OSLog.default, type: .debug)
             return nil
         }
         
+        let rating = aDecoder.decodeInteger(forKey: PropertyKey.rating)
+        /*
         guard let rating = aDecoder.decodeInteger(forKey: PropertyKey.rating) as? Int else {
+            // rating was missing
             os_log("Missing rating", log: OSLog.default, type: .debug)
             return nil
         }
+        */
         
+        let isFavourite = aDecoder.decodeBool(forKey: PropertyKey.isFavourite)
+        /*
         guard let isFavourite = aDecoder.decodeBool(forKey: PropertyKey.isFavourite) as? Bool else {
+            // favourite was missing
             os_log("Missing isFavourite", log: OSLog.default, type: .debug)
             return nil
         }
+        */
         
         guard let comments = aDecoder.decodeObject(forKey: PropertyKey.comments) as? String else {
+            // comments was missing
             os_log("Missing comments", log: OSLog.default, type: .debug)
             return nil
         }
         
         guard let image = aDecoder.decodeObject(forKey: PropertyKey.image) as? UIImage else {
+            // image was missing
             os_log("Missing image", log: OSLog.default, type: .debug)
             return nil
         }
