@@ -69,6 +69,7 @@ import UIKit
         setupIcons()
     }
     
+    // MARK: Actions
     //Rebuilds all icons/buttons in the rating control
     private func setupIcons() {
         // clear any existing buttons

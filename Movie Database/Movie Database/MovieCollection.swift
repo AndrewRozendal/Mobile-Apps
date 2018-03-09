@@ -19,9 +19,12 @@ class MovieCollection: NSObject, NSCoding{
     }
     
     // MARK: Properties
-    let entireCollection: [Int: Movie]  // a dictionary of all Movie objects.  Key is the Movie ID, value is the Movie
-    var favourites: [Int]  // the index locations of favourite Movies contained in entireCollection
-    var searchResults: [Int]?  // the index locations of Movies that met a search criterea
+    // a dictionary of all Movie objects.  Key is the Movie ID, value is the Movie
+    let entireCollection: [Int: Movie]
+    // the index locations of favourite Movies contained in entireCollection
+    var favourites: [Int]
+    // the index locations of Movies that met a search criterea
+    var searchResults: [Int]?
     
     // Initialize a MovieCollection the entireCollection and favourites
     // The entire collection should be a Dictionary of Int:Movie where the Int is the id of the movie.

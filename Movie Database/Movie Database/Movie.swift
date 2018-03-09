@@ -23,18 +23,26 @@ class Movie: NSObject, NSCoding{
         static let image = "image"
     }
     
-    // Properties
+    // Mark: Properties
     // the unique id of the movie
     let id: Int
+    // the title for the movie
     let title: String
+    // all the genres the movie belongs to
     let genres: [Genres]
+    // all the actors the movie has
     let actors: [String]
+    // the user's rating of the movie
     var rating: Int
+    // if the movie is a user favourite
     var isFavourite: Bool
+    // comments about the movie
     var comments: String
+    // the movie display image
     let image: UIImage
     
-    // Initializes a movie object.  The id should be a unique identifier for the movie.  All parameters are required except image, which will use a default placeholder image if not provided.
+    // Initializes a movie object with the passed parameters.  The id should be a unique identifier for the movie.
+    // All parameters are required except image, which will use a default placeholder image if not provided.
     init(id: Int, title: String, genres: [Genres], actors: [String], rating: Int, isFavourite: Bool, comments: String, image: UIImage = #imageLiteral(resourceName: "defaultImage")){
         self.id = id
         self.title = title
@@ -52,10 +60,11 @@ class Movie: NSObject, NSCoding{
     
     // For saving
     func encode(with aCoder: NSCoder) {
+        // Save each property
         aCoder.encode(id, forKey: PropertyKey.id)
         aCoder.encode(title, forKey: PropertyKey.title)
         
-        // Enum cannot be save, map to rawValue of string and save
+        // Enum cannot be saved directly, map to rawValue of string and save that
         let genreStrings = genres.map({$0.rawValue})
         aCoder.encode(genreStrings, forKey: PropertyKey.genres)
         
@@ -68,6 +77,7 @@ class Movie: NSObject, NSCoding{
     
     // For loading
     required convenience init?(coder aDecoder: NSCoder) {
+        // Load each property
         let id = aDecoder.decodeInteger(forKey: PropertyKey.id)
         
         guard let title = aDecoder.decodeObject(forKey: PropertyKey.title) as? String else {

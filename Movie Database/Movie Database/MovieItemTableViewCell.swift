@@ -8,12 +8,15 @@
 
 import UIKit
 
-// Cell that contains the details of a Movie
+// A Table Cell that displays the details of a Movie
 class MovieItemTableViewCell: UITableViewCell {
     // MARK: Properties
-    @IBOutlet weak var movieImage: UIImageView!  // the movie image
-    @IBOutlet weak var movieTitle: UILabel!  // the movie title
-    @IBOutlet weak var movieRating: RatingControl!  // for showing the current rating
+    // the movie image
+    @IBOutlet weak var movieImage: UIImageView!
+    // the movie title
+    @IBOutlet weak var movieTitle: UILabel!
+    // for diplaying the current rating
+    @IBOutlet weak var movieRating: RatingControl!
     
     // MARK: Delegate functions
     override func awakeFromNib() {

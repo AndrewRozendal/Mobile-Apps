@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Movie Database/Movie.swift"
-            timestampString = "542231548.373106"
+            timestampString = "542259414.870221"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "encode(with:)"
             landmarkType = "7">
          </BreakpointContent>

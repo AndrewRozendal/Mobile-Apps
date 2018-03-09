@@ -9,6 +9,7 @@
 import UIKit
 import os
 
+// The home screen for the app.  Initializes a new Movie Collection if first time user
 class HomeScreenViewController: UIViewController {
     //MARK: Properties
     var movieCollection: MovieCollection? = nil
@@ -36,6 +37,7 @@ class HomeScreenViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // Before navigating to a new page, pass reference to current Movie Collection and relevant context
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         super.prepare(for: segue, sender: sender)
         if segue.identifier == "randomSelected" {

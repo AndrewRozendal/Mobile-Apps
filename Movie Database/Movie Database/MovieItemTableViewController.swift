@@ -80,7 +80,7 @@ class MovieItemTableViewController: UITableViewController {
             fatalError("State not set for table - no context of what to show")
         }
         
-        // Grab the current movie instance
+        // Grab the current movie instance depending on current state
         var movie: Movie?
         if(currentState == States.EntireCollection){
             movie = collection.entireCollection[indexPath.row]
@@ -97,11 +97,13 @@ class MovieItemTableViewController: UITableViewController {
             fatalError("CurrentState is an illegal state")
         }
         
+        // Make sure we were able to grab our movie instance
         guard let m = movie else {
             // we dont have a movie instance
             fatalError("Movie key was not a valid key in the Movie Dictionary")
         }
         
+        // Set cell with movie details
         cell.movieImage.image = m.image
         cell.movieTitle.text = m.title
         cell.movieRating.currentMovie = m
@@ -198,13 +200,15 @@ class MovieItemTableViewController: UITableViewController {
                 // Destination was unable to be cast as MovieDetailsViewController
                 fatalError("Unexpected destination \(segue.destination)")
             }
-        
-            destination.currentMovieIndex = i
-            destination.movieCollection = movieCollection
-            destination.currentState = currentState
+            
+            // Set destination with required data
+            destination.currentMovieIndex = i  // the current movie id
+            destination.movieCollection = movieCollection  // the current movieCollection
+            destination.currentState = currentState  // the state the app is in
         }
     }
     
+    // Set the title for the Table depending on the state of the app
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var text = ""
         

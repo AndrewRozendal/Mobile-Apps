@@ -64,11 +64,15 @@ class SearchViewController: UIViewController {
             documentaryGenre.setOn(false, animated: true)
             romanceGenre.setOn(false, animated: true)
             scifiGenre.setOn(false, animated: true)
+            
+            // Disable allGenres switch to prevent user from deselecting and leaving us with no switch selected
             allGenres.isEnabled = false
          }
     }
     
-    // All Genre specific Switches call this (except the allGenres switch does not, it has its own fn()  If the sending switch is on, turn all genres off
+    // All Genre specific Switches call this (except the allGenres switch does not, it has its own function.
+    // If the sending switch is on, turn all genres off and re-enable it.  This helps ensure at least on switch
+    // is set at any given time.
     @IBAction func genreToggled(_ sender: Any) {
         guard  let selectedSwitch = sender as? UISwitch else {
             // sender was not an expected UISwitch
@@ -81,7 +85,8 @@ class SearchViewController: UIViewController {
             allGenres.setOn(false, animated: true)
             allGenres.isEnabled = true
         } else {
-            // Make sure we are not the last switch that was on.  If so, turn on all genres - a switch must be on at all times
+            // Make sure we are not the last switch that was on.  If we were, turn on all genres
+            // - a switch must be on at all times
             var aSwitchIsSet = false
             for s in switches {
                 if s.isOn {
@@ -93,12 +98,14 @@ class SearchViewController: UIViewController {
             //turn on all genres if nothing else is set
             if !aSwitchIsSet{
                 allGenres.setOn(true, animated: true)
+                // Disable allGenres to prevent user from turning off directly and leaving the app with no switch set
                 allGenres.isEnabled = false
             }
         }
     }
     
     // Before we navigate, search the movieCollection and store the results in the movieCollection object
+    // Then set this property in the destination to enable a reference to it.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         super.prepare(for: segue, sender: sender)
         if segue.identifier == "searchSelected" {
@@ -127,14 +134,10 @@ class SearchViewController: UIViewController {
             var validGenres = [Genres]()
             
             // Check if allGenre switch is set
-            if allGenres.isOn {
-                validGenres.append(Genres.Action)
-                validGenres.append(Genres.Comedy)
-                validGenres.append(Genres.Documentary)
-                validGenres.append(Genres.Romance)
-                validGenres.append(Genres.SciFi)
-            } else {
-                // Check switches
+            if !allGenres.isOn {
+                // All genres is not set
+                // Check switches to see which are set
+                // Add selected to the validGenres
                 if actionGenre.isOn && actionGenre.isEnabled {
                     validGenres.append(Genres.Action)
                 }
@@ -156,12 +159,20 @@ class SearchViewController: UIViewController {
                 }
             }
             
-            if validGenres.isEmpty {
-                // Default to all genre search
-                isGenreOnlySearch = true
+            if validGenres.isEmpty || allGenres.isOn {
+                // We want to search in any genre category
+                // Note: We default to any genre search if nothing was set
+                // - searching for a movie with no genre makes no sense
+                
+                // Append all genres to validGenres
+                validGenres.append(Genres.Action)
+                validGenres.append(Genres.Comedy)
+                validGenres.append(Genres.Documentary)
+                validGenres.append(Genres.Romance)
+                validGenres.append(Genres.SciFi)
             }
             
-            // Grab all movies that conform to search params and store in searchResult attribute of movieCollection
+            // Grab all movies that conform to search parameters and store in searchResult attribute of movieCollection
             // clear all old results
             movieCollection!.searchResults = [Int]()
             for (key, movie) in collection {
@@ -186,18 +197,20 @@ class SearchViewController: UIViewController {
                         // title or both areas selected
                         if searchArea.selectedSegmentIndex == 0 || searchArea.selectedSegmentIndex == 2 {
                             if movie.title.uppercased().contains(searchVal!){
+                                // Matching movie found
                                 movieCollection!.searchResults!.append(key)
                                 currentMovieAdded = true
                             }
                         }
                         
-                        // Dont need to check if we added movie from title search
                         // actor or both areas selected
+                        // In case of both search, we dont need to check actor if we already added the
+                        // movie from title search
                         if !currentMovieAdded && (searchArea.selectedSegmentIndex == 1 || searchArea.selectedSegmentIndex == 2) {
                             for actor in movie.actors {
                                 if actor.uppercased().contains(searchVal!){
+                                    // Matching movie found
                                     movieCollection!.searchResults!.append(key)
-                                    //currentMovieAdded = true  //not necessary right now, but might be in future if another search area is added
                                 }
                             }
                         }
@@ -205,7 +218,7 @@ class SearchViewController: UIViewController {
                 }
             }
             
-            // Pass data to new view
+            // Pass all the data to the new view
             destination.movieCollection = movieCollection
             destination.currentState = States.Search
         }

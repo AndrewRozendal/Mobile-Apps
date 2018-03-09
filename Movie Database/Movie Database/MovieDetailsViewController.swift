@@ -30,16 +30,19 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var movieRating: RatingControl!
     
     // Current Movie instance
-    var currentMovieIndex: Int? = nil  // the index of the current movie in the MovieCollection
-    var movieCollection: MovieCollection? = nil  // the instance of the current MovieCollection
-    var currentState: States? = nil  // the current state of the the collection
+    // the index of the current movie in the MovieCollection
+    var currentMovieIndex: Int? = nil
+    // the instance of the current MovieCollection
+    var movieCollection: MovieCollection? = nil
+    // the current state of the the collection
+    var currentState: States? = nil
     
     // MARK: Delegate functions
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         // Set labels for the view based on the movie instance
+        // First ensure we have references to all objects we need
         guard let i = currentMovieIndex else {
             // currentMovieIndex was not set properly
             os_log("Could not grab attributes for movie from movieIndex that was nil", log: OSLog.default, type: .debug)
@@ -56,6 +59,7 @@ class MovieDetailsViewController: UIViewController {
             fatalError("Movie index was not a valid key in movieCollection")
         }
         
+        // Set properties with the Movie specific values
         self.movieTitle.text = m.title
         self.movieImage.image = m.image
         
@@ -89,8 +93,6 @@ class MovieDetailsViewController: UIViewController {
         }
         self.movieActors.text = actors
         
-        
-        
         // Set favourite button text appropriately
         if(m.isFavourite){
             self.favouriteActionButton.setTitle("Remove from Favourites", for: UIControlState.normal)
@@ -98,8 +100,8 @@ class MovieDetailsViewController: UIViewController {
             self.favouriteActionButton.setTitle("Add to Favourites", for: UIControlState.normal)
         }
         
+        // Notification starts empty
         self.updateNotification.text = ""
- 
     }
 
     override func didReceiveMemoryWarning() {
@@ -122,7 +124,10 @@ class MovieDetailsViewController: UIViewController {
         }
         
         if m.isFavourite {
+            // Remove Favourite case
             m.isFavourite = false
+            
+            // Update Favourite Button text
             self.favouriteActionButton.setTitle("Add to Favourites", for: UIControlState.normal)
             
             // Find favourite where value is this index and remove
@@ -141,7 +146,10 @@ class MovieDetailsViewController: UIViewController {
                 fatalError("Could not find favourite movie index to remove")
             }
         } else {
+            // Add Favourite Case
             m.isFavourite = true
+            
+            // Update Favourite Button text
             self.favouriteActionButton.setTitle("Remove from Favourites", for: UIControlState.normal)
 
             // Append to favourites
@@ -153,7 +161,7 @@ class MovieDetailsViewController: UIViewController {
         save()
     }
     
-    // Save the current movie
+    // Saves the current movieCollection object
     func save(){
         // Enable saving
         guard let collection = movieCollection else {
