@@ -7,16 +7,6 @@
     android:layout_height="match_parent"
     tools:context="ca.camosun.lab6converter.MainActivity">
 
-    <TextView
-        android:id="@+id/converterLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Temperature Conversion"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/userVariable"
         android:layout_width="wrap_content"
@@ -26,7 +16,7 @@
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/converterLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/conversionsSpinner" />
 
     <Button
         android:id="@+id/leftButton"
@@ -42,10 +32,18 @@
         android:id="@+id/rightButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:onClick="rightButton"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="@+id/leftButton"
         app:layout_constraintEnd_toEndOf="@+id/userVariable" />
+
+    <Spinner
+        android:id="@+id/conversionsSpinner"
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
