@@ -1,7 +1,6 @@
 package ca.camosun.lab6converter;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,19 +8,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends Activity implements AdapterView.OnItemSelectedListener {
     private Hashtable<String, Conversion> conversions;
     private Button leftButton;
     private Button rightButton;
+    private Conversion selectedConversion;
 
 
     private interface PerformsConversion {
@@ -58,10 +54,18 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
         // An item was selected. You can retrieve the selected item using
         System.out.println("item selected detected");
         String selectedConversionName = parent.getItemAtPosition(pos).toString();
-        Conversion selectedConversion = conversions.get(selectedConversionName);
+        selectedConversion = conversions.get(selectedConversionName);
         if(selectedConversion == null){
             //Error!
             throw new NullPointerException("Desired conversion was not found.");
+        }
+
+        if(leftButton == null){
+            throw new NullPointerException("Left button was not set");
+        }
+
+        if(rightButton == null){
+            throw new NullPointerException("Right button was not set");
         }
 
         leftButton.setText(selectedConversion.leftButton.name);
@@ -125,16 +129,22 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
     }
 
     public void leftButton(View view){
+        if(selectedConversion == null){
+            throw new NullPointerException("selectedConversion was not set properly");
+        }
         EditText converterField = (EditText) findViewById(R.id.userVariable);
-        String temp = converterField.getText().toString();
-        double convertedTemp = Double.parseDouble(temp) * 9.0 / 5.0 + 32.0;
+        double temp = Double.parseDouble(converterField.getText().toString());
+        double convertedTemp = selectedConversion.leftButton.action.convert(temp);
         converterField.setText(Double.toString(convertedTemp));
     }
 
     public void rightButton(View view){
+        if(selectedConversion == null){
+            throw new NullPointerException("selectedConversion was not set properly");
+        }
         EditText converterField = (EditText) findViewById(R.id.userVariable);
-        String temp = converterField.getText().toString();
-        double convertedTemp = (Double.parseDouble(temp) - 32.0) * 5.0 / 9.0;
+        double temp = Double.parseDouble(converterField.getText().toString());
+        double convertedTemp = selectedConversion.rightButton.action.convert(temp);
         converterField.setText(Double.toString(convertedTemp));
     }
 }
