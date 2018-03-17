@@ -13,9 +13,17 @@ import android.widget.TextView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity implements AdapterView.OnItemSelectedListener {
+    private Hashtable<String, Conversion> conversions;
+    private Button leftButton;
+    private Button rightButton;
+
+
     private interface PerformsConversion {
         Double convert(Double value);
     }
@@ -41,18 +49,30 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public class ConversionSpinnerActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
-        public void onItemSelected(AdapterView<?> parent, View view,
-                                   int pos, long id) {
-            // An item was selected. You can retrieve the selected item using
-            parent.getItemAtPosition(pos);
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        if(conversions.isEmpty()){
+            throw new NullPointerException("Conversions was not instantiated yet.");
+        }
+        // An item was selected. You can retrieve the selected item using
+        System.out.println("item selected detected");
+        String selectedConversionName = parent.getItemAtPosition(pos).toString();
+        Conversion selectedConversion = conversions.get(selectedConversionName);
+        if(selectedConversion == null){
+            //Error!
+            throw new NullPointerException("Desired conversion was not found.");
         }
 
-        public void onNothingSelected(AdapterView<?> parent) {
-            // Another interface callback
-        }
+        leftButton.setText(selectedConversion.leftButton.name);
+        rightButton.setText(selectedConversion.rightButton.name);
+
     }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +99,11 @@ public class MainActivity extends AppCompatActivity {
                 new ConversionButton("lbs to kg", (Double value) -> { return value * 0.454; }),
                 new ConversionButton("kg to lbs", (Double value) -> { return value * 2.205; }));
 
-        List<Conversion> conversions = new ArrayList<Conversion>();
-        conversions.add(areaConversion);
-        conversions.add(tempConversion);
-        conversions.add(lengthConversion);
-        conversions.add(weightConversion);
+        conversions = new Hashtable<>();
+        conversions.put(areaConversion.name, areaConversion);
+        conversions.put(tempConversion.name, tempConversion);
+        conversions.put(lengthConversion.name, lengthConversion);
+        conversions.put(weightConversion.name, weightConversion);
 
         Spinner conversionsSpinner = (Spinner) findViewById(R.id.conversionsSpinner);
 
@@ -95,16 +115,13 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, conversionNames);
         conversionsSpinner.setAdapter(adapter);
-        //conversionsSpinner.setOnItemSelectedListener(this);
+        conversionsSpinner.setOnItemSelectedListener(this);
 
-/*
-        TextView converterLabel = (TextView) findViewById(R.id.converterLabel);
-        converterLabel.setText(tempLabel);
-        Button leftButton = (Button) findViewById(R.id.leftButton);
-        leftButton.setText(c2fLabel);
-        Button rightButton = (Button) findViewById(R.id.rightButton);
-        rightButton.setText(f2cLabel);
-*/
+        leftButton = (Button) findViewById(R.id.leftButton);
+        leftButton.setText("");
+        rightButton = (Button) findViewById(R.id.rightButton);
+        rightButton.setText("");
+
     }
 
     public void leftButton(View view){
