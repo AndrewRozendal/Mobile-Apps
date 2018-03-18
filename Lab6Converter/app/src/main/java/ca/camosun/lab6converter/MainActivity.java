@@ -23,44 +23,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
     // the current conversion
     private Conversion selectedConversion;
 
-    // Interface for all button conversion actions to conform to
-    private interface PerformsConversion {
-        Double convert(Double value);
-    }
-
-    // A button that belongs to a Conversion
-    private class ConversionButton{
-        // the text label to display for the button
-        String name;
-        // the lambda expression to call on button click
-        PerformsConversion action;
-
-        // Initializes the ConversionButton with the name and action.  The action must conform to
-        // the PerformsConversion interface.
-        public ConversionButton(String buttonName, PerformsConversion action){
-            this.name = buttonName;
-            this.action = action;
-        }
-    }
-
-    // A Conversion that can be performed.  Contains two buttons to provide conversions between two
-    // different units of measurement in both directions
-    private class Conversion {
-        // the name to display for the conversion
-        String name;
-        // the left button
-        ConversionButton leftButton;
-        // the right button
-        ConversionButton rightButton;
-
-        // Initializes the Conversion with its name and its two buttons to perfom unit conversions.
-        public Conversion(String name, ConversionButton leftButton, ConversionButton rightButton){
-            this.name = name;
-            this.leftButton = leftButton;
-            this.rightButton = rightButton;
-        }
-    }
-
     // An item was selected in the Spinner.  Detect choice and update UI and instance variables.
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
@@ -89,8 +51,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
         }
 
         // update each button's text
-        leftButton.setText(selectedConversion.leftButton.name);
-        rightButton.setText(selectedConversion.rightButton.name);
+        leftButton.setText(selectedConversion.getLeftButton().getName());
+        rightButton.setText(selectedConversion.getRightButton().getName());
 
     }
 
@@ -101,45 +63,29 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
     }
 
 
+    // Generates the conversions instance, sets up the spinner and grabs references to the buttons.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize all the conversions
-        Conversion areaConversion = new Conversion("Area",
-                new ConversionButton("ha to ac", (Double value) -> { return value * 2.471; }),
-                new ConversionButton("ac to ha", (Double value) -> { return value * 0.405; }));
-
-        Conversion tempConversion = new Conversion("Temperature",
-                new ConversionButton("C to F", (Double value) -> { return value * 9.0 / 5.0 + 32.0; }),
-                new ConversionButton("F to C", (Double value) -> { return (value - 32.0) * 5.0 / 9.0; }));
-
-        Conversion lengthConversion = new Conversion("Length",
-                new ConversionButton("ft to m", (Double value) -> { return value * 0.305; }),
-                new ConversionButton("m to ft", (Double value) -> { return value * 3.281; }));
-
-        Conversion weightConversion = new Conversion("Weight",
-                new ConversionButton("lbs to kg", (Double value) -> { return value * 0.454; }),
-                new ConversionButton("kg to lbs", (Double value) -> { return value * 2.205; }));
-
-        // Store all the conversions for later reference
-        conversions = new Hashtable<>();
-        conversions.put(areaConversion.name, areaConversion);
-        conversions.put(tempConversion.name, tempConversion);
-        conversions.put(lengthConversion.name, lengthConversion);
-        conversions.put(weightConversion.name, weightConversion);
+        // Call helper method to generate all conversions
+        // Store all these conversions for later reference
+        conversions = Conversion.generateConversions();
 
         // Get a list of all conversion names for the spinner to use
         List<String> conversionNames = new ArrayList<>();
-        conversionNames.add(areaConversion.name);
-        conversionNames.add(tempConversion.name);
-        conversionNames.add(lengthConversion.name);
-        conversionNames.add(weightConversion.name);
+        for(String key : conversions.keySet()){
+            conversionNames.add(key);
+        }
 
         // Setup the spinner with conversion names
         Spinner conversionsSpinner = (Spinner) findViewById(R.id.conversionsSpinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, conversionNames);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this,
+                R.layout.support_simple_spinner_dropdown_item,
+                conversionNames);
+
         conversionsSpinner.setAdapter(adapter);
 
         // Ensure spinner calls us back on item selection
@@ -158,20 +104,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
             throw new NullPointerException("selectedConversion was not set properly");
         }
 
-        // Grab the user variable
-        EditText converterField = (EditText) findViewById(R.id.userVariable);
-
-        try {
-            // Throws if Null or no Double found
-            double temp = Double.parseDouble(converterField.getText().toString());
-
-            // Convert the user variable and output the result
-            double convertedTemp = selectedConversion.leftButton.action.convert(temp);
-            converterField.setText(Double.toString(convertedTemp));
-        } catch (NullPointerException|NumberFormatException ex){
-            converterField.setText("N/A");
-        }
-
+        // Call helper method
+        convertValue(selectedConversion.getLeftButton().getAction());
     }
 
     // Called when the right button was clicked.  Converts using the currently selected conversion
@@ -182,6 +116,13 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
             throw new NullPointerException("selectedConversion was not set properly");
         }
 
+        // Call helper method
+        convertValue(selectedConversion.getRightButton().getAction());
+    }
+
+    // Converts the user value using the passed action.  The action is a lambda expression as per
+    // the PerformsConversion interface.
+    private void convertValue(PerformsConversion action){
         // Grab the user variable
         EditText converterField = (EditText) findViewById(R.id.userVariable);
 
@@ -190,11 +131,11 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
             double temp = Double.parseDouble(converterField.getText().toString());
 
             // Convert the user variable and output the result
-            double convertedTemp = selectedConversion.rightButton.action.convert(temp);
+            double convertedTemp = action.convert(temp);
             converterField.setText(Double.toString(convertedTemp));
         } catch (NullPointerException|NumberFormatException ex){
+            // Failed to convert to a double - the value either contained no double or was empty
             converterField.setText("N/A");
         }
-
     }
 }
