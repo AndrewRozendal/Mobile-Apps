@@ -168,7 +168,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
             // Convert the user variable and output the result
             double convertedTemp = selectedConversion.leftButton.action.convert(temp);
             converterField.setText(Double.toString(convertedTemp));
-        } catch (NullPointerException NumberFormatException){
+        } catch (NullPointerException|NumberFormatException ex){
             converterField.setText("N/A");
         }
 
@@ -192,7 +192,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
             // Convert the user variable and output the result
             double convertedTemp = selectedConversion.rightButton.action.convert(temp);
             converterField.setText(Double.toString(convertedTemp));
-        } catch (NullPointerException NumberFormatException){
+        } catch (NullPointerException|NumberFormatException ex){
             converterField.setText("N/A");
         }
 
