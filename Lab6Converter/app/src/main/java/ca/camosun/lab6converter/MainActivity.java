@@ -2,6 +2,7 @@ package ca.camosun.lab6converter;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,7 +29,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
                                int pos, long id) {
         if(conversions.isEmpty()){
             // there are no conversions to use
-            throw new NullPointerException("Conversions was not instantiated yet.");
+            Log.e("onItemSelected", "Conversions was not instantiated yet.");
+            return;
         }
 
         // Get selected item and update the current conversion instance
@@ -37,17 +39,23 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
 
         if(selectedConversion == null){
             // selectedConversion was not set up properly
-            throw new NullPointerException("Desired conversion was not found.");
+            // log and abort
+            Log.e("onItemSelected", "Desired conversion was not found.");
+            return;
         }
 
         if(leftButton == null){
             // left button was not set up properly
-            throw new NullPointerException("Left button was not set");
+            // log and abort
+            Log.e("onItemSelected", "Left button was not set");
+            return;
         }
 
         if(rightButton == null){
             // right button was not set up properly
-            throw new NullPointerException("Right button was not set");
+            // log and abort
+            Log.e("onItemSelected", "Right button was not set");
+            return;
         }
 
         // update each button's text
@@ -101,7 +109,9 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
     public void leftButton(View view){
         if(selectedConversion == null){
             // selected conversion was never set properly
-            throw new NullPointerException("selectedConversion was not set properly");
+            // log and abort
+            Log.e("leftButton", "selectedConversion was not set properly");
+            return;
         }
 
         // Call helper method
@@ -113,7 +123,9 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
     public void rightButton(View view){
         if(selectedConversion == null){
             // selected conversion was never set properly
-            throw new NullPointerException("selectedConversion was not set properly");
+            // log and abort
+            Log.e("rightButton", "selectedConversion was not set properly");
+            return;
         }
 
         // Call helper method
