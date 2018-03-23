@@ -27,9 +27,17 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
     // An item was selected in the Spinner.  Detect choice and update UI and instance variables.
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
+        if(conversions == null){
+            // conversions was not instantiated properly
+            // log and abort
+            Log.e("onItemSelected", "Conversions is null.");
+            return;
+        }
+
         if(conversions.isEmpty()){
             // there are no conversions to use
-            Log.e("onItemSelected", "Conversions was not instantiated yet.");
+            // log and abort
+            Log.e("onItemSelected", "Conversions is empty.");
             return;
         }
 
@@ -66,7 +74,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
 
     // When nothing is selected.  OnItemSelectedListener requires us to implement this
     public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
+        // Do nothing
         return;
     }
 
