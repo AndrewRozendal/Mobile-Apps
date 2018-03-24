@@ -2,8 +2,11 @@ package ca.camosun.masterdetailconverter.dummy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+
+import ca.camosun.masterdetailconverter.Conversion;
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -11,33 +14,34 @@ import java.util.Map;
  * <p>
  * TODO: Replace all uses of this class before publishing your app.
  */
-public class DummyContent {
+public class ConversionContent {
 
     /**
      * An array of sample (dummy) items.
      */
-    public static final List<DummyItem> ITEMS = new ArrayList<DummyItem>();
+    public static final List<Conversion> ITEMS = Conversion.generateConversions();
 
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
+    public static final Map<String, Conversion> ITEM_MAP = new HashMap<String, Conversion>();
 
-    private static final int COUNT = 25;
+    private static final int COUNT = ITEMS.size();
 
     static {
-        // Add some sample items.
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
+        // Add some sample items
+        for (int i = 0; i < COUNT; i++) {
+            ITEM_MAP.put(Integer.toString(ITEMS.get(i).getId()), ITEMS.get(i));
         }
     }
-
-    private static void addItem(DummyItem item) {
+/*
+    private static void addItem(Conversion item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
-
-    private static DummyItem createDummyItem(int position) {
+*/
+/*
+    private static Conversion createDummyItem(int position) {
         return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position));
     }
 
@@ -49,10 +53,13 @@ public class DummyContent {
         }
         return builder.toString();
     }
+*/
+
 
     /**
      * A dummy item representing a piece of content.
      */
+    /*
     public static class DummyItem {
         public final String id;
         public final String content;
@@ -69,4 +76,5 @@ public class DummyContent {
             return content;
         }
     }
+    */
 }

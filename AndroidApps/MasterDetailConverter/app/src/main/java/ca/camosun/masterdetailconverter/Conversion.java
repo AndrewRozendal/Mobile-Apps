@@ -1,22 +1,39 @@
 package ca.camosun.masterdetailconverter;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 // A Conversion that can be performed.  Contains two buttons to provide conversions between two
 // different units of measurement in both directions
 public class Conversion {
+    // the unique id of the conversion
+    private int id;
     // the name to display for the conversion
     private String name;
     // the left button
     private ConversionButton leftButton;
     // the right button
     private ConversionButton rightButton;
+    // tracks the next unique id for each new conversion
+    private static int IDCOUNTER = 0;
+
+    // returns the next uniqe id for each new conversion and increments static counter
+    private int generateID(){
+        return IDCOUNTER++;
+    }
 
     // Initializes the Conversion with its name and its two buttons to perfom unit conversions.
     public Conversion(String name, ConversionButton leftButton, ConversionButton rightButton){
+        this.id = generateID();
         this.name = name;
         this.leftButton = leftButton;
         this.rightButton = rightButton;
+    }
+
+    // public accessor for id
+    public int getId(){
+        return this.id;
     }
 
     // Public accessor for name
@@ -36,7 +53,7 @@ public class Conversion {
 
     // Helper method to generate all available conversions.  To add a conversion, simply instantiate
     // a new Conversion object and append to the Hashtable.
-    public static Hashtable<String, Conversion> generateConversions(){
+    public static ArrayList<Conversion> generateConversions(){
 
         // Initialize all the conversions
         Conversion areaConversion = new Conversion("Area",
@@ -56,11 +73,11 @@ public class Conversion {
                 new ConversionButton("kg to lbs", (Double value) -> { return value * 2.205; }));
 
         // Store all conversions together
-        Hashtable<String, Conversion> conversions = new Hashtable<>();
-        conversions.put(areaConversion.name, areaConversion);
-        conversions.put(tempConversion.name, tempConversion);
-        conversions.put(lengthConversion.name, lengthConversion);
-        conversions.put(weightConversion.name, weightConversion);
+        ArrayList<Conversion> conversions = new ArrayList<>();
+        conversions.add(areaConversion);
+        conversions.add(tempConversion);
+        conversions.add(lengthConversion);
+        conversions.add(weightConversion);
 
         return conversions;
     }
