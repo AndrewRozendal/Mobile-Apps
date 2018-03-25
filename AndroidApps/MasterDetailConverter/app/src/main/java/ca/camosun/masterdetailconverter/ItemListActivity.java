@@ -7,15 +7,14 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.List;
 
-import ca.camosun.masterdetailconverter.dummy.ConversionContent;
+import ca.camosun.masterdetailconverter.conversion.Conversion;
+import ca.camosun.masterdetailconverter.conversion.ConversionContent;
 
 /**
  * An activity representing a list of Items. This activity
@@ -42,15 +41,6 @@ public class ItemListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         if (findViewById(R.id.item_detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
@@ -75,6 +65,8 @@ public class ItemListActivity extends AppCompatActivity {
         private final List<Conversion> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
+            // When item is selected, pass the item's id to the detail screen so it can load the
+            // appropriate item details
             @Override
             public void onClick(View view) {
                 Conversion item = (Conversion) view.getTag();
@@ -111,6 +103,7 @@ public class ItemListActivity extends AppCompatActivity {
             return new ViewHolder(view);
         }
 
+        // Sets the appropriate list item's id and name
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mIdView.setText(Integer.toString(mValues.get(position).getId()));
@@ -120,6 +113,7 @@ public class ItemListActivity extends AppCompatActivity {
             holder.itemView.setOnClickListener(mOnClickListener);
         }
 
+        // The count of Conversion items in the list
         @Override
         public int getItemCount() {
             return mValues.size();

@@ -1,8 +1,6 @@
-package ca.camosun.masterdetailconverter;
+package ca.camosun.masterdetailconverter.conversion;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 // A Conversion that can be performed.  Contains two buttons to provide conversions between two
 // different units of measurement in both directions
@@ -52,7 +50,7 @@ public class Conversion {
     }
 
     // Helper method to generate all available conversions.  To add a conversion, simply instantiate
-    // a new Conversion object and append to the Hashtable.
+    // a new Conversion object and append to the ArrayList.
     public static ArrayList<Conversion> generateConversions(){
 
         // Initialize all the conversions

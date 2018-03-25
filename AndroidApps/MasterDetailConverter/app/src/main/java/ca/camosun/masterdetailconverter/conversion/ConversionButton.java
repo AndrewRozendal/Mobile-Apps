@@ -1,4 +1,4 @@
-package ca.camosun.masterdetailconverter;
+package ca.camosun.masterdetailconverter.conversion;
 
 // A button that belongs to a Conversion
 public class ConversionButton{

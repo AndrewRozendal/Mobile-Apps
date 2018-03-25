@@ -10,9 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import ca.camosun.masterdetailconverter.dummy.ConversionContent;
+import ca.camosun.masterdetailconverter.conversion.Conversion;
+import ca.camosun.masterdetailconverter.conversion.ConversionContent;
+import ca.camosun.masterdetailconverter.conversion.PerformsConversion;
 
 /**
  * A fragment representing a single Item detail screen.
@@ -28,7 +29,7 @@ public class ItemDetailFragment extends Fragment {
     public static final String ARG_ITEM_ID = "item_id";
 
     /**
-     * The dummy content this fragment is presenting.
+     * The Conversion content this fragment is presenting.
      */
     private Conversion mItem;
 
@@ -44,7 +45,7 @@ public class ItemDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
+            // Load the Conversion content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
             mItem = ConversionContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
@@ -62,10 +63,12 @@ public class ItemDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.item_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
+        // Show the Conversion content as text in a TextView.
         if (mItem != null) {
             // setup reference to userInputValue
             EditText userValueField = rootView.findViewById(R.id.userInputValue);
+
+            // setup the conversion buttons with their name and action
             Button leftButton = ((Button) rootView.findViewById(R.id.leftButton));
             leftButton.setText(mItem.getLeftButton().getName());
             leftButton.setOnClickListener(new View.OnClickListener() {
@@ -83,8 +86,6 @@ public class ItemDetailFragment extends Fragment {
                     rightButton(view);
                 }
             });
-            //((TextView) rootView.findViewById(R.id.conversionName)).setText(mItem.getName());
-            //((TextView) rootView.findViewById(R.id.item_detail)).setText(mItem.getName());
         }
 
         return rootView;

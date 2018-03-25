@@ -1,4 +1,4 @@
-package ca.camosun.masterdetailconverter;
+package ca.camosun.masterdetailconverter.conversion;
 
 // Interface for all conversion actions to conform to
 // All conversion actions must convert an input Double to an output Double
