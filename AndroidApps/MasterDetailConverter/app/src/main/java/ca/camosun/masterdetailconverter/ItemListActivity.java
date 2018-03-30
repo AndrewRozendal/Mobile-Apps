@@ -32,11 +32,14 @@ public class ItemListActivity extends AppCompatActivity {
      */
     private boolean mTwoPane;
 
+
+    // Setup the activity from a savedInstanceState
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
 
+        // Set the title
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
@@ -54,10 +57,12 @@ public class ItemListActivity extends AppCompatActivity {
         setupRecyclerView((RecyclerView) recyclerView);
     }
 
+    // setup the recycler view
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, ConversionContent.ITEMS, mTwoPane));
     }
 
+    // A class containing a RecyclerView for displaying items
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
@@ -88,6 +93,7 @@ public class ItemListActivity extends AppCompatActivity {
             }
         };
 
+        // Constructor for a SimpleItemRecyclerViewAdapter
         SimpleItemRecyclerViewAdapter(ItemListActivity parent,
                                       List<Conversion> items,
                                       boolean twoPane) {
@@ -96,6 +102,7 @@ public class ItemListActivity extends AppCompatActivity {
             mTwoPane = twoPane;
         }
 
+        // Creates the view for each
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
@@ -119,6 +126,7 @@ public class ItemListActivity extends AppCompatActivity {
             return mValues.size();
         }
 
+        // The view for each item in the list
         class ViewHolder extends RecyclerView.ViewHolder {
             final TextView mIdView;
             final TextView mContentView;

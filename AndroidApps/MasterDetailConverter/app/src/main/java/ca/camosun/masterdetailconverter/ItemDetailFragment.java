@@ -40,14 +40,13 @@ public class ItemDetailFragment extends Fragment {
     public ItemDetailFragment() {
     }
 
+    // Setup the current activity from a savedInstanceState
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the Conversion content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
+            // Load the Conversion content specified by the fragment arguments.
             mItem = ConversionContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
 
             Activity activity = this.getActivity();
@@ -58,6 +57,7 @@ public class ItemDetailFragment extends Fragment {
         }
     }
 
+    // Setup the activity as a new view.  This handles first time navigation to this page.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class ItemDetailFragment extends Fragment {
             // setup reference to userInputValue
             EditText userValueField = rootView.findViewById(R.id.userInputValue);
 
-            // setup the conversion buttons with their name and action
+            // setup the conversion buttons with their name, listener and action
             Button leftButton = ((Button) rootView.findViewById(R.id.leftButton));
             leftButton.setText(mItem.getLeftButton().getName());
             leftButton.setOnClickListener(new View.OnClickListener() {

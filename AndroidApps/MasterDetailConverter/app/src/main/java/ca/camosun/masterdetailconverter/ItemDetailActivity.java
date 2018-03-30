@@ -51,6 +51,8 @@ public class ItemDetailActivity extends AppCompatActivity {
         }
     }
 
+    // This method is called when the user wants to return to the homepage from the detail page
+    // (They click the 'back' button)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
