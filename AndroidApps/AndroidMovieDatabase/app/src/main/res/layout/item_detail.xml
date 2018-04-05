@@ -7,37 +7,41 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:textIsSelectable="true"
-    tools:context="ca.camosun.androidmoviedatabase.ItemDetailFragment" >
+    tools:context="ca.camosun.androidmoviedatabase.ItemDetailFragment"
+    tools:layout_editor_absoluteY="81dp">
 
     <Button
-        android:id="@+id/leftButton"
+        android:id="@+id/favouriteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:onClick="leftButton"
-        android:text="Button"
-        app:layout_constraintStart_toStartOf="@+id/userInputValue"
-        app:layout_constraintTop_toBottomOf="@+id/userInputValue" />
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/rightButton"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:onClick="rightButton"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="@+id/userInputValue"
-        app:layout_constraintTop_toBottomOf="@+id/userInputValue" />
-
-    <EditText
-        android:id="@+id/userInputValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="Value to Convert"
-        android:inputType="numberSigned|numberDecimal"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <RatingBar
+        android:id="@+id/ratingBarDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/favouriteButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 </android.support.constraint.ConstraintLayout>

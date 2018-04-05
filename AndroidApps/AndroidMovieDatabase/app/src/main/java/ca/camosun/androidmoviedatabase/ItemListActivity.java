@@ -2,6 +2,7 @@ package ca.camosun.androidmoviedatabase;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Rating;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -10,12 +11,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.List;
 
-import ca.camosun.androidmoviedatabase.conversion.Conversion;
-import ca.camosun.androidmoviedatabase.conversion.ConversionContent;
+import ca.camosun.androidmoviedatabase.movie.Movie;
+import ca.camosun.androidmoviedatabase.movie.MovieContent;
 
 /**
  * An activity representing a list of Items. This activity
@@ -60,7 +62,7 @@ public class ItemListActivity extends AppCompatActivity {
 
     // setup the recycler view
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, ConversionContent.ITEMS, mTwoPane));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, MovieContent.ITEMS, mTwoPane));
     }
 
     // A class containing a RecyclerView for displaying items
@@ -68,14 +70,14 @@ public class ItemListActivity extends AppCompatActivity {
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final ItemListActivity mParentActivity;
-        private final List<Conversion> mValues;
+        private final List<Movie> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             // When item is selected, pass the item's id to the detail screen so it can load the
             // appropriate item details
             @Override
             public void onClick(View view) {
-                Conversion item = (Conversion) view.getTag();
+                Movie item = (Movie) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
                     arguments.putString(ItemDetailFragment.ARG_ITEM_ID, Integer.toString(item.getId()));
@@ -96,7 +98,7 @@ public class ItemListActivity extends AppCompatActivity {
 
         // Constructor for a SimpleItemRecyclerViewAdapter
         SimpleItemRecyclerViewAdapter(ItemListActivity parent,
-                                      List<Conversion> items,
+                                      List<Movie> items,
                                       boolean twoPane) {
             mValues = items;
             mParentActivity = parent;
@@ -114,14 +116,14 @@ public class ItemListActivity extends AppCompatActivity {
         // Sets the appropriate list item's id and name
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(Integer.toString(mValues.get(position).getId()));
             holder.mContentView.setText(mValues.get(position).getName());
+            holder.mRatingBar.setRating(mValues.get(position).rating);
 
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
         }
 
-        // The count of Conversion items in the list
+        // The count of Movie items in the list
         @Override
         public int getItemCount() {
             return mValues.size();
@@ -129,13 +131,14 @@ public class ItemListActivity extends AppCompatActivity {
 
         // The view for each item in the list
         class ViewHolder extends RecyclerView.ViewHolder {
-            final TextView mIdView;
             final TextView mContentView;
+            final RatingBar mRatingBar;
 
             ViewHolder(View view) {
                 super(view);
-                mIdView = (TextView) view.findViewById(R.id.id_text);
                 mContentView = (TextView) view.findViewById(R.id.content);
+                mRatingBar = (RatingBar) view.findViewById(R.id.ratingBar);
+                mRatingBar.setEnabled(false);
             }
         }
     }

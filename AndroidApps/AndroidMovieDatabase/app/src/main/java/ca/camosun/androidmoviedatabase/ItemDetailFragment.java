@@ -9,11 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.RatingBar;
 
-import ca.camosun.androidmoviedatabase.conversion.Conversion;
-import ca.camosun.androidmoviedatabase.conversion.ConversionContent;
-import ca.camosun.androidmoviedatabase.conversion.PerformsConversion;
+import ca.camosun.androidmoviedatabase.movie.Movie;
+import ca.camosun.androidmoviedatabase.movie.MovieContent;
 
 /**
  * A fragment representing a single Item detail screen.
@@ -29,9 +28,19 @@ public class ItemDetailFragment extends Fragment {
     public static final String ARG_ITEM_ID = "item_id";
 
     /**
-     * The Conversion content this fragment is presenting.
+     * The Movie content this fragment is presenting.
      */
-    private Conversion mItem;
+    private Movie mItem;
+
+    /**
+     * The Button for toggling user Movie favourite
+     */
+    private Button favButton;
+
+    /**
+     * The RatingBar for updating user Movie rating
+     */
+    private RatingBar ratingBar;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -46,8 +55,8 @@ public class ItemDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the Conversion content specified by the fragment arguments.
-            mItem = ConversionContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            // Load the Movie content specified by the fragment arguments.
+            mItem = MovieContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
@@ -63,78 +72,76 @@ public class ItemDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.item_detail, container, false);
 
-        // Show the Conversion content as text in a TextView.
-        if (mItem != null) {
-            // setup reference to userInputValue
-            EditText userValueField = rootView.findViewById(R.id.userInputValue);
-
-            // setup the conversion buttons with their name, listener and action
-            Button leftButton = ((Button) rootView.findViewById(R.id.leftButton));
-            leftButton.setText(mItem.getLeftButton().getName());
-            leftButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    leftButton(view);
-                }
-            });
-
-            Button rightButton = ((Button) rootView.findViewById(R.id.rightButton));
-            rightButton.setText(mItem.getRightButton().getName());
-            rightButton.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View view) {
-                    rightButton(view);
-                }
-            });
+        // Show the Movie content as text in a TextView.
+        if (mItem == null) {
+            //selected movie was not set correctly
+            Log.e("onCreateView", "movie was not set properly");
         }
+
+        // setup the favourite button
+        favButton = ((Button) rootView.findViewById(R.id.favouriteButton));
+        favButton.setText(updateFavouriteButtonText());
+        favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                favouriteButtonClicked(view);
+            }
+        });
+
+        // setup the ratingbar
+        ratingBar = (RatingBar) rootView.findViewById(R.id.ratingBarDetail);
+        ratingBar.setRating(mItem.rating);
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float val, boolean fromUser){
+                updateRating(val);
+            }
+        });
 
         return rootView;
     }
 
-    // Called when the left button was clicked.  Converts using the currently selected conversion
-    // from the conversion spinner.
-    public void leftButton(View view){
+    // Called when the favourite button was clicked.  Adds or removes the current movie from the
+    // user's favourite list
+    public void favouriteButtonClicked(View view){
         if(mItem == null){
-            // selected conversion was never set properly
+            // selected movie was never set properly
             // log and abort
-            Log.e("leftButton", "selectedConversion was not set properly");
+            Log.e("favouriteButtonClicked", "movie was not set properly");
             return;
         }
 
-        // Call helper method
-        convertValue(mItem.getLeftButton().getAction());
+        // Update movie
+        if(mItem.isFavourite){
+            mItem.isFavourite = false;
+        } else{
+            mItem.isFavourite = true;
+        }
+
+        // update button text
+        favButton.setText(updateFavouriteButtonText());
     }
 
-    // Called when the right button was clicked.  Converts using the currently selected conversion
-    // from the conversion spinner.
-    public void rightButton(View view){
+    // updates the text for the favourite button depending on the favourite context
+    public String updateFavouriteButtonText(){
+        if(mItem.isFavourite){
+            return "Remove from Favourites";
+        } else {
+            return "Add to Favourites";
+        }
+    }
+
+    // updates the rating of the current movie
+    public void updateRating(float newRating){
         if(mItem == null){
-            // selected conversion was never set properly
+            // selected movie was never set properly
             // log and abort
-            Log.e("rightButton", "selectedConversion was not set properly");
+            Log.e("updateRating", "movie was not set properly");
             return;
         }
 
-        // Call helper method
-        convertValue(mItem.getRightButton().getAction());
-    }
+        // update the rating
+        mItem.rating = newRating;
 
-    // Converts the user value using the passed action.  The action is a lambda expression as per
-    // the PerformsConversion interface.
-    private void convertValue(PerformsConversion action){
-        // Grab the user variable
-        EditText converterField = (EditText) this.getActivity().findViewById(R.id.userInputValue);
-
-        try {
-            // Throws if Null or no Double found
-            double temp = Double.parseDouble(converterField.getText().toString());
-
-            // Convert the user variable and output the result
-            double convertedTemp = action.convert(temp);
-            converterField.setText(Double.toString(convertedTemp));
-        } catch (NullPointerException|NumberFormatException ex){
-            // Failed to convert to a double - the value either contained no double or was empty
-            converterField.setText("N/A");
-        }
     }
 }
