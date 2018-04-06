@@ -20,6 +20,8 @@ public class Movie {
     public boolean isFavourite;
     // user comments for the movie
     public String comments;
+    // the resourceID for the image in the android package
+    private String imageID;
     // tracks the next unique id for each new conversion
     private static int IDCOUNTER = 0;
 
@@ -30,7 +32,7 @@ public class Movie {
 
     // Initializes the Movie with its name and its two buttons to perfom unit conversions.
     // TODO: Add param for the image to associate with the movie?
-    public Movie(String name, List<Genres> genres, List<String> actors, int rating, boolean isFavourite, String comments){
+    public Movie(String name, List<Genres> genres, List<String> actors, int rating, boolean isFavourite, String comments) {
         this.id = generateID();
         this.name = name;
         this.genres = genres;
@@ -38,6 +40,8 @@ public class Movie {
         this.rating = rating;
         this.isFavourite = isFavourite;
         this.comments = comments;
+        // TODO fix this! Hardcoded for now, need to update constructor parameters
+        this.imageID = "default";
     }
 
     // public accessor for id
@@ -55,6 +59,8 @@ public class Movie {
 
     // public accessor for actors
     public List<String> getActors(){ return this.actors; }
+
+    public String getImageID(){ return this.imageID; }
 
     // Helper method to generate all available conversions.  To add a conversion, simply instantiate
     // a new Movie object and append to the ArrayList.

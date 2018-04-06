@@ -2,6 +2,7 @@ package ca.camosun.androidmoviedatabase;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.media.Rating;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -119,6 +121,9 @@ public class ItemListActivity extends AppCompatActivity {
             holder.mContentView.setText(mValues.get(position).getName());
             holder.mRatingBar.setRating(mValues.get(position).rating);
 
+            //TODO: figure out dynamic image selection
+            //holder.mImageView.setImageResource(R.drawable.ic_launcher_background);
+
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
         }
@@ -133,12 +138,15 @@ public class ItemListActivity extends AppCompatActivity {
         class ViewHolder extends RecyclerView.ViewHolder {
             final TextView mContentView;
             final RatingBar mRatingBar;
+            final ImageView mImageView;
 
             ViewHolder(View view) {
                 super(view);
                 mContentView = (TextView) view.findViewById(R.id.content);
                 mRatingBar = (RatingBar) view.findViewById(R.id.ratingBar);
+                // disable buttons for this rating bar, display only
                 mRatingBar.setEnabled(false);
+                mImageView = (ImageView) view.findViewById(R.id.movieImage);
             }
         }
     }

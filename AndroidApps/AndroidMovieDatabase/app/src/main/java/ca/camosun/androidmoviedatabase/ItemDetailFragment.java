@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RatingBar;
+import android.widget.TextView;
 
 import ca.camosun.androidmoviedatabase.movie.Movie;
 import ca.camosun.androidmoviedatabase.movie.MovieContent;
@@ -41,6 +42,12 @@ public class ItemDetailFragment extends Fragment {
      * The RatingBar for updating user Movie rating
      */
     private RatingBar ratingBar;
+
+
+    /**
+     * The RatingBar for updating user Movie rating
+     */
+    private TextView notification;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -98,6 +105,10 @@ public class ItemDetailFragment extends Fragment {
             }
         });
 
+        // grab a reference to the notification area and init to empty
+        notification = (TextView) rootView.findViewById(R.id.notificationArea);
+        notification.setText("");
+
         return rootView;
     }
 
@@ -114,8 +125,10 @@ public class ItemDetailFragment extends Fragment {
         // Update movie
         if(mItem.isFavourite){
             mItem.isFavourite = false;
+            notification.setText("Movie Added to Favourites!");
         } else{
             mItem.isFavourite = true;
+            notification.setText("Movie Removed from Favourites!");
         }
 
         // update button text
@@ -142,6 +155,9 @@ public class ItemDetailFragment extends Fragment {
 
         // update the rating
         mItem.rating = newRating;
+
+        // update the notification area
+        notification.setText("Rating Updated!");
 
     }
 }
