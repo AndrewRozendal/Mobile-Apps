@@ -12,6 +12,13 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
+import ca.camosun.androidmoviedatabase.movie.Genres;
 import ca.camosun.androidmoviedatabase.movie.Movie;
 import ca.camosun.androidmoviedatabase.movie.MovieContent;
 
@@ -105,6 +112,48 @@ public class ItemDetailFragment extends Fragment {
             }
         });
 
+        // setup genres
+        TextView genresLabel = (TextView) rootView.findViewById(R.id.genresLabel);
+        genresLabel.setText("Genres:");
+        TextView genresContent = (TextView) rootView.findViewById(R.id.genresContent);
+
+        String genresString = "";
+        List<Genres> movieGenresList = mItem.getGenres();
+        for(int i = 0; i < movieGenresList.size(); i++){
+            genresString += movieGenresList.get(i);
+            if(i < movieGenresList.size() - 1){
+                genresString += ", ";
+            }
+        }
+
+        genresContent.setText(genresString);
+
+        //setup actors
+        TextView actorsLabel = (TextView) rootView.findViewById(R.id.actorsLabel);
+        actorsLabel.setText("Actors:");
+        TextView actorsContent = (TextView) rootView.findViewById(R.id.actorsContent);
+
+        String actorsString = "";
+        List<String> actorsList = mItem.getActors();
+        for(int i = 0; i < actorsList.size(); i++){
+            actorsString += actorsList.get(i);
+            if(i < movieGenresList.size() - 1){
+                actorsString += ", ";
+            }
+        }
+
+        actorsContent.setText(actorsString);
+
+        //setup comments
+        TextView commentsLabel = (TextView) rootView.findViewById(R.id.commentsLabel);
+        commentsLabel.setText("Comments: ");
+        TextView commentsContent = (TextView) rootView.findViewById(R.id.commentsContent);
+        commentsContent.setText(mItem.getComments());
+
+        //setup detail label
+        TextView detailLabel = (TextView) rootView.findViewById(R.id.detailsLabel);
+        detailLabel.setText("Details:");
+
         // grab a reference to the notification area and init to empty
         notification = (TextView) rootView.findViewById(R.id.notificationArea);
         notification.setText("");
@@ -158,6 +207,5 @@ public class ItemDetailFragment extends Fragment {
 
         // update the notification area
         notification.setText("Rating Updated!");
-
     }
 }

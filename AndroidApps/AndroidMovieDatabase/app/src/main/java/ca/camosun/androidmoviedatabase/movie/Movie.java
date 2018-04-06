@@ -19,7 +19,7 @@ public class Movie {
     // if the movie is a user favourite
     public boolean isFavourite;
     // user comments for the movie
-    public String comments;
+    private String comments;
     // the resourceID for the image in the android package
     private String imageID;
     // tracks the next unique id for each new conversion
@@ -60,6 +60,10 @@ public class Movie {
     // public accessor for actors
     public List<String> getActors(){ return this.actors; }
 
+    //public accessor for comments
+    public String getComments(){ return this.comments; }
+
+    // public accessor for image
     public String getImageID(){ return this.imageID; }
 
     // Helper method to generate all available conversions.  To add a conversion, simply instantiate
