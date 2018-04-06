@@ -1,14 +1,17 @@
 package ca.camosun.androidmoviedatabase;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -137,7 +140,7 @@ public class ItemDetailFragment extends Fragment {
         List<String> actorsList = mItem.getActors();
         for(int i = 0; i < actorsList.size(); i++){
             actorsString += actorsList.get(i);
-            if(i < movieGenresList.size() - 1){
+            if(i < actorsList.size() - 1){
                 actorsString += ", ";
             }
         }
@@ -157,6 +160,12 @@ public class ItemDetailFragment extends Fragment {
         // grab a reference to the notification area and init to empty
         notification = (TextView) rootView.findViewById(R.id.notificationArea);
         notification.setText("");
+
+        //setup image
+        ImageView movieImage = (ImageView) rootView.findViewById(R.id.movieImage);
+        Resources res = getResources();
+
+        movieImage.setImageDrawable(ResourcesCompat.getDrawable(res, R.drawable.moviedefault, null));
 
         return rootView;
     }

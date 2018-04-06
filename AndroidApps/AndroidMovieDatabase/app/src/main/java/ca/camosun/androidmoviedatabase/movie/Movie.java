@@ -63,7 +63,7 @@ public class Movie {
     //public accessor for comments
     public String getComments(){ return this.comments; }
 
-    // public accessor for image
+    // public accessor for imageID
     public String getImageID(){ return this.imageID; }
 
     // Helper method to generate all available conversions.  To add a conversion, simply instantiate
