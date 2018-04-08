@@ -1,7 +1,14 @@
 package ca.camosun.androidmoviedatabase.movie;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.res.ResourcesCompat;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import ca.camosun.androidmoviedatabase.R;
 
 // A Movie that can be performed.  Contains two buttons to provide conversions between two
 // different units of measurement in both directions
@@ -20,8 +27,8 @@ public class Movie {
     public boolean isFavourite;
     // user comments for the movie
     private String comments;
-    // the resourceID for the image in the android package
-    private String imageID;
+    // the resourceID for the imageID in the android package
+    private int imageID;
     // tracks the next unique id for each new conversion
     private static int IDCOUNTER = 0;
 
@@ -30,9 +37,9 @@ public class Movie {
         return IDCOUNTER++;
     }
 
-    // Initializes the Movie with its name and its two buttons to perfom unit conversions.
-    // TODO: Add param for the image to associate with the movie?
-    public Movie(String name, List<Genres> genres, List<String> actors, int rating, boolean isFavourite, String comments) {
+    // Initializes a Movie with all variables
+    // TODO: Add param for the imageID to associate with the movie?
+    public Movie(String name, List<Genres> genres, List<String> actors, int rating, boolean isFavourite, String comments, int imageResourceID) {
         this.id = generateID();
         this.name = name;
         this.genres = genres;
@@ -40,8 +47,13 @@ public class Movie {
         this.rating = rating;
         this.isFavourite = isFavourite;
         this.comments = comments;
-        // TODO fix this! Hardcoded for now, need to update constructor parameters
-        this.imageID = "default";
+        this.imageID = imageResourceID;
+
+    }
+
+    // Initializes a Movie with default movie imageID
+    public Movie(String name, List<Genres> genres, List<String> actors, int rating, boolean isFavourite, String comments){
+        this(name, genres, actors, rating, isFavourite, comments, R.drawable.moviedefault);
     }
 
     // public accessor for id
@@ -64,11 +76,13 @@ public class Movie {
     public String getComments(){ return this.comments; }
 
     // public accessor for imageID
-    public String getImageID(){ return this.imageID; }
+    public int getImageID(){
+        return this.imageID;
+    }
 
     // Helper method to generate all available conversions.  To add a conversion, simply instantiate
     // a new Movie object and append to the ArrayList.
-    public static ArrayList<Movie> generateConversions(){
+    public static ArrayList<Movie> generateMovies(){
 
         // Initialize all the movies
         // Store all conversions together

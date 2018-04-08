@@ -165,7 +165,7 @@ public class ItemDetailFragment extends Fragment {
         ImageView movieImage = (ImageView) rootView.findViewById(R.id.movieImage);
         Resources res = getResources();
 
-        movieImage.setImageDrawable(ResourcesCompat.getDrawable(res, R.drawable.moviedefault, null));
+        movieImage.setImageDrawable(ResourcesCompat.getDrawable(res, mItem.getImageID(), null));
 
         return rootView;
     }

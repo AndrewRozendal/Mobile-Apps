@@ -12,7 +12,7 @@ public class MovieContent {
     /**
      * An array of Movie items.
      */
-    public static final List<Movie> ITEMS = Movie.generateConversions();
+    public static final List<Movie> ITEMS = Movie.generateMovies();
 
     /**
      * A map of Movie items, by ID.
