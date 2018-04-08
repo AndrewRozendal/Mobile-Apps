@@ -104,7 +104,7 @@ public class Movie {
         currentActors = new ArrayList<>();
         currentActors.add("Leo");
 
-        movies.add(new Movie("Titanic", currentGenres, currentActors, 3, false, "Very sad"));
+        movies.add(new Movie("Titanic", currentGenres, currentActors, 3, false, "Very sad", R.drawable.titanic));
 
         currentGenres = new ArrayList<>();
         currentGenres.add(Genres.Action);
@@ -112,7 +112,7 @@ public class Movie {
         currentActors = new ArrayList<>();
         currentActors.add("Tom Hanks");
 
-        movies.add(new Movie("Saving Private Ryan", currentGenres, currentActors, 5, true, "A classic"));
+        movies.add(new Movie("Saving Private Ryan", currentGenres, currentActors, 5, true, "A classic", R.drawable.savingprivateryan));
 
         currentGenres = new ArrayList<>();
         currentGenres.add(Genres.SciFi);
@@ -120,8 +120,8 @@ public class Movie {
         currentActors = new ArrayList<>();
         currentActors.add("Mark");
 
-        movies.add(new Movie("Star Wars Episode I", currentGenres, currentActors, 4, false, "First prequel movie"));
-        movies.add(new Movie("Star Wars Episode II", currentGenres, currentActors, 4, false, "Second prequel movie"));
+        movies.add(new Movie("Star Wars Episode I", currentGenres, currentActors, 4, false, "First prequel movie", R.drawable.starwarsi));
+        movies.add(new Movie("Star Wars Episode II", currentGenres, currentActors, 4, false, "Second prequel movie", R.drawable.starwarsii));
 
         currentGenres = new ArrayList<>();
         currentGenres.add(Genres.SciFi);
@@ -132,7 +132,7 @@ public class Movie {
         currentActors.add("Jon");
         currentActors.add("Mary");
 
-        movies.add(new Movie("Avatar", currentGenres, currentActors, 3, false, "This is a really long test comment.  This is to test that multi-line comments work."));
+        movies.add(new Movie("Avatar", currentGenres, currentActors, 3, false, "This is a really long test comment.  This is to test that multi-line comments work.", R.drawable.avatar));
 
         currentGenres = new ArrayList<>();
         currentGenres.add(Genres.Comedy);
