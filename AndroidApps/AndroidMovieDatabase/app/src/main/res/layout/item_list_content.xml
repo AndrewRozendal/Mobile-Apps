@@ -17,9 +17,11 @@
 
     <TextView
         android:id="@+id/content"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:text="text"
         android:textAppearance="?attr/textAppearanceListItem"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ratingBar"
@@ -29,8 +31,9 @@
 
     <RatingBar
         android:id="@+id/ratingBar"
-        android:layout_width="237dp"
-        android:layout_height="57dp"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:clickable="false"
         android:numStars="5"
         android:scaleX=".5"
