@@ -182,10 +182,10 @@ public class ItemDetailFragment extends Fragment {
         // Update movie
         if(mItem.isFavourite){
             mItem.isFavourite = false;
-            notification.setText("Movie Added to Favourites!");
+            notification.setText("Movie Removed from Favourites!");
         } else{
             mItem.isFavourite = true;
-            notification.setText("Movie Removed from Favourites!");
+            notification.setText("Movie Added to Favourites!");
         }
 
         // update button text
