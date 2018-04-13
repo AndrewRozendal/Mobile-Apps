@@ -1,57 +1,81 @@
 package ca.camosun.androidmoviedatabase.movie;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.res.ResourcesCompat;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import ca.camosun.androidmoviedatabase.R;
 
-// A Movie that can be performed.  Contains two buttons to provide conversions between two
-// different units of measurement in both directions
+/**
+ * A class for storing details about a Movie with a unique id and additional details.
+ */
 public class Movie {
     // the unique id of the conversion
     private int id;
     // the name to display for the conversion
     private String name;
-    // the genres the movie belongs to
+    // the genres for the movie
     private List<Genres> genres;
     // the actors in the movie
     private List<String> actors;
     // the user rating for the movie
-    public float rating;
+    private float rating;
     // if the movie is a user favourite
     public boolean isFavourite;
-    // user comments for the movie
+    // additional comments for the movie
     private String comments;
-    // the resourceID for the imageID in the android package
+    // the resourceID for the movie's image in the android package
     private int imageID;
+
     // tracks the next unique id for each new conversion
+    // call generateID() to increment consistently
     private static int IDCOUNTER = 0;
 
-    // returns the next uniqe id for each new conversion and increments static counter
+    // returns the next unique id for each new conversion and increments static counter
     private int generateID(){
         return IDCOUNTER++;
     }
 
-    // Initializes a Movie with all variables
-    // TODO: Add param for the imageID to associate with the movie?
+    // Initializes a Movie with all of its variables
+
+    /**
+     * Initializes a Movie instance with the passed parameters.  This constructor initializes all
+     * class attributes for the Movie instance.
+     * @param name String the name of the Movie
+     * @param genres [Genres] all the genres the Movie belongs to
+     * @param actors [String] all the actors that are in the Movie
+     * @param rating int the rating for the Movie
+     * @param isFavourite boolean if the Movie is a favourite or not
+     * @param comments String additional comments about the Movie
+     * @param imageResourceID int the Android identifier for the Drawable the Movie should use for
+     *                        the Movie image
+     * @throws IllegalArgumentException if rating is < 0 or > 5.0
+     */
     public Movie(String name, List<Genres> genres, List<String> actors, int rating, boolean isFavourite, String comments, int imageResourceID) {
         this.id = generateID();
         this.name = name;
         this.genres = genres;
         this.actors = actors;
-        this.rating = rating;
+
+        // use setRating to verify value is in range
+        setRating(rating);
+
         this.isFavourite = isFavourite;
         this.comments = comments;
         this.imageID = imageResourceID;
-
     }
 
-    // Initializes a Movie with default movie imageID
+    /**
+     * Initializes a Movie instance with the passed parameters.  This constructor uses the default
+     * movie image.  Use the other Movie constructor if you wish to pass an image. The id for the
+     * movie is automatically generated based on the next available id in the sequence.
+     * @param name String the name of the Movie
+     * @param genres [Genres] all the genres the Movie belongs to
+     * @param actors [String] all the actors that are in the Movie
+     * @param rating int the rating for the Movie
+     * @param isFavourite boolean if the Movie is a favourite or not
+     * @param comments String additional comments about the Movie
+     * @throws IllegalArgumentException if rating is < 0 or > 5.0
+     */
     public Movie(String name, List<Genres> genres, List<String> actors, int rating, boolean isFavourite, String comments){
         this(name, genres, actors, rating, isFavourite, comments, R.drawable.moviedefault);
     }
@@ -61,7 +85,7 @@ public class Movie {
         return this.id;
     }
 
-    // Public accessor for name
+    // public accessor for name
     public String getName(){
         return this.name;
     }
@@ -80,8 +104,27 @@ public class Movie {
         return this.imageID;
     }
 
-    // Helper method to generate all available conversions.  To add a conversion, simply instantiate
-    // a new Movie object and append to the ArrayList.
+    // public accessor for rating
+    public float getRating() { return this.rating; }
+
+    /**
+     * Updates the Movie with the newRating after checking if the value is in range
+     * @param newRating float the new rating to set.  newRating must be > 0 and <= 5.0
+     * @throws IllegalArgumentException if newRating is < 0 or > 5.0
+     */
+    public void setRating(float newRating){
+        if(newRating < 0 || newRating > 5.0){
+            throw new IllegalArgumentException("Unable to set rating, value was out of range. " +
+                    " newRating must be > 0 and <= 5.0");
+        }
+        this.rating = newRating;
+    }
+
+
+    /**
+     * This method generates a number of predefined Movies.
+     * @return ArrayList<Movie> the generated Movie objects
+     */
     public static ArrayList<Movie> generateMovies(){
 
         // Initialize all the movies

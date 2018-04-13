@@ -14,11 +14,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 import ca.camosun.androidmoviedatabase.movie.Genres;
@@ -44,18 +39,18 @@ public class ItemDetailFragment extends Fragment {
     private Movie mItem;
 
     /**
-     * The Button for toggling user Movie favourite
+     * The Button for toggling if the current Movie is a favourite or not
      */
     private Button favButton;
 
     /**
-     * The RatingBar for updating user Movie rating
+     * The RatingBar for updating the user Movie rating for the current Movie
      */
     private RatingBar ratingBar;
 
 
     /**
-     * The RatingBar for updating user Movie rating
+     * For feedback when the user alters the current Movies rating or favourite status
      */
     private TextView notification;
 
@@ -105,9 +100,9 @@ public class ItemDetailFragment extends Fragment {
             }
         });
 
-        // setup the ratingbar
+        // setup the RatingBar
         ratingBar = (RatingBar) rootView.findViewById(R.id.ratingBarDetail);
-        ratingBar.setRating(mItem.rating);
+        ratingBar.setRating(mItem.getRating());
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
             @Override
             public void onRatingChanged(RatingBar ratingBar, float val, boolean fromUser){
@@ -128,7 +123,6 @@ public class ItemDetailFragment extends Fragment {
                 genresString += ", ";
             }
         }
-
         genresContent.setText(genresString);
 
         //setup actors
@@ -144,7 +138,6 @@ public class ItemDetailFragment extends Fragment {
                 actorsString += ", ";
             }
         }
-
         actorsContent.setText(actorsString);
 
         //setup comments
@@ -169,8 +162,11 @@ public class ItemDetailFragment extends Fragment {
         return rootView;
     }
 
-    // Called when the favourite button was clicked.  Adds or removes the current movie from the
-    // user's favourite list
+    /**
+     * Called when the favourite button was clicked.  Adds or removes the current movie from the
+     * user's favourite list
+     * @param view View the current View context
+     */
     public void favouriteButtonClicked(View view){
         if(mItem == null){
             // selected movie was never set properly
@@ -192,7 +188,9 @@ public class ItemDetailFragment extends Fragment {
         favButton.setText(updateFavouriteButtonText());
     }
 
-    // updates the text for the favourite button depending on the favourite context
+    /**
+     * Updates the text for the favourite button depending on the favourite context
+     */
     public String updateFavouriteButtonText(){
         if(mItem.isFavourite){
             return "Remove from Favourites";
@@ -201,7 +199,10 @@ public class ItemDetailFragment extends Fragment {
         }
     }
 
-    // updates the rating of the current movie
+    /**
+     * Updates the rating of the current Movie with the passed rating
+     * @param newRating float the new rating to set
+     */
     public void updateRating(float newRating){
         if(mItem == null){
             // selected movie was never set properly
@@ -211,9 +212,15 @@ public class ItemDetailFragment extends Fragment {
         }
 
         // update the rating
-        mItem.rating = newRating;
+        try {
+            mItem.setRating(newRating);
 
-        // update the notification area
-        notification.setText("Rating Updated!");
+            // update the notification area
+            notification.setText("Rating Updated!");
+        } catch (IllegalArgumentException e){
+            // rating was out of acceptable range, relay to user
+            Log.e("updateRating", e.getMessage());
+            notification.setText("Error updating rating");
+        }
     }
 }

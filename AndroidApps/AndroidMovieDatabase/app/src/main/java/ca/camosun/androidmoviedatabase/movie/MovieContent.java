@@ -5,17 +5,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *  Contains all Conversions in collections for access throughout the app
+ *  Stores all the Movie objects for the app
  */
 public class MovieContent {
 
     /**
-     * An array of Movie items.
+     * An array of all Movie items.
      */
     public static final List<Movie> ITEMS = Movie.generateMovies();
 
     /**
-     * A map of Movie items, by ID.
+     * A map of all Movie items, by ID.
      */
     public static final Map<String, Movie> ITEM_MAP = new HashMap<String, Movie>();
 

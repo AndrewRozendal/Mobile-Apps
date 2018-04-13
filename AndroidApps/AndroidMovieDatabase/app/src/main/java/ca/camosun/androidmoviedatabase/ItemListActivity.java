@@ -3,8 +3,6 @@ package ca.camosun.androidmoviedatabase;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.media.Image;
-import android.media.Rating;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
@@ -117,11 +115,11 @@ public class ItemListActivity extends AppCompatActivity {
             return new ViewHolder(view);
         }
 
-        // Sets the appropriate list item's id and name
+        // Sets the appropriate list item's id, name, and image
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mContentView.setText(mValues.get(position).getName());
-            holder.mRatingBar.setRating(mValues.get(position).rating);
+            holder.mRatingBar.setRating(mValues.get(position).getRating());
             Resources res = mParentActivity.getResources();
             holder.mImageView.setImageDrawable(ResourcesCompat.getDrawable(res, mValues.get(position).getImageID(), null));
             holder.itemView.setTag(mValues.get(position));
